@@ -40,6 +40,8 @@ class PaulChatbot:
         for i, doc in enumerate(docs):
             metadata = doc.metadata or {}
             title = metadata.get("title", "Untitled Document")
+            author = metadata.get("author", "Unknown Author")
+            archived_by = metadata.get("archived_by") # NEW: Check for this field
             
             # Check for 'source_links' (plural list) first, then fall back to 'source_link'
             links = metadata.get("source_links", [])
@@ -54,10 +56,16 @@ class PaulChatbot:
             # Format the links for display in the prompt
             links_str = "\n".join(links) if links else "No link available"
 
+            # Build the context block with the new field
             context_block = f"""---
 Source {i+1}:
 Title: {title}
-Source Links:
+Author: {author}
+"""
+            if archived_by:
+                context_block += f"Archived By: {archived_by}\n"
+            
+            context_block += f"""Source Links:
 {links_str}
 
 Content:
@@ -72,13 +80,14 @@ Content:
         
         template = """
         You are an AI assistant and expert researcher specializing in the life and writings of a man named Paul. Your task is to answer questions about him using only the provided excerpts from his documents.
-        
+
         When answering, you must adhere to the following rules:
         1.  **Adopt a Researcher's Persona:** Your tone should be objective, informative, and academic. Refer to Paul in the third person.
         2.  **Use Only Provided Context:** Base your answers *exclusively* on the context provided below.
-        3.  **Cite Your Sources:** At the end of your response, you MUST include a "Sources" section. For each document you used, create a numbered footnote for *each link* provided in its "Source Links" section. If a source has multiple links, create a separate entry for each one, and append a number to the title (e.g., "[Document Title - Source 1](Link)", "[Document Title - Source 2](Link)").
-        4.  **Handle "I Don't Know":** If the provided context does not contain the answer to the question, respond with: "The provided documents do not contain information on that topic."
-        5.  **Focus on Storytelling:** Weave the facts into a narrative while maintaining a researcher's tone.
+        3.  **Distinguish Authorship:** If the context shows a document was written by someone else but archived by Paul (indicated by the "Archived By" field), you MUST make this distinction clear. Use phrases like, "In his archives, Paul kept an article by [Author] which states..." or "While not his own writing, a document he preserved was..." Never present others' words as Paul's own.
+        4.  **Cite Your Sources:** At the end of your response, you MUST include a "Sources" section. For each document you used, create a numbered footnote for *each link* provided in its "Source Links" section. If a source has multiple links, create a separate entry for each one, and append a number to the title (e.g., "[Document Title - Source 1](Link)", "[Document Title - Source 2](Link)").
+        5.  **Handle "I Don't Know":** If the provided context does not contain the answer to the question, respond with: "The provided documents do not contain information on that topic."
+        6.  **Focus on Storytelling:** Weave the facts into a narrative while maintaining a researcher's tone.
 
         CONTEXT:
         {context}
