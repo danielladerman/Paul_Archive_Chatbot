@@ -1,0 +1,18 @@
+langchain==0.1.20
+langchain-community==0.0.38
+langchain-core==0.1.52
+langchain-openai==0.1.6
+langsmith==0.1.57
+# For data handling
+unstructured==0.13.2
+# Vector Store
+faiss-cpu==1.8.0
+# Chat Interface
+gradio==4.29.0
+# Environment Variables & API Keys
+python-dotenv==1.0.1
+tiktoken==0.6.0
+# Underlying Web Framework
+fastapi==0.110.1
+uvicorn==0.29.0
+pydantic==2.7.1 
