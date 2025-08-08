@@ -4,6 +4,7 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.schema.runnable import RunnablePassthrough, RunnableLambda
 from langchain.schema.output_parser import StrOutputParser
+import re
 
 from src import config
 from src.vector_store import get_vector_store
@@ -77,6 +78,10 @@ Content:
             formatted_context.append(context_block)
         return "\n".join(formatted_context)
 
+    def _strip_sources(self, text: str) -> str:
+        """Remove any trailing Sources section if the model adds one."""
+        return re.sub(r"\n+Sources:\s*\n[\s\S]*$", "", text, flags=re.IGNORECASE)
+
 
     def _create_rag_chain(self):
         """Creates the full RAG chain for the chatbot."""
@@ -88,7 +93,7 @@ Content:
         1.  **Adopt a Researcher's Persona:** Your tone should be objective, informative, and academic. Refer to Paul in the third person.
         2.  **Use Only Provided Context:** Base your answers *exclusively* on the context provided below.
         3.  **Distinguish Authorship:** If the context shows a document was written by someone else but archived by Paul (indicated by the "Archived By" field), you MUST make this distinction clear. Use phrases like, "In his archives, Paul kept an article by [Author] which states..." or "While not his own writing, a document he preserved was..." Never present others' words as Paul's own.
-        4.  **Cite Your Sources:** At the end of your response, you MUST include a "Sources" section. For each document you used, create a numbered footnote for *each link* provided in its "Source Links" section. If a source has multiple links, create a separate entry for each one, and append a number to the title (e.g., "[Document Title - Source 1](Link)", "[Document Title - Source 2](Link)").
+        4.  **Do NOT include a Sources section in your answer.** A single Sources section will be appended automatically from the retrieved documents.
         5.  **Handle "I Don't Know":** If the provided context does not contain the answer to the question, respond with: "The provided documents do not contain information on that topic."
         6.  **Focus on Storytelling:** Weave the facts into a narrative while maintaining a researcher's tone.
 
@@ -134,7 +139,7 @@ Content:
         1.  **Adopt a Researcher's Persona:** Your tone should be objective, informative, and academic. Refer to Paul in the third person.
         2.  **Use Only Provided Context:** Base your answers *exclusively* on the context provided below.
         3.  **Distinguish Authorship:** If the context shows a document was written by someone else but archived by Paul (indicated by the "Archived By" field), you MUST make this distinction clear. Use phrases like, "In his archives, Paul kept an article by [Author] which states..." or "While not his own writing, a document he preserved was..." Never present others' words as Paul's own.
-        4.  **Cite Your Sources:** At the end of your response, you MUST include a "Sources" section. For each document you used, create a numbered footnote for *each link* provided in its "Source Links" section. If a source has multiple links, create a separate entry for each one, and append a number to the title (e.g., "[Document Title - Source 1](Link)", "[Document Title - Source 2](Link)").
+        4.  **Do NOT include a Sources section in your answer.** A single Sources section will be appended automatically from the retrieved documents.
         5.  **Handle "I Don't Know":** If the provided context does not contain the answer to the question, respond with: "The provided documents do not contain information on that topic."
         6.  **Focus on Storytelling:** Weave the facts into a narrative while maintaining a researcher's tone.
 
@@ -149,6 +154,9 @@ Content:
 
         prompt = PromptTemplate(template=template, input_variables=["context", "question"])
         answer = (prompt | self.llm | StrOutputParser()).invoke({"context": context, "question": question})
+
+        # Remove any accidental Sources section added by the model
+        clean_answer = self._strip_sources(answer)
 
         # 4) Deterministically append sources from metadata
         def _format_sources(docs_list):
@@ -165,7 +173,7 @@ Content:
             return "\n".join(items) if items else "- No link available"
 
         sources = _format_sources(docs)
-        return f"{answer}\n\nSources:\n{sources}"
+        return f"{clean_answer}\n\nSources:\n{sources}"
 
 # --- Gradio Interface ---
 def launch_app():

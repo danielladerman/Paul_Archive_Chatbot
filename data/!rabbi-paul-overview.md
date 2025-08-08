@@ -11,8 +11,9 @@ This document contains a summary of key biographical facts about Rabbi Paul Lade
 
 ## Personal Information
 - **Full Name:** Paul Laderman
-- **Date of Birth:** January 27, 1930
+- **Date of Birth:** August 23, 1934
 - **Place of Birth:** Denver, Colorado
+- **Date of Death:** September 20, 2015
 
 ## Immediate Family
 - **Spouse:** Rabbi Paul's wife was Shula Laderman.
