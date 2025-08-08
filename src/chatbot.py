@@ -22,9 +22,12 @@ class PaulChatbot:
         if self.vector_store is None:
             raise ValueError("Vector store could not be initialized. Please check your data directory and API keys.")
         
-        self.retriever = self.vector_store.as_retriever(search_kwargs={'k': 3})
+        self.retriever = self.vector_store.as_retriever(
+            search_type="mmr",
+            search_kwargs={"k": 5, "fetch_k": 20, "lambda_mult": 0.5}
+        )
         self.llm = ChatOpenAI(
-            model_name=config.CHAT_MODEL, 
+            model=config.CHAT_MODEL, 
             temperature=0.7,
             openai_api_key=config.OPENAI_API_KEY
         )
@@ -112,11 +115,57 @@ Content:
         return rag_chain
 
     def get_response(self, question):
-        """Gets a response from the chatbot for a given question."""
+        """Gets a response with deterministic citations."""
         if not question:
             return "Please ask a question."
         print(f"Received question: {question}")
-        return self.chain.invoke(question)
+
+        # 1) Retrieve relevant docs deterministically once
+        docs = self.retriever.get_relevant_documents(question)
+
+        # 2) Build context from docs
+        context = self._format_context(docs)
+
+        # 3) Use the same instruction template as the chain
+        template = """
+        You are an AI assistant and expert researcher specializing in the life and writings of a man named Paul. Your task is to answer questions about him using only the provided excerpts from his documents.
+
+        When answering, you must adhere to the following rules:
+        1.  **Adopt a Researcher's Persona:** Your tone should be objective, informative, and academic. Refer to Paul in the third person.
+        2.  **Use Only Provided Context:** Base your answers *exclusively* on the context provided below.
+        3.  **Distinguish Authorship:** If the context shows a document was written by someone else but archived by Paul (indicated by the "Archived By" field), you MUST make this distinction clear. Use phrases like, "In his archives, Paul kept an article by [Author] which states..." or "While not his own writing, a document he preserved was..." Never present others' words as Paul's own.
+        4.  **Cite Your Sources:** At the end of your response, you MUST include a "Sources" section. For each document you used, create a numbered footnote for *each link* provided in its "Source Links" section. If a source has multiple links, create a separate entry for each one, and append a number to the title (e.g., "[Document Title - Source 1](Link)", "[Document Title - Source 2](Link)").
+        5.  **Handle "I Don't Know":** If the provided context does not contain the answer to the question, respond with: "The provided documents do not contain information on that topic."
+        6.  **Focus on Storytelling:** Weave the facts into a narrative while maintaining a researcher's tone.
+
+        CONTEXT:
+        {context}
+
+        QUESTION:
+        {question}
+
+        ANSWER (as a researcher):
+        """
+
+        prompt = PromptTemplate(template=template, input_variables=["context", "question"])
+        answer = (prompt | self.llm | StrOutputParser()).invoke({"context": context, "question": question})
+
+        # 4) Deterministically append sources from metadata
+        def _format_sources(docs_list):
+            items = []
+            for d in docs_list:
+                m = d.metadata or {}
+                title = m.get("title", "Untitled Document")
+                links = m.get("source_links") or ([m["source_link"]] if m.get("source_link") else [])
+                if not isinstance(links, list):
+                    links = [str(links)]
+                for idx, link in enumerate(links, 1):
+                    if link:
+                        items.append(f"- [{title} - Source {idx}]({link})")
+            return "\n".join(items) if items else "- No link available"
+
+        sources = _format_sources(docs)
+        return f"{answer}\n\nSources:\n{sources}"
 
 # --- Gradio Interface ---
 def launch_app():
