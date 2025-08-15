@@ -16,28 +16,37 @@ The ultimate goal is to evolve this application from a local tool into a public 
 
 ## 🛠️ Tech Stack
 
-- **Core Framework:** LangChain
-- **AI Models:** OpenAI (`gpt-3.5-turbo` for chat, `text-embedding-ada-002` for embeddings)
-- **Vector Store:** FAISS (local development)
-- **User Interface:** Gradio
-- **Programming Language:** Python
+- **RAG Orchestration:** LangChain
+- **AI Models:** OpenAI (`gpt-4o-mini` for chat, `text-embedding-3-small` for embeddings)
+- **Vector Store:** Pinecone (managed) with local FAISS fallback for offline dev
+- **Backend API:** FastAPI (`src/api.py`)
+- **Web UI:** React + Vite + Tailwind CSS + shadcn (`frontend/`)
+- **Language:** Python (backend), TypeScript (frontend)
 
 ## 📂 Project Structure
 
 ```
 Saba_Paul_AI/
-├── venv/                   # Isolated Python virtual environment
-├── data/                   # Source documents (cleaned .md files)
-├── faiss_index/            # Local vector store (auto-generated)
-├── src/                    # Main application source code
-│   ├── chatbot.py          # Core chatbot logic and Gradio UI
-│   ├── data_processing.py  # Loads and chunks documents
-│   ├── vector_store.py     # Manages the FAISS vector store
-│   └── config.py           # Project configuration (paths, models)
-├── .env                    # Local environment variables (API keys)
-├── .env.example            # Example environment file
-├── requirements.txt        # Python dependencies
-└── run_chatbot.py          # Main entry point to run the application
+├── venv/                        # Python virtual environment
+├── data/                        # Source documents (cleaned .md files)
+├── faiss_index/                 # Local vector store (auto-generated if used)
+├── src/
+│   ├── api.py                   # FastAPI app (POST /chat)
+│   ├── chatbot.py               # Core chatbot logic + legacy Gradio launcher
+│   ├── data_processing.py       # Loads and chunks documents
+│   ├── vector_store.py          # Pinecone or FAISS vector store
+│   ├── ingest_to_pinecone.py    # Ingestion script to upsert all docs to Pinecone
+│   └── config.py                # Project configuration (paths, models, env)
+├── frontend/                    # React + Vite + Tailwind + shadcn UI
+│   ├── src/
+│   │   ├── App.tsx
+│   │   ├── main.tsx
+│   │   └── components/ui/...    # shadcn components
+│   └── index.html
+├── .env                         # Environment variables (API keys)
+├── .env.example                 # Example environment file
+├── requirements.txt             # Python dependencies
+└── run_chatbot.py               # Legacy Gradio entry (local-only)
 ```
 
 ## 🚀 Getting Started
@@ -73,9 +82,13 @@ python3 -m venv venv
   ```
 
 ### 4. Install Dependencies
-Install all the required Python packages from the `requirements.txt` file.
+- Backend (Python):
 ```bash
 pip install -r requirements.txt
+```
+- Frontend (Node 18+):
+```bash
+cd frontend && npm install
 ```
 
 ### 5. Configure API Keys
@@ -83,10 +96,16 @@ Create a `.env` file in the project root by copying the example file.
 ```bash
 cp .env.example .env
 ```
-Now, open the newly created `.env` file and add your OpenAI API key:
+Now, open the newly created `.env` file and add your keys:
 ```env
-# Replace with your actual OpenAI API key
+# Required
 OPENAI_API_KEY="sk-..."
+
+# Pinecone (managed vector DB)
+PINECONE_API_KEY="pcn-..."
+PINECONE_INDEX="paul-archive"
+PINECONE_CLOUD="aws"
+PINECONE_REGION="us-east-1"
 ```
 
 ### 6. Prepare the Data
@@ -96,19 +115,72 @@ The chatbot's knowledge comes from the Markdown files in the `data/` directory.
 - Add your cleaned and formatted `.md` files to this directory.
 - Ensure each `.md` file includes a YAML frontmatter block at the top with metadata like `title`, `author`, `date`, and `source_link`. See the existing documents for an example.
 
-### 7. Run the Application
-Once the setup is complete, you can launch the chatbot. The first time you run it, it will automatically build the FAISS vector store from the documents in the `data/` directory.
+### 7. Build vectors and run locally
 
+- Ingest all documents into Pinecone (one-time or whenever `data/` changes):
+```bash
+python -m src.ingest_to_pinecone
+```
+
+- Start the API (FastAPI):
+```bash
+uvicorn src.api:app --host 127.0.0.1 --port 7860
+```
+Open API docs: `http://127.0.0.1:7860/docs`
+
+- Start the Web UI (Vite dev server):
+```bash
+cd frontend
+npm run dev
+```
+Open UI: `http://127.0.0.1:5173` (or whichever port Vite prints)
+
+- Optional (legacy local UI):
 ```bash
 python3 run_chatbot.py
 ```
-The application will start and provide a local and a public URL. Open one of these in your browser to interact with the chatbot.
+Note: the legacy Gradio UI is for local use only and may show upstream client warnings; prefer the React UI.
+
+### 8. Deploy
+
+- Backend (Render recommended):
+  - Build: `pip install -r requirements.txt`
+  - Start: `uvicorn src.api:app --host 0.0.0.0 --port $PORT`
+  - Env: `OPENAI_API_KEY`, `PINECONE_API_KEY`, `PINECONE_INDEX`, `PINECONE_CLOUD`, `PINECONE_REGION`
+
+- Frontend (Vercel recommended):
+  - Project root: `frontend/`
+  - Build: `npm run build`
+  - Output: `dist`
+  - Env: `VITE_API_BASE=https://<your-render-api>.onrender.com`
+
+### 9. Verify Pinecone contains all chunks
+
+Compare expected chunk count to vectors stored:
+```bash
+# expected
+python - <<'PY'
+from src.data_processing import load_documents, split_text
+docs = load_documents()
+chunks = split_text(docs)
+print('Expected chunk count:', len(chunks))
+PY
+
+# actual in Pinecone
+python - <<'PY'
+from dotenv import load_dotenv; load_dotenv()
+from pinecone import Pinecone
+from src import config
+pc = Pinecone(api_key=config.PINECONE_API_KEY)
+idx = pc.Index(config.PINECONE_INDEX_NAME)
+stats = idx.describe_index_stats()
+print('Pinecone vector count:', stats.get('total_vector_count'))
+print('Stats:', stats)
+PY
+```
 
 ## 📈 Future Development Roadmap
 
-This project is currently in its initial development phase. The plan is to enhance it with more robust, scalable technologies suitable for a public-facing web application [[memory:494183]].
-
-- **[ ] Migrate to a Cloud Vector Store:** The local FAISS index will be replaced with a managed, server-based vector store like **Pinecone** or **ChromaDB**. This is the highest priority for scalability and data management.
-- **[ ] Develop a Custom Web Interface:** The Gradio UI will be replaced with a more robust and customizable web framework, likely a **Flask** or **FastAPI** backend with a **React** or **Vue.js** frontend.
-- **[ ] Enhance Data Processing Pipeline:** Implement the automated Scan -> OCR -> AI Structuring pipeline to streamline the process of adding new documents to the knowledge base.
-- **[ ] Implement Advanced UI Features:** Add functionality to the "Explore Paul's Legacy" buttons, allowing users to browse and filter documents by the tags defined in the Markdown files. 
+- **CI ingestion**: GitHub Action to auto-upsert to Pinecone on `data/**/*.md` changes
+- **Public deploy**: Harden API rate limiting/auth; add analytics
+- **UI features**: Suggested questions, topic filters, and shareable links

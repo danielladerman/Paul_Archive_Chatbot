@@ -58,4 +58,16 @@ venv.bak/
 
 # Project specific
 faiss_index/
-.DS_Store 
+.DS_Store # Added by setup
+venv/
+__pycache__/
+*.pyc
+.env
+faiss_index/
+*.log
+*.pid
+.DS_Store
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.vercel/

@@ -126,7 +126,12 @@ Content:
         print(f"Received question: {question}")
 
         # 1) Retrieve relevant docs deterministically once
-        docs = self.retriever.get_relevant_documents(question)
+        # Newer LangChain recommends using .invoke() on retrievers
+        try:
+            docs = self.retriever.invoke(question)
+        except Exception:
+            # Fallback for older versions
+            docs = self.retriever.get_relevant_documents(question)
 
         # 2) Build context from docs
         context = self._format_context(docs)
@@ -174,6 +179,60 @@ Content:
 
         sources = _format_sources(docs)
         return f"{clean_answer}\n\nSources:\n{sources}"
+
+    def get_response_with_sources(self, question):
+        """Return answer text and structured sources separately for API/clients."""
+        if not question:
+            return {"answer": "Please ask a question.", "sources": []}
+        print(f"Received question: {question}")
+
+        # Retrieve docs once
+        try:
+            docs = self.retriever.invoke(question)
+        except Exception:
+            docs = self.retriever.get_relevant_documents(question)
+
+        # Build context
+        context = self._format_context(docs)
+
+        # Use same instruction template
+        template = """
+        You are an AI assistant and expert researcher specializing in the life and writings of a man named Paul. Your task is to answer questions about him using only the provided excerpts from his documents.
+
+        When answering, you must adhere to the following rules:
+        1.  **Adopt a Researcher's Persona:** Your tone should be objective, informative, and academic. Refer to Paul in the third person.
+        2.  **Use Only Provided Context:** Base your answers *exclusively* on the context provided below.
+        3.  **Distinguish Authorship:** If the context shows a document was written by someone else but archived by Paul (indicated by the "Archived By" field), you MUST make this distinction clear. Use phrases like, "In his archives, Paul kept an article by [Author] which states..." or "While not his own writing, a document he preserved was..." Never present others' words as Paul's own.
+        4.  **Do NOT include a Sources section in your answer.** A single Sources section will be appended automatically from the retrieved documents.
+        5.  **Handle "I Don't Know":** If the provided context does not contain the answer to the question, respond with: "The provided documents do not contain information on that topic."
+        6.  **Focus on Storytelling:** Weave the facts into a narrative while maintaining a researcher's tone.
+
+        CONTEXT:
+        {context}
+
+        QUESTION:
+        {question}
+
+        ANSWER (as a researcher):
+        """
+
+        prompt = PromptTemplate(template=template, input_variables=["context", "question"])
+        answer_text = (prompt | self.llm | StrOutputParser()).invoke({"context": context, "question": question})
+        clean_answer = self._strip_sources(answer_text)
+
+        # Structured sources
+        structured_sources = []
+        for d in docs:
+            m = d.metadata or {}
+            title = m.get("title", "Untitled Document")
+            links = m.get("source_links") or ([m["source_link"]] if m.get("source_link") else [])
+            if not isinstance(links, list):
+                links = [str(links)]
+            for link in links:
+                if link:
+                    structured_sources.append({"title": title, "link": link})
+
+        return {"answer": clean_answer, "sources": structured_sources}
 
 # --- Gradio Interface ---
 def launch_app():
