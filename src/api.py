@@ -1,8 +1,26 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Header, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import os
 
 from src.chatbot import PaulChatbot
+from src import config
+
+# --- Security ---
+API_SECRET_KEY = os.getenv("API_SECRET_KEY")
+
+async def verify_api_key(x_api_key: str = Header(...)):
+    if not API_SECRET_KEY:
+        # If the key is not set on the server, deny all requests for security.
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="API key not configured on the server.",
+        )
+    if x_api_key != API_SECRET_KEY:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or missing API Key.",
+        )
 
 
 app = FastAPI(title="Paul Project API")
@@ -41,7 +59,7 @@ def healthz():
 
 
 @app.post("/chat")
-def chat_endpoint(payload: ChatQuery):
+def chat_endpoint(payload: ChatQuery, _: bool = Depends(verify_api_key)):
     result = chatbot_instance.get_response_with_sources(payload.question)
     return result
 
