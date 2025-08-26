@@ -2,7 +2,7 @@ services:
   - type: web
     name: paul-archive-api
     env: python
-    pythonVersion: "3.11"
+    pythonVersion: "3.11.9"
     plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn src.api:app --host 0.0.0.0 --port $PORT
