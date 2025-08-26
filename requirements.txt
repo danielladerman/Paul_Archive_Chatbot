@@ -15,5 +15,5 @@ uvicorn==0.30.6
 httpx==0.27.0
 
 # Pinecone integration
-langchain-pinecone==0.3.0
+langchain-pinecone==0.2.11
 pinecone>=5.0.0
