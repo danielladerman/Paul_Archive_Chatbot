@@ -5,6 +5,7 @@ import os
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import date
+from sqlalchemy import delete
 
 from src.chatbot import PaulChatbot
 from src import config
@@ -163,6 +164,25 @@ def create_timeline(ev: TimelineEventIn, _: bool = Depends(verify_api_key), db: 
         created_at=row.created_at.isoformat(),
     )
 
+@app.delete("/timeline/{event_id}")
+def delete_timeline_event(event_id: int, _: bool = Depends(verify_api_key), db: Session = Depends(get_db)):
+    if not config.DATABASE_URL:
+        raise HTTPException(status_code=501, detail="Database not configured")
+    row = db.query(DBTimelineEvent).get(event_id)
+    if not row:
+        raise HTTPException(status_code=404, detail="Not found")
+    db.delete(row)
+    db.commit()
+    return {"status": "ok", "deleted_id": event_id}
+
+@app.delete("/admin/timeline/clear")
+def admin_clear_timeline(_: bool = Depends(verify_api_key), db: Session = Depends(get_db)):
+    if not config.DATABASE_URL:
+        raise HTTPException(status_code=501, detail="Database not configured")
+    n = db.query(DBTimelineEvent).delete()
+    db.commit()
+    return {"status": "ok", "deleted": n}
+
 # ---- Gallery endpoints ----
 class GalleryImageIn(BaseModel):
     image_url: str
@@ -210,6 +230,14 @@ def create_gallery(img: GalleryImageIn, _: bool = Depends(verify_api_key), db: S
         tags=row.tags or [],
         created_at=row.created_at.isoformat(),
     )
+
+@app.delete("/admin/gallery/clear")
+def admin_clear_gallery(_: bool = Depends(verify_api_key), db: Session = Depends(get_db)):
+    if not config.DATABASE_URL:
+        raise HTTPException(status_code=501, detail="Database not configured")
+    n = db.query(DBGalleryImage).delete()
+    db.commit()
+    return {"status": "ok", "deleted": n}
 
 @app.post("/admin/init_db")
 def admin_init_db(_: bool = Depends(verify_api_key)):
