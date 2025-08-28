@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Send, User, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { appendZl } from "@/lib/utils/index.js";
 
 export default function ChatPage() {
   const [messages, setMessages] = useState([]);
@@ -28,7 +29,7 @@ export default function ChatPage() {
     setMessages([
       {
         type: "bot",
-        content: "Hello, what would you like to know about Paul today?",
+        content: appendZl("Hello, what would you like to know about Paul Z\"L today?"),
         timestamp: new Date(),
       },
     ]);
@@ -39,7 +40,7 @@ export default function ChatPage() {
 
     const userMessage = {
       type: "user",
-      content: inputMessage,
+      content: appendZl(inputMessage),
       timestamp: new Date(),
     };
 
@@ -54,7 +55,8 @@ export default function ChatPage() {
 
       const botMessage = {
         type: "bot",
-        content: response.response || response.answer || response,
+        content: appendZl(response.response || response.answer || response),
+        sources: Array.isArray(response.sources) ? response.sources : [],
         timestamp: new Date(),
       };
 
@@ -121,8 +123,22 @@ export default function ChatPage() {
                 >
                   <CardContent className="p-4">
                     <p className="leading-relaxed whitespace-pre-wrap">
-                      {message.content}
+                      {appendZl(message.content)}
                     </p>
+                    {message.type === "bot" && Array.isArray(message.sources) && message.sources.length > 0 && (
+                      <div className="mt-3">
+                        <div className="text-sm font-medium text-slate-700 mb-1">Sources</div>
+                        <ul className="list-disc pl-5 space-y-1">
+                          {message.sources.map((s, i) => (
+                            <li key={i}>
+                              <a className="text-blue-700 underline" href={s.link || s.url} target="_blank" rel="noreferrer noopener">
+                                {s.title || s.link || s.url}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                     <p
                       className={`text-xs mt-2 ${
                         message.type === "user"

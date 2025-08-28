@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogC
 import { Plus, Image as ImageIcon, X, Loader2, Calendar, Tag } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { format } from "date-fns";
+import { appendZl } from "@/lib/utils/index.js";
 
 // Uploader Component
 const PhotoUploader = ({ onUploadFinished }) => {
@@ -129,10 +130,10 @@ export default function GalleryPage() {
         <div className="paul-card rounded-2xl p-6 md:p-8 paul-glow">
           <div className="flex items-center justify-center gap-3 mb-4">
             <ImageIcon className="w-8 h-8 paul-text-gradient" />
-            <h1 className="text-3xl font-light paul-text-gradient">Photo Gallery</h1>
+            <h1 className="text-3xl font-light paul-text-gradient">{appendZl("Photo Gallery")}</h1>
           </div>
           <p className="text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            A collection of cherished moments from Paul's life. Feel free to contribute your own photos to help grow this visual history.
+            {appendZl("A collection of cherished moments from Paul's life. Feel free to contribute your own photos to help grow this visual history.")}
           </p>
         </div>
       </motion.div>
@@ -178,7 +179,7 @@ export default function GalleryPage() {
         <div className="text-center py-16 paul-card rounded-lg">
             <ImageIcon className="mx-auto h-12 w-12 text-slate-400" />
             <h3 className="mt-2 text-lg font-medium text-slate-800">The gallery is empty</h3>
-            <p className="mt-1 text-sm text-slate-500">Be the first to add a photo to Paul's memorial.</p>
+            <p className="mt-1 text-sm text-slate-500">{appendZl("Be the first to add a photo to Paul's memorial.")}</p>
         </div>
       )}
 
@@ -202,7 +203,7 @@ export default function GalleryPage() {
                 </div>
                 <div className="p-4 flex flex-col">
                     <h2 className="text-2xl font-light paul-text-gradient mb-4">{selectedImage.title}</h2>
-                    {selectedImage.description && <p className="text-slate-700 leading-relaxed mb-4">{selectedImage.description}</p>}
+                    {selectedImage.description && <p className="text-slate-700 leading-relaxed mb-4">{appendZl(selectedImage.description)}</p>}
                     
                     <div className="mt-auto space-y-3 pt-4 border-t border-amber-200/50">
                         {selectedImage.date_taken && (

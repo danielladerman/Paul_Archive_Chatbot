@@ -4,6 +4,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/lib/utils/index.js";
 import { MessageCircle, Clock, Image, User, BookOpen } from "lucide-react";
+import { appendZl } from "@/lib/utils/index.js";
 
 export default function Layout({ children, currentPageName }) {
   const location = useLocation();
@@ -67,7 +68,7 @@ export default function Layout({ children, currentPageName }) {
                 <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
             </div>
-            <h1 className="text-3xl md:text-5xl font-light text-white mb-2 tracking-wide">Paul Laderman Z"L
+            <h1 className="text-3xl md:text-5xl font-light text-white mb-2 tracking-wide">{appendZl("Paul Laderman Z\"L")}
 
             </h1>
             <p className="text-lg md:text-xl text-amber-100 font-light italic">
@@ -116,7 +117,7 @@ export default function Layout({ children, currentPageName }) {
               <BookOpen className="w-5 h-5 text-amber-400" />
               <span className="text-lg font-light">In Memory of Paul Laderman</span>
             </div>
-            <p className="text-slate-400 font-light leading-relaxed max-w-2xl mx-auto">This digital memorial preserves the wisdom, experiences, and insights of Paul Laderman Z"L, making his legacy accessible to family, researchers, and future generations through the power of conversation and technology.
+            <p className="text-slate-400 font-light leading-relaxed max-w-2xl mx-auto">{appendZl("This digital memorial preserves the wisdom, experiences, and insights of Paul Laderman Z\"L, making his legacy accessible to family, researchers, and future generations through the power of conversation and technology.")}
 
 
 

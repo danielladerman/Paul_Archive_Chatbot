@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, MapPin, Star, ChevronDown, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { format } from "date-fns";
+import { appendZl } from "@/lib/utils/index.js";
 
 const categoryColors = {
   birth: "bg-pink-100 text-pink-800 border-pink-200",
@@ -70,10 +71,10 @@ export default function TimelinePage() {
       >
         <div className="paul-card rounded-2xl p-6 md:p-8 paul-glow">
           <h1 className="text-3xl font-light paul-text-gradient mb-4">
-            Paul's Life Journey
+            {appendZl("Paul's Life Journey")}
           </h1>
           <p className="text-slate-600 leading-relaxed max-w-2xl mx-auto text-sm md:text-base">
-            Explore the significant moments, achievements, and experiences that shaped Paul Laderman's remarkable life.
+            {appendZl("Explore the significant moments, achievements, and experiences that shaped Paul Laderman's remarkable life.")}
           </p>
         </div>
       </motion.div>
@@ -112,7 +113,7 @@ export default function TimelinePage() {
                         )}
                       </div>
                       <CardTitle className="text-xl font-medium paul-text-gradient">
-                        {event.title}
+                        {appendZl(event.title)}
                       </CardTitle>
                       {event.location && (
                         <div className="flex items-center gap-1 text-sm text-slate-500 mt-2">
@@ -138,7 +139,7 @@ export default function TimelinePage() {
                       transition={{ duration: 0.3 }}
                     >
                       <CardContent>
-                        <p className="text-slate-700 leading-relaxed mb-4">{event.description}</p>
+                        <p className="text-slate-700 leading-relaxed mb-4">{appendZl(event.description)}</p>
 
                         {event.significance && (
                           <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
