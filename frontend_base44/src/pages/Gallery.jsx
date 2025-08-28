@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { GalleryImage } from "@/api/entities";
-import { UploadFile } from "@/api/integrations";
+import { GalleryImage } from "@/entities/GalleryImage";
+import { UploadFile } from "@/integrations/Core";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -90,7 +90,6 @@ const PhotoUploader = ({ onUploadFinished }) => {
     </form>
   );
 };
-
 
 // Main Gallery Page
 export default function GalleryPage() {
