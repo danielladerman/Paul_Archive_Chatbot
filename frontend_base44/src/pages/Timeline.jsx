@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { TimelineEvent } from "@/api/entities";
+import { TimelineEvent } from "@/entities/TimelineEvent";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, MapPin, Star, ChevronDown, ChevronUp } from "lucide-react";
@@ -9,13 +9,13 @@ import { format } from "date-fns";
 
 const categoryColors = {
   birth: "bg-pink-100 text-pink-800 border-pink-200",
-  education: "bg-blue-100 text-blue-800 border-blue-200", 
+  education: "bg-blue-100 text-blue-800 border-blue-200",
   career: "bg-purple-100 text-purple-800 border-purple-200",
   family: "bg-green-100 text-green-800 border-green-200",
   achievement: "bg-yellow-100 text-yellow-800 border-yellow-200",
   travel: "bg-indigo-100 text-indigo-800 border-indigo-200",
   milestone: "bg-red-100 text-red-800 border-red-200",
-  other: "bg-gray-100 text-gray-800 border-gray-200"
+  other: "bg-gray-100 text-gray-800 border-gray-200",
 };
 
 export default function TimelinePage() {
@@ -38,7 +38,7 @@ export default function TimelinePage() {
   };
 
   const toggleExpanded = (eventId) => {
-    setExpandedEvents(prev => {
+    setExpandedEvents((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(eventId)) {
         newSet.delete(eventId);
@@ -97,10 +97,7 @@ export default function TimelinePage() {
               <div className="absolute left-1.5 md:left-2 w-4 h-4 bg-amber-400 rounded-full border-4 border-white shadow-lg paul-glow"></div>
 
               <Card className="paul-card border-amber-200 paul-glow hover:shadow-lg transition-all duration-300">
-                <CardHeader 
-                  className="cursor-pointer"
-                  onClick={() => toggleExpanded(event.id)}
-                >
+                <CardHeader className="cursor-pointer" onClick={() => toggleExpanded(event.id)}>
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
@@ -141,19 +138,15 @@ export default function TimelinePage() {
                       transition={{ duration: 0.3 }}
                     >
                       <CardContent>
-                        <p className="text-slate-700 leading-relaxed mb-4">
-                          {event.description}
-                        </p>
-                        
+                        <p className="text-slate-700 leading-relaxed mb-4">{event.description}</p>
+
                         {event.significance && (
                           <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
                             <div className="flex items-center gap-2 mb-2">
                               <Star className="w-4 h-4 text-amber-600" />
                               <span className="font-medium text-amber-800">Significance</span>
                             </div>
-                            <p className="text-amber-700 text-sm leading-relaxed">
-                              {event.significance}
-                            </p>
+                            <p className="text-amber-700 text-sm leading-relaxed">{event.significance}</p>
                           </div>
                         )}
 

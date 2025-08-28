@@ -15,7 +15,7 @@ export default function AboutPage() {
         <div className="paul-card rounded-2xl p-6 md:p-8 paul-glow">
           <div className="flex justify-center mb-6">
             <img
-              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/374dfbfd9_Screenshot2025-08-18at121929AM.png"
+              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/d4284c277_Screenshot2025-08-18at121929AM.png"
               alt="Paul Laderman"
               className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover paul-portrait border-4 border-amber-200/50" />
 
