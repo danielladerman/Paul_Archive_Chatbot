@@ -11,7 +11,7 @@ from src import config
 from src.database import get_db, init_db, ChatHistory, TimelineEvent as DBTimelineEvent, GalleryImage as DBGalleryImage
 
 # --- Security ---
-API_SECRET_KEY = os.getenv("API_SECRET_KEY")
+API_SECRET_KEY = os.getenv("API_SECRET_KEY") or os.getenv("X_API_KEY")
 
 async def verify_api_key(x_api_key: str = Header(...)):
     if not API_SECRET_KEY:
