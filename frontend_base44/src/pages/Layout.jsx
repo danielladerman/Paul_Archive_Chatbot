@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { createPageUrl } from "@/lib/utils";
+import { createPageUrl } from "@/lib/utils/index.js";
 import { MessageCircle, Clock, Image, User, BookOpen } from "lucide-react";
 
 export default function Layout({ children, currentPageName }) {
