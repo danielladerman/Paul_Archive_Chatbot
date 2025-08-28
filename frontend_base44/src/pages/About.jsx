@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, BookOpen, Users, Lightbulb, Camera, Globe } from "lucide-react";
 import { motion } from "framer-motion";
+import { appendZl } from "@/lib/utils/index.js";
 
 export default function AboutPage() {
   return (
@@ -20,11 +21,10 @@ export default function AboutPage() {
               className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover paul-portrait border-4 border-amber-200/50" />
 
           </div>
-          <h1 className="text-3xl md:text-4xl font-light paul-text-gradient mb-4">About Paul 
-Laderman Z"L
+          <h1 className="text-3xl md:text-4xl font-light paul-text-gradient mb-4">{appendZl("About Paul Laderman")}
           </h1>
           <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
-            A remarkable man whose wisdom, experiences, and insights continue to inspire and guide us through the power of preserved memory and conversation.
+            {appendZl("A remarkable man whose wisdom, experiences, and insights continue to inspire and guide us through the power of preserved memory and conversation.")}
           </p>
         </div>
       </motion.div>
@@ -45,13 +45,13 @@ Laderman Z"L
           </CardHeader>
           <CardContent className="prose prose-slate max-w-none">
             <p className="text-lg leading-relaxed text-slate-700 mb-6">
-              Paul Laderman lived a life rich with experience, wisdom, and deep human connection. Through decades of thoughtful writing, correspondence, and documentation, he created a treasure trove of insights that reflect not just his personal journey, but the broader human experience of his generation.
+              {appendZl("Paul Laderman lived a life rich with experience, wisdom, and deep human connection. Through decades of thoughtful writing, correspondence, and documentation, he created a treasure trove of insights that reflect not just his personal journey, but the broader human experience of his generation.")}
             </p>
             <p className="text-lg leading-relaxed text-slate-700 mb-6">
-              His writings span personal reflections, professional experiences, family memories, and philosophical observations. Each document in his collection offers a window into his thoughtful approach to life, his relationships with others, and his understanding of the world around him.
+              {appendZl("His writings span personal reflections, professional experiences, family memories, and philosophical observations. Each document in his collection offers a window into his thoughtful approach to life, his relationships with others, and his understanding of the world around him.")}
             </p>
             <p className="text-lg leading-relaxed text-slate-700">
-              This digital memorial ensures that Paul's wisdom remains accessible, allowing future generations to learn from his experiences and insights through the power of conversation and technology.
+              {appendZl("This digital memorial ensures that Paul Laderman's wisdom remains accessible, allowing future generations to learn from his experiences and insights through the power of conversation and technology.")}
             </p>
           </CardContent>
         </Card>
@@ -112,7 +112,7 @@ Laderman Z"L
                   {value.title}
                 </h3>
                 <p className="text-slate-600 leading-relaxed text-sm">
-                  {value.description}
+                  {appendZl(value.description)}
                 </p>
               </CardContent>
             </Card>
@@ -135,7 +135,7 @@ Laderman Z"L
           <CardContent>
             <div className="text-center mb-8">
               <p className="text-lg leading-relaxed text-slate-700 mb-6">
-                This interactive digital memorial was created to preserve and share Paul Laderman's wisdom with family, friends, and future generations. Through advanced AI technology, his documented thoughts, experiences, and insights remain accessible through natural conversation.
+                {appendZl("This interactive digital memorial was created to preserve and share Paul Laderman's wisdom with family, friends, and future generations. Through advanced AI technology, his documented thoughts, experiences, and insights remain accessible through natural conversation.")}
               </p>
             </div>
             
@@ -164,7 +164,7 @@ Laderman Z"L
               
               <div>
                 <h3 className="text-lg font-semibold paul-text-gradient mb-3">Created With Love</h3>
-                <p className="text-slate-700 leading-relaxed mb-4">This memorial was prepared by his grandson Daniel Laderman as a labor of love, ensuring that Paul's remarkable insights and experiences continue to inspire and guide us all.
+                <p className="text-slate-700 leading-relaxed mb-4">{appendZl("This memorial was prepared by his grandson Daniel Laderman as a labor of love, ensuring that Paul's remarkable insights and experiences continue to inspire and guide us all.")}
 
                 </p>
                 <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
