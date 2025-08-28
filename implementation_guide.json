@@ -1,0 +1,77 @@
+{
+  "apiName": "Paul Archive Chatbot API",
+  "description": "This guide provides instructions on how to integrate and use the Paul Archive Chatbot API, which provides answers based on the life and writings of Paul Laderman.",
+  "baseUrl": "https://paul-archive-chatbot.onrender.com",
+  "endpoints": [
+    {
+      "name": "Get Chat Response",
+      "path": "/chat",
+      "method": "POST",
+      "description": "Sends a user's question to the chatbot and receives a generated answer along with the sources used to create it.",
+      "request": {
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "question": {
+                "type": "string",
+                "description": "The user's question for the chatbot."
+              }
+            },
+            "required": ["question"]
+          },
+          "example": {
+            "question": "What was Paul's experience during his post-war travels in Europe?"
+          }
+        }
+      },
+      "response": {
+        "success": {
+          "statusCode": 200,
+          "description": "A successful request will return a JSON object with the chatbot's answer and a list of source documents.",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "answer": {
+                "type": "string",
+                "description": "The chatbot's generated answer."
+              },
+              "sources": {
+                "type": "array",
+                "description": "A list of source documents used for the answer.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "link": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "example": {
+            "answer": "During his post-war travels in Europe from 1948-1949, Paul lived in Paris for several months and became fluent in French. He observed the stark contrast between post-war recovery efforts and the remnants of Jewish life, an experience that deeply influenced his worldview and reinforced his commitment to Zionism.",
+            "sources": [
+              {
+                "title": "European Travel 1948-1949",
+                "link": "https://docs.google.com/document/d/..."
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "exampleUsage": {
+    "type": "curl",
+    "command": "curl -X POST \\\"https://paul-archive-chatbot.onrender.com/chat\\\" -H \\\"Content-Type: application/json\\\" -d '{\\\"question\\\": \\\"Who was Paul Laderman?\\\"}'"
+  },
+  "securityNote": "This endpoint is currently public and does not require an API key. For production use, it is recommended to secure the endpoint with an API key authentication mechanism."
+}
