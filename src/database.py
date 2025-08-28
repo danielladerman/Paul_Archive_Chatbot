@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime
+from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.dialects.postgresql import JSONB
@@ -31,6 +31,29 @@ class ChatHistory(Base):
 
     def __repr__(self):
         return f"<ChatHistory(id={self.id}, question='{self.question[:50]}...')>"
+
+class TimelineEvent(Base):
+    __tablename__ = "timeline_events"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String(255), nullable=False)
+    description = Column(Text, nullable=False)
+    date = Column(Date, nullable=False)
+    category = Column(String(64), nullable=False)
+    location = Column(String(255), nullable=True)
+    significance = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+class GalleryImage(Base):
+    __tablename__ = "gallery_images"
+
+    id = Column(Integer, primary_key=True, index=True)
+    image_url = Column(Text, nullable=False)
+    title = Column(String(255), nullable=False)
+    description = Column(Text, nullable=True)
+    date_taken = Column(Date, nullable=True)
+    tags = Column(JSONB, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
 
 def get_db():
     """

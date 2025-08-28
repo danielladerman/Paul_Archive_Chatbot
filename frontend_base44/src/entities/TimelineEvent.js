@@ -45,6 +45,10 @@ export const TimelineEvent = {
 
   // Placeholder: replace with real data source or API later
   async list(orderBy = "date") {
-    return [];
+    const base = import.meta.env.VITE_API_BASE;
+    if (!base) return [];
+    const res = await fetch(`${base}/timeline`);
+    if (!res.ok) return [];
+    return await res.json();
   },
 };

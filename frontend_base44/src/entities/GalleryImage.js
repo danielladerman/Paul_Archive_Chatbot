@@ -33,11 +33,25 @@ export const GalleryImage = {
   },
 
   async list(order = "-created_date") {
-    // TODO: Replace with real data source; returning empty list for now
-    return [];
+    const base = import.meta.env.VITE_API_BASE;
+    if (!base) return [];
+    const res = await fetch(`${base}/gallery`);
+    if (!res.ok) return [];
+    return await res.json();
   },
   async create(payload) {
-    // TODO: Persist to your backend or storage; no-op for now
-    return { ok: true, id: Date.now(), ...payload };
+    const base = import.meta.env.VITE_API_BASE;
+    const key = import.meta.env.VITE_API_KEY;
+    if (!base) throw new Error("VITE_API_BASE not set");
+    const res = await fetch(`${base}/gallery`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(key ? { "X-API-KEY": key } : {}),
+      },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error(`Failed to create: ${res.status}`);
+    return await res.json();
   },
 };
