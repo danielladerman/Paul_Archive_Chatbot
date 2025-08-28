@@ -211,6 +211,13 @@ def create_gallery(img: GalleryImageIn, _: bool = Depends(verify_api_key), db: S
         created_at=row.created_at.isoformat(),
     )
 
+@app.post("/admin/init_db")
+def admin_init_db(_: bool = Depends(verify_api_key)):
+    if not config.DATABASE_URL:
+        raise HTTPException(status_code=501, detail="Database not configured")
+    init_db()
+    return {"status": "ok", "message": "Database initialized."}
+
 
 def launch_api():
     import uvicorn
