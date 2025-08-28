@@ -4,49 +4,63 @@ An AI-trained window into the life and legacy of Paul Laderman, built to share h
 
 ## 📖 Overview
 
-This project is an AI-powered chatbot that acts as a digital archive and research assistant for the collected writings of Paul Laderman. The chatbot is designed to answer questions about Paul's life in the persona of an expert researcher, drawing exclusively from the documents provided in its knowledge base. It uses a Retrieval-Augmented Generation (RAG) architecture to provide accurate, context-aware, and citable answers.
-
-The ultimate goal is to evolve this application from a local tool into a public website where anyone can interact with the Paul Scholar chatbot [[memory:494183]].
+This project is an AI-powered application featuring a chatbot, timeline, and gallery dedicated to preserving and sharing the life and writings of Paul Laderman. The chatbot acts as a digital archive and research assistant, answering questions in the persona of an expert researcher and drawing exclusively from a knowledge base of his documents. It uses a Retrieval-Augmented Generation (RAG) architecture to provide accurate, context-aware, and citable answers.
 
 ### Key Features
 - **Researcher Persona:** The chatbot answers questions about Paul in the third person, as a scholar who has studied his work.
 - **Source-Grounded Answers:** Responses are based *only* on the provided documents, preventing the AI from fabricating information.
-- **Footnote Citations:** Every answer includes a "Sources" section with clickable links to the original document(s) in a shared repository, allowing for easy verification.
-- **Dynamic Knowledge Base:** The chatbot's knowledge can be easily expanded by adding new, cleaned Markdown files to the `data` directory.
+- **Footnote Citations:** Every answer includes a "Sources" section with clickable links to the original document(s).
+- **Persistent Data:** The application includes a timeline of life events and an image gallery, with data persisted in a PostgreSQL database.
+- **Modern UI:** The frontend is a responsive and user-friendly single-page application.
 
 ## 🛠️ Tech Stack
 
+### Backend
+- **Language:** Python 3.9+
+- **API Framework:** FastAPI
 - **RAG Orchestration:** LangChain
 - **AI Models:** OpenAI (`gpt-4o-mini` for chat, `text-embedding-3-small` for embeddings)
-- **Vector Store:** Pinecone (managed) with local FAISS fallback for offline dev
-- **Backend API:** FastAPI (`src/api.py`)
-- **Web UI:** React + Vite + Tailwind CSS + shadcn (`frontend/`)
-- **Language:** Python (backend), TypeScript (frontend)
+- **Vector Store:** Pinecone (managed) with a local FAISS fallback for offline development.
+- **Database:** PostgreSQL (using Neon serverless provider)
+- **ORM:** SQLAlchemy
+
+### Frontend
+- **Framework:** React.js with Vite
+- **Language:** JavaScript
+- **Styling:** Tailwind CSS with shadcn/ui components
+- **Image Storage:** Supabase Storage
+
+### Deployment
+- **Backend API:** Render
+- **Frontend App:** Vercel
+- **Database:** Neon
+- **Vector Store:** Pinecone
 
 ## 📂 Project Structure
 
 ```
 Saba_Paul_AI/
-├── venv/                        # Python virtual environment
-├── data/                        # Source documents (cleaned .md files)
-├── faiss_index/                 # Local vector store (auto-generated if used)
-├── src/
-│   ├── api.py                   # FastAPI app (POST /chat)
-│   ├── chatbot.py               # Core chatbot logic + legacy Gradio launcher
-│   ├── data_processing.py       # Loads and chunks documents
-│   ├── vector_store.py          # Pinecone or FAISS vector store
-│   ├── ingest_to_pinecone.py    # Ingestion script to upsert all docs to Pinecone
-│   └── config.py                # Project configuration (paths, models, env)
-├── frontend/                    # React + Vite + Tailwind + shadcn UI
+├── venv/                      # Python virtual environment
+├── data/                      # Source documents for the chatbot (.md files)
+├── faiss_index/               # Local vector store (auto-generated for offline use)
+├── src/                       # Backend Python source code
+│   ├── api.py                 # FastAPI application (endpoints for chat, timeline, gallery)
+│   ├── chatbot.py             # Core chatbot RAG logic
+│   ├── database.py            # SQLAlchemy models and database connection
+│   ├── data_processing.py     # Loads and chunks documents for ingestion
+│   ├── vector_store.py        # Logic for Pinecone and FAISS vector stores
+│   └── ingest_to_pinecone.py  # Script to ingest data into Pinecone
+├── frontend_base44/           # React frontend application
 │   ├── src/
-│   │   ├── App.tsx
-│   │   ├── main.tsx
-│   │   └── components/ui/...    # shadcn components
-│   └── index.html
-├── .env                         # Environment variables (API keys)
-├── .env.example                 # Example environment file
-├── requirements.txt             # Python dependencies
-└── run_chatbot.py               # Legacy Gradio entry (local-only)
+│   │   ├── pages/             # Main pages (Chat, Timeline, Gallery, About)
+│   │   ├── entities/          # Frontend data models and API interaction logic
+│   │   ├── integrations/      # Connectors to backend services
+│   │   └── lib/utils/         # Utility functions, including name formatting
+│   └── vercel.json            # Vercel deployment configuration for SPA routing
+├── .env                       # Environment variables (API keys, database URLs)
+├── .env.example               # Template for the .env file
+├── requirements.txt           # Python dependencies for the backend
+└── render.yaml                # Render deployment configuration for the backend
 ```
 
 ## 🚀 Getting Started
@@ -55,132 +69,100 @@ Follow these instructions to set up and run the project on your local machine.
 
 ### 1. Prerequisites
 - Python 3.9+
+- Node.js 18+
 - An OpenAI API Key
+- A Pinecone API Key and a pre-configured index (e.g., `paul-archive`)
+- A Neon (or other PostgreSQL) database URL
+- A Supabase project with a public storage bucket (e.g., `paul-gallery`)
 
-### 2. Clone the Repository
+### 2. Set Up the Environment
+
+**Clone the Repository:**
 ```bash
 git clone <repository-url>
 cd Saba_Paul_AI
 ```
 
-### 3. Set Up the Environment
-
-**Create a Virtual Environment:**
-This project uses a virtual environment to manage dependencies and avoid conflicts.
+**Create and Activate a Python Virtual Environment:**
 ```bash
 python3 -m venv venv
+source venv/bin/activate
+# On Windows, use: .\venv\Scripts\activate
 ```
 
-**Activate the Environment:**
-- On macOS/Linux:
-  ```bash
-  source venv/bin/activate
-  ```
-- On Windows:
-  ```bash
-  .\venv\Scripts\activate
-  ```
+### 3. Install Dependencies
 
-### 4. Install Dependencies
-- Backend (Python):
+**Backend (Python):**
 ```bash
 pip install -r requirements.txt
 ```
-- Frontend (Node 18+):
+
+**Frontend (Node.js):**
 ```bash
-cd frontend && npm install
+cd frontend_base44
+npm install
+cd ..
 ```
 
-### 5. Configure API Keys
-Create a `.env` file in the project root by copying the example file.
+### 4. Configure API Keys and Environment Variables
+
+Create a `.env` file in the project root by copying the example template.
 ```bash
 cp .env.example .env
 ```
-Now, open the newly created `.env` file and add your keys:
+Now, open the `.env` file and fill in your keys and URLs:
 ```env
-# Required
+# Required for chatbot
 OPENAI_API_KEY="sk-..."
 
-# Pinecone (managed vector DB)
-PINECONE_API_KEY="pcn-..."
-PINECONE_INDEX="paul-archive"
+# Required for RAG knowledge base
+PINECONE_API_KEY="..."
+PINECONE_INDEX="paul-archive" # Or your index name
 PINECONE_CLOUD="aws"
 PINECONE_REGION="us-east-1"
+
+# Required for timeline and gallery metadata
+DATABASE_URL="postgresql://..."
+
+# A secret key for protecting admin endpoints
+X_API_KEY="..." # Generate a secure, random string
+
+# Required for gallery image uploads
+VITE_SUPABASE_URL="..."
+VITE_SUPABASE_ANON_KEY="..."
 ```
 
-### 6. Prepare the Data
-The chatbot's knowledge comes from the Markdown files in the `data/` directory.
+### 5. Prepare the Data and Database
 
-- **Delete any old `.doc` or `.docx` files** from the `data/` directory.
-- Add your cleaned and formatted `.md` files to this directory.
-- Ensure each `.md` file includes a YAML frontmatter block at the top with metadata like `title`, `author`, `date`, and `source_link`. See the existing documents for an example.
-
-### 7. Build vectors and run locally
-
-- Ingest all documents into Pinecone (one-time or whenever `data/` changes):
+**Ingest Chatbot Knowledge:**
+Run the ingestion script to populate your Pinecone index with the documents from the `/data` directory. This needs to be done once, or whenever the documents change.
 ```bash
 python -m src.ingest_to_pinecone
 ```
 
-- Start the API (FastAPI):
+**Initialize the Database Tables:**
+The first time you run the API, it will automatically create the necessary tables in your PostgreSQL database.
+
+## 🏃‍♀️ Running Locally
+
+You will need to run two processes in separate terminals.
+
+**Terminal 1: Start the Backend API**
 ```bash
-uvicorn src.api:app --host 127.0.0.1 --port 7860
+uvicorn src.api:app --host 127.0.0.1 --port 7860 --reload
 ```
-Open API docs: `http://127.0.0.1:7860/docs`
+The API will be available at `http://127.0.0.1:7860`.
 
-- Start the Web UI (Vite dev server):
+**Terminal 2: Start the Frontend UI**
 ```bash
-cd frontend
-npm run dev
+cd frontend_base44
+VITE_API_BASE=http://127.0.0.1:7860 VITE_API_KEY=<Your_X_API_KEY> npm run dev
 ```
-Open UI: `http://127.0.0.1:5173` (or whichever port Vite prints)
+Replace `<Your_X_API_KEY>` with the secret key you set in your `.env` file. The application will be available at `http://localhost:5173` (or the next available port).
 
-- Optional (legacy local UI):
-```bash
-python3 run_chatbot.py
-```
-Note: the legacy Gradio UI is for local use only and may show upstream client warnings; prefer the React UI.
+## ☁️ Deployment
 
-### 8. Deploy
+The application is designed to be deployed to separate services for the frontend and backend.
 
-- Backend (Render recommended):
-  - Build: `pip install -r requirements.txt`
-  - Start: `uvicorn src.api:app --host 0.0.0.0 --port $PORT`
-  - Env: `OPENAI_API_KEY`, `PINECONE_API_KEY`, `PINECONE_INDEX`, `PINECONE_CLOUD`, `PINECONE_REGION`
-
-- Frontend (Vercel recommended):
-  - Project root: `frontend/`
-  - Build: `npm run build`
-  - Output: `dist`
-  - Env: `VITE_API_BASE=https://<your-render-api>.onrender.com`
-
-### 9. Verify Pinecone contains all chunks
-
-Compare expected chunk count to vectors stored:
-```bash
-# expected
-python - <<'PY'
-from src.data_processing import load_documents, split_text
-docs = load_documents()
-chunks = split_text(docs)
-print('Expected chunk count:', len(chunks))
-PY
-
-# actual in Pinecone
-python - <<'PY'
-from dotenv import load_dotenv; load_dotenv()
-from pinecone import Pinecone
-from src import config
-pc = Pinecone(api_key=config.PINECONE_API_KEY)
-idx = pc.Index(config.PINECONE_INDEX_NAME)
-stats = idx.describe_index_stats()
-print('Pinecone vector count:', stats.get('total_vector_count'))
-print('Stats:', stats)
-PY
-```
-
-## 📈 Future Development Roadmap
-
-- **CI ingestion**: GitHub Action to auto-upsert to Pinecone on `data/**/*.md` changes
-- **Public deploy**: Harden API rate limiting/auth; add analytics
-- **UI features**: Suggested questions, topic filters, and shareable links
+- **Backend (Render):** The `render.yaml` file is configured for deployment on Render. You will need to set the same environment variables from your `.env` file in the Render dashboard.
+- **Frontend (Vercel):** The `frontend_base44` directory can be deployed as a Vercel project. Set `VITE_API_BASE` to your live Render API URL and the other `VITE_*` variables in the Vercel dashboard. The `vercel.json` file is included to handle client-side routing correctly.

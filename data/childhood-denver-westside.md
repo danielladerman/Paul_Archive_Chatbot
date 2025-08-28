@@ -19,7 +19,7 @@ tags: [
 
 ## 📝 Summary
 
-Rabbi Paul recounts his formative years growing up in the close-knit Jewish community of Denver’s West Side. As the son of Rabbi Manuel Laderman, the first Orthodox rabbi in Colorado, Paul describes a childhood steeped in Jewish tradition, community responsibility, and the complexities of living in a rabbinic household. These early experiences laid the foundation for his lifelong identity as a bridge between tradition and the broader world.
+Rabbi Paul recounts his formative years growing up in the close-knit Jewish community of Denver’s West Side. As the son of Rabbi Manuel Laderman, the first modern Orthodox rabbi who studied both in a yeshiva and a university in Colorado, Paul describes a childhood steeped in Jewish tradition, community responsibility, and the complexities of living in a rabbinic household. These early experiences laid the foundation for his lifelong identity as a bridge between tradition and the broader world.
 
 ---
 

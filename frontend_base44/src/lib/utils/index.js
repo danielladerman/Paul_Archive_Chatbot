@@ -12,12 +12,48 @@ export function createPageUrl(pageName) {
 // Append Z"L after mentions of the name; avoid double-appending and possessive cases
 export function appendZl(text) {
   if (typeof text !== 'string' || !text) return text;
-  let out = text;
-  // Rabbi Paul Laderman
-  out = out.replace(/(Rabbi\s+Paul\s+Laderman)(?!\s*Z["”']L)/gi, "$1 Z\"L");
-  // Paul Laderman
-  out = out.replace(/(Paul\s+Laderman)(?!\s*Z["”']L)/gi, "$1 Z\"L");
-  // Paul (not followed by 's and not already with Z"L)
-  out = out.replace(/\bPaul\b(?!'s)(?!\s*Z["”']L)/g, (m) => `${m} Z"L`);
-  return out;
+
+  // Define patterns in order of specificity to avoid conflicts.
+  const replacements = [
+    // Case: "Rabbi Paul Laderman's" -> "Rabbi Paul Laderman Z"L's"
+    {
+      pattern: /(Rabbi\s+Paul\s+Laderman)('s)/gi,
+      replacement: "$1 Z\"L$2",
+    },
+    // Case: "Paul Laderman's" -> "Paul Laderman Z"L's"
+    {
+      pattern: /(Paul\s+Laderman)('s)/gi,
+      replacement: "$1 Z\"L$2",
+    },
+    // Case: "Rabbi Paul Laderman" -> "Rabbi Paul Laderman Z"L"
+    {
+      pattern: /(Rabbi\s+Paul\s+Laderman)(?!\s*Z["”']L)/gi,
+      replacement: "$1 Z\"L",
+    },
+    // Case: "Paul Laderman" -> "Paul Laderman Z"L"
+    {
+      pattern: /(Paul\s+Laderman)(?!\s*Z["”']L)/gi,
+      replacement: "$1 Z\"L",
+    },
+    // Case: "Paul's" -> "Paul Z"L's"
+    {
+      pattern: /\b(Paul)('s)\b/gi,
+      replacement: "$1 Z\"L$2",
+    },
+    // Case: "Paul" (as a whole word, not followed by Laderman) -> "Paul Z"L"
+    {
+      pattern: /\bPaul\b(?!\s+Laderman)(?!\s*Z["”']L)/g,
+      replacement: 'Paul Z"L',
+    },
+  ];
+
+  let processedText = text;
+
+  // Apply each replacement. We iterate through them so we don't have to worry
+  // about the order of regex execution.
+  for (const rule of replacements) {
+    processedText = processedText.replace(rule.pattern, rule.replacement);
+  }
+
+  return processedText;
 }

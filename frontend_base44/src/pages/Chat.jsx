@@ -72,7 +72,7 @@ export default function ChatPage() {
       const errorMessage = {
         type: "bot",
         content:
-          "I apologize, but I'm having trouble accessing Paul's information right now. Please try asking your question again in a moment.",
+          "I apologize, but the chat hasn't been active for a while, please ask this question again in a minute as I am waking up the memory archive.",
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -175,9 +175,9 @@ export default function ChatPage() {
               </div>
               <Card className="bg-white border-amber-200">
                 <CardContent className="p-4">
-                  <div className="flex items-center gap-2 text-slate-600">
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>Paul is thinking...</span>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
+                    <span>Paul Scholar is thinking...</span>
                   </div>
                 </CardContent>
               </Card>

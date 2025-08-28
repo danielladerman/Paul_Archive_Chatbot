@@ -24,8 +24,9 @@ Paul Laderman recounts a formative period of travel through Europe and Israel wi
 
 ### Life in Paris
 - Lived in Paris for several months, attending the American Community School (ACS).
-- Became fluent in French and adjusted quickly to international life.
+- Admired French culture but noted frustrations with bureaucracy and daily inconveniences.
 - Made diverse friends and gained confidence in a cosmopolitan environment.
+- Returning to America on the Queen Mary in August 1949, Paul deeply appreciated the Statue of Liberty as a symbol of freedom and homecoming.
 
 ### Tour of Postwar Europe
 - Visited **Brussels**, **Geneva**, **Rome**, **Athens**, and eventually **Jerusalem**.

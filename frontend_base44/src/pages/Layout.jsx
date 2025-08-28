@@ -115,7 +115,7 @@ export default function Layout({ children, currentPageName }) {
           <div className="text-center">
             <div className="flex items-center justify-center gap-2 mb-4">
               <BookOpen className="w-5 h-5 text-amber-400" />
-              <span className="text-lg font-light">In Memory of Paul Laderman</span>
+              <span className="text-lg font-light">In Memory of Paul Laderman Z"L</span>
             </div>
             <p className="text-slate-400 font-light leading-relaxed max-w-2xl mx-auto">{appendZl("This digital memorial preserves the wisdom, experiences, and insights of Paul Laderman Z\"L, making his legacy accessible to family, researchers, and future generations through the power of conversation and technology.")}
 

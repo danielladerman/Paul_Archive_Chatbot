@@ -51,4 +51,19 @@ export const TimelineEvent = {
     if (!res.ok) return [];
     return await res.json();
   },
+  async create(payload) {
+    const base = import.meta.env.VITE_API_BASE;
+    const key = import.meta.env.VITE_API_KEY;
+    if (!base) throw new Error("VITE_API_BASE not set");
+    const res = await fetch(`${base}/timeline`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(key ? { "X-API-KEY": key } : {}),
+      },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error(`Failed to create: ${await res.text()}`);
+    return await res.json();
+  },
 };
