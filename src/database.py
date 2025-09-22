@@ -13,7 +13,11 @@ if not config.DATABASE_URL:
     # making the dependency explicit.
     raise ValueError("DATABASE_URL is not set in the environment. Please configure it.")
 
-engine = create_engine(config.DATABASE_URL)
+engine = create_engine(
+    config.DATABASE_URL,
+    pool_pre_ping=True,
+    pool_recycle=300,
+)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
