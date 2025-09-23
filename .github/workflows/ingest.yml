@@ -5,8 +5,6 @@ on:
     paths:
       - "data/**/*.md"
   workflow_dispatch: {}
-  schedule:
-    - cron: "0 6 * * *"
 
 jobs:
   ingest:
