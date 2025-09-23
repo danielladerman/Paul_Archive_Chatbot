@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose } from "@/components/ui/dialog";
-import { Plus, Image as ImageIcon, X, Loader2, Calendar, Tag } from "lucide-react";
+import { Plus, Image as ImageIcon, X, Loader2, Calendar, Tag, FileText } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { format } from "date-fns";
 import { appendZl } from "@/lib/utils/index.js";
@@ -59,8 +59,8 @@ const PhotoUploader = ({ onUploadFinished }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <Label htmlFor="photo-file">Photo</Label>
-        <Input id="photo-file" type="file" accept="image/*" onChange={handleFileChange} required className="border-amber-200" />
+        <Label htmlFor="photo-file">Photo or PDF</Label>
+        <Input id="photo-file" type="file" accept="image/*,application/pdf" onChange={handleFileChange} required className="border-amber-200" />
       </div>
       <div>
         <Label htmlFor="title">Title</Label>
@@ -165,8 +165,15 @@ export default function GalleryPage() {
                 onClick={() => setSelectedImage(image)}
                 className="aspect-w-1 aspect-h-1 cursor-pointer"
               >
-                <Card className="overflow-hidden paul-card hover:paul-glow transition-all duration-300 group">
-                  <img src={image.image_url} alt={image.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                <Card className="overflow-hidden paul-card hover:paul-glow transition-all duration-300 group flex items-center justify-center">
+                  {image.image_url.toLowerCase().endsWith('.pdf') ? (
+                    <div className="flex flex-col items-center gap-2 text-slate-500">
+                      <FileText className="w-12 h-12" />
+                      <span className="text-xs text-center font-semibold px-2">{image.title}</span>
+                    </div>
+                  ) : (
+                    <img src={image.image_url} alt={image.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                  )}
                   <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
                     <h3 className="text-white font-medium text-sm truncate">{image.title}</h3>
                   </div>
@@ -197,34 +204,48 @@ export default function GalleryPage() {
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
         <DialogContent className="max-w-4xl w-full p-2 md:p-4 paul-card">
           {selectedImage && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="md:col-span-2">
-                    <img src={selectedImage.image_url} alt={selectedImage.title} className="w-full h-auto max-h-[80vh] object-contain rounded-lg" />
+            <>
+              {selectedImage.image_url.toLowerCase().endsWith('.pdf') ? (
+                <div className="p-8 text-center">
+                  <h2 className="text-2xl font-light paul-text-gradient mb-4">{selectedImage.title}</h2>
+                  <p className="text-slate-700 mb-6">{appendZl(selectedImage.description)}</p>
+                  <Button asChild className="paul-gradient">
+                    <a href={selectedImage.image_url} target="_blank" rel="noopener noreferrer">
+                      Open PDF in new tab
+                    </a>
+                  </Button>
                 </div>
-                <div className="p-4 flex flex-col">
-                    <h2 className="text-2xl font-light paul-text-gradient mb-4">{selectedImage.title}</h2>
-                    {selectedImage.description && <p className="text-slate-700 leading-relaxed mb-4">{appendZl(selectedImage.description)}</p>}
-                    
-                    <div className="mt-auto space-y-3 pt-4 border-t border-amber-200/50">
-                        {selectedImage.date_taken && (
-                            <div className="flex items-center gap-2 text-sm text-slate-600">
-                                <Calendar className="w-4 h-4" />
-                                <span>Taken around {format(new Date(selectedImage.date_taken), "MMMM yyyy")}</span>
-                            </div>
-                        )}
-                        {selectedImage.tags && selectedImage.tags.length > 0 && (
-                            <div className="flex items-start gap-2 text-sm text-slate-600">
-                                <Tag className="w-4 h-4 mt-1" />
-                                <div className="flex flex-wrap gap-1">
-                                    {selectedImage.tags.map(tag => (
-                                        <span key={tag} className="px-2 py-0.5 bg-amber-100 text-amber-800 rounded-full text-xs">{tag}</span>
-                                    ))}
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="md:col-span-2">
+                        <img src={selectedImage.image_url} alt={selectedImage.title} className="w-full h-auto max-h-[80vh] object-contain rounded-lg" />
+                    </div>
+                    <div className="p-4 flex flex-col">
+                        <h2 className="text-2xl font-light paul-text-gradient mb-4">{selectedImage.title}</h2>
+                        {selectedImage.description && <p className="text-slate-700 leading-relaxed mb-4">{appendZl(selectedImage.description)}</p>}
+                        
+                        <div className="mt-auto space-y-3 pt-4 border-t border-amber-200/50">
+                            {selectedImage.date_taken && (
+                                <div className="flex items-center gap-2 text-sm text-slate-600">
+                                    <Calendar className="w-4 h-4" />
+                                    <span>Taken around {format(new Date(selectedImage.date_taken), "MMMM yyyy")}</span>
                                 </div>
-                            </div>
-                        )}
+                            )}
+                            {selectedImage.tags && selectedImage.tags.length > 0 && (
+                                <div className="flex items-start gap-2 text-sm text-slate-600">
+                                    <Tag className="w-4 h-4 mt-1" />
+                                    <div className="flex flex-wrap gap-1">
+                                        {selectedImage.tags.map(tag => (
+                                            <span key={tag} className="px-2 py-0.5 bg-amber-100 text-amber-800 rounded-full text-xs">{tag}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div>
+              )}
+            </>
           )}
         </DialogContent>
       </Dialog>

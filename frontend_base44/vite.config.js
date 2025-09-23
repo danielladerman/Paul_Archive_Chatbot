@@ -4,6 +4,7 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
+  envDir: '..', // Look one folder up for .env files
   plugins: [react()],
   server: {
     allowedHosts: true

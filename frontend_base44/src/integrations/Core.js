@@ -4,6 +4,12 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const BUCKET = "paul-gallery"; // create this bucket in Supabase (public or use signed URLs)
 
+// --- Supabase Keys Check ---
+console.log("Checking Supabase Environment Variables...");
+console.log("VITE_SUPABASE_URL is set:", !!SUPABASE_URL);
+console.log("VITE_SUPABASE_ANON_KEY is set:", !!SUPABASE_ANON_KEY);
+// --- End Check ---
+
 let supabase = null;
 if (SUPABASE_URL && SUPABASE_ANON_KEY) {
   supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
