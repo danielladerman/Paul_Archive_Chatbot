@@ -13,6 +13,7 @@ export default function ChatPage() {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
   const [sessionId] = useState(() => `session-${Date.now()}`);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -26,6 +27,23 @@ export default function ChatPage() {
   }, [messages]);
 
   useEffect(() => {
+    // Fetch dynamic suggestions when the component mounts
+    const fetchSuggestions = async () => {
+      try {
+        const baseUrl = import.meta.env.VITE_API_BASE;
+        if (!baseUrl) return;
+        const response = await fetch(`${baseUrl}/suggestions`);
+        if (response.ok) {
+          const data = await response.json();
+          setSuggestions(data);
+        }
+      } catch (error) {
+        console.error("Error fetching suggestions:", error);
+      }
+    };
+
+    fetchSuggestions();
+    
     setMessages([
       {
         type: "bot",
@@ -207,21 +225,16 @@ export default function ChatPage() {
             </div>
 
             <div className="flex flex-wrap gap-2 mt-3 md:mt-4">
-              {["Early life", "Core beliefs", "Profession", "Family"].map(
-                (suggestion, index) => (
+              {suggestions.map((suggestion, index) => (
                   <Button
                     key={index}
                     variant="outline"
                     size="sm"
-                    onClick={() =>
-                      setInputMessage(
-                        `Tell me about Paul's ${suggestion.toLowerCase()}`
-                      )
-                    }
+                    onClick={() => setInputMessage(suggestion)}
                     disabled={isLoading}
                     className="text-xs hover:bg-amber-50 border-amber-200 px-2 py-1 md:px-3"
                   >
-                    {suggestion}
+                    {suggestion.replace("Tell me about ", "")}
                   </Button>
                 )
               )}

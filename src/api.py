@@ -65,6 +65,24 @@ def root():
         "chat": {"method": "POST", "path": "/chat", "body": {"question": "string"}},
     }
 
+@app.get("/suggestions", response_model=List[str])
+def get_suggestions():
+    """
+    Returns a list of dynamically generated question suggestions.
+    """
+    try:
+        suggestions = chatbot_instance.generate_suggestions()
+        return suggestions
+    except Exception as e:
+        print(f"Failed to get suggestions: {e}")
+        # Return a default list of suggestions on error
+        return [
+            "Tell me about Paul's early life",
+            "What were some of his core beliefs?",
+            "What was his profession?",
+            "Tell me about his family"
+        ]
+
 @app.get("/healthz")
 def healthz():
     return {"status": "ok"}

@@ -21,7 +21,7 @@ export default function AboutPage() {
               className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover paul-portrait border-4 border-amber-200/50" />
 
           </div>
-          <h1 className="text-3xl md:text-4xl font-light paul-text-gradient mb-4">{appendZl("About Paul Laderman Z\"L")}
+          <h1 className="text-3xl md:text-4xl font-light paul-text-gradient mb-4">{appendZl("About Paul S. Laderman Z\"L")}
           </h1>
           <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto">
             {appendZl("A remarkable man whose wisdom, experiences, and insights continue to inspire and guide us through the power of preserved memory and conversation.")}

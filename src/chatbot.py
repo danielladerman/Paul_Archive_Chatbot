@@ -5,6 +5,8 @@ from langchain.prompts import PromptTemplate
 from langchain.schema.runnable import RunnablePassthrough, RunnableLambda
 from langchain.schema.output_parser import StrOutputParser
 import re
+import random
+from src.data_processing import load_documents
 
 from src import config
 from src.vector_store import get_vector_store
@@ -34,6 +36,62 @@ class PaulChatbot:
         )
         self.chain = self._create_rag_chain()
         print("Chatbot initialized successfully.")
+
+    def generate_suggestions(self, num_suggestions=4):
+        """
+        Generates a list of interesting questions based on random documents.
+        """
+        print("Generating dynamic suggestions...")
+        docs = load_documents()
+        if not docs:
+            return []
+
+        # Select a diverse, random sample of documents
+        num_to_sample = min(len(docs), 10)
+        sampled_docs = random.sample(docs, num_to_sample)
+        
+        # Combine the content of the sampled documents
+        combined_content = "\n\n---\n\n".join([doc.page_content for doc in sampled_docs])
+
+        # Use a specific prompt to extract topics
+        extraction_prompt = PromptTemplate.from_template(
+            """
+            Read the following text which is a collection of excerpts from a person's life writings.
+            Identify {num_suggestions} unique, specific, and interesting topics, events, people, or places mentioned.
+            Do not list generic topics like "family" or "life". Focus on specific, named entities or concepts.
+            Return these topics as a comma-separated list.
+
+            Example: "Trip to Europe in 1948, Open Hillel at Berkeley, The First Intifada, Community Center in 1983"
+
+            Text:
+            {text}
+
+            Topics:
+            """
+        )
+
+        # Create a simple chain to extract the topics
+        extraction_chain = extraction_prompt | self.llm | StrOutputParser()
+        
+        try:
+            result = extraction_chain.invoke({
+                "text": combined_content,
+                "num_suggestions": num_suggestions
+            })
+            
+            # Clean up the output and format into questions
+            topics = [topic.strip() for topic in result.split(',') if topic.strip()]
+            
+            # De-duplicate while preserving order
+            seen = set()
+            unique_topics = [t for t in topics if not (t in seen or seen.add(t))]
+            
+            questions = [f"Tell me about {topic.strip()}" for topic in unique_topics]
+            print(f"Generated suggestions: {questions}")
+            return questions[:num_suggestions]
+        except Exception as e:
+            print(f"Error generating suggestions: {e}")
+            return []
 
     def _format_context(self, docs: list) -> str:
         """

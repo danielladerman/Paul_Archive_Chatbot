@@ -15,15 +15,35 @@ export function appendZl(text) {
 
   // Define patterns in order of specificity to avoid conflicts.
   const replacements = [
-    // Case: "Rabbi Paul Laderman's" -> "Rabbi Paul Laderman Z"L's"
+    // Case: "Rabbi Paul S. Laderman's" -> "Rabbi Paul S. Laderman Z\"L's"
+    {
+      pattern: /(Rabbi\s+Paul\s+S\.\s+Laderman)('s)/gi,
+      replacement: "$1 Z\"L$2",
+    },
+    // Case: "Paul S. Laderman's" -> "Paul S. Laderman Z\"L's"
+    {
+      pattern: /(Paul\s+S\.\s+Laderman)('s)/gi,
+      replacement: "$1 Z\"L$2",
+    },
+    // Case: "Rabbi Paul Laderman's" -> "Rabbi Paul Laderman Z\"L's"
     {
       pattern: /(Rabbi\s+Paul\s+Laderman)('s)/gi,
       replacement: "$1 Z\"L$2",
     },
-    // Case: "Paul Laderman's" -> "Paul Laderman Z"L's"
+    // Case: "Paul Laderman's" -> "Paul Laderman Z\"L's"
     {
       pattern: /(Paul\s+Laderman)('s)/gi,
       replacement: "$1 Z\"L$2",
+    },
+    // Case: "Rabbi Paul S. Laderman" -> "Rabbi Paul S. Laderman Z"L"
+    {
+      pattern: /(Rabbi\s+Paul\s+S\.\s+Laderman)(?!\s*Z["”']L)/gi,
+      replacement: "$1 Z\"L",
+    },
+    // Case: "Paul S. Laderman" -> "Paul S. Laderman Z"L"
+    {
+      pattern: /(Paul\s+S\.\s+Laderman)(?!\s*Z["”']L)/gi,
+      replacement: "$1 Z\"L",
     },
     // Case: "Rabbi Paul Laderman" -> "Rabbi Paul Laderman Z"L"
     {
@@ -42,7 +62,7 @@ export function appendZl(text) {
     },
     // Case: "Paul" (as a whole word, not followed by Laderman) -> "Paul Z"L"
     {
-      pattern: /\bPaul\b(?!\s+Laderman)(?!\s*Z["”']L)/g,
+      pattern: /\bPaul\b(?!\s+S\.\s+Laderman|\s+Laderman)(?!\s*Z["”']L)/g,
       replacement: 'Paul Z"L',
     },
   ];

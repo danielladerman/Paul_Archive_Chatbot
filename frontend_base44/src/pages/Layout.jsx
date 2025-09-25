@@ -68,7 +68,7 @@ export default function Layout({ children, currentPageName }) {
                 <div className="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
             </div>
-            <h1 className="text-3xl md:text-5xl font-light text-white mb-2 tracking-wide">{appendZl("Rabbi Paul Laderman Z\"L")}
+            <h1 className="text-3xl md:text-5xl font-light text-white mb-2 tracking-wide">{appendZl("Rabbi Paul S. Laderman Z\"L")}
 
             </h1>
             <p className="text-lg md:text-xl text-amber-100 font-light italic">
