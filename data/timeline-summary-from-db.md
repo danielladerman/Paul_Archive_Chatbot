@@ -2,7 +2,7 @@
 title: "Key Events in the Life of Rabbi Paul S. Laderman"
 author: "Rabbi Paul S. Laderman"
 date: "2015"
-source_link: "SEE TIMELINE"
+source_link: "https://paul-archive-chatbot-o3z8.vercel.app/timeline"
 type: "Timeline"
 location: \["Denver, Colorado; New York, NY; Jerusalem, Israel; Oakland, California"]
 tags: \["timeline", "biography", "education", "career", "family", "milestones", "Aliyah", "military service"]
