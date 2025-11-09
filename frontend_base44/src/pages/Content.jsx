@@ -88,6 +88,8 @@ export default function ContentPage() {
 
   const handleTopicClick = (topicStr) => {
     const question = toSendQuestion(topicStr);
+    // Ensure the viewport is at the top before navigating to Chat
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {}
     navigate("/", { state: { prefilledQuery: question } });
   };
 

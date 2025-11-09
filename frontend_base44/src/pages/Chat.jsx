@@ -36,6 +36,8 @@ export default function ChatPage() {
       const asString = typeof prefilled === "string" ? prefilled : String(prefilled ?? "");
       prefilledSentRef.current = true;
       setInputMessage(asString);
+      // Force the page to the top after route change
+      try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {}
       // Auto-send the message immediately without focusing the input (prevents scroll jump)
       handleSendMessage(asString, { skipFocus: true });
     }
