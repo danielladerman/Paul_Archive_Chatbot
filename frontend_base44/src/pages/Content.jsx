@@ -34,6 +34,26 @@ export default function ContentPage() {
     }
   }
 
+  // Normalize for display (topic-style)
+  function toDisplayLabel(raw) {
+    let s = toTopicString(raw).trim();
+    s = s.replace(/^Tell me about\s+/i, "");
+    s = s.replace(/^(What\s+(?:was|were|is|are|did)\s+)/i, "");
+    s = s.replace(/^(Describe|Explain)\s+/i, "");
+    s = s.replace(/\?+$/g, "");
+    if (!s) return "";
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  // Build the question we actually send when clicked
+  function toSendQuestion(raw) {
+    const original = toTopicString(raw).trim();
+    if (!original) return "";
+    if (/\?$/.test(original) || /^Tell me about\s+/i.test(original)) return original;
+    const display = toDisplayLabel(original);
+    return `Tell me about ${display}`;
+  }
+
   useEffect(() => {
     const fetchTopics = async () => {
       setIsLoading(true);
@@ -67,8 +87,8 @@ export default function ContentPage() {
   }, []);
 
   const handleTopicClick = (topicStr) => {
-    const safe = typeof topicStr === "string" ? topicStr : toTopicString(topicStr);
-    navigate("/", { state: { prefilledQuery: safe } });
+    const question = toSendQuestion(topicStr);
+    navigate("/", { state: { prefilledQuery: question } });
   };
 
   return (
@@ -89,8 +109,7 @@ export default function ContentPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
               {topics.map((topic, index) => {
-                const label = toTopicString(topic);
-                const display = label.replace?.("Tell me about ", "") ?? label;
+                const label = toDisplayLabel(topic);
                 return (
                   <Button
                     key={index}
@@ -98,9 +117,9 @@ export default function ContentPage() {
                     title={label}
                     aria-label={label}
                     className="w-full text-left justify-start h-auto min-h-[44px] py-2 px-3 whitespace-normal break-words leading-snug text-sm"
-                    onClick={() => handleTopicClick(label)}
+                    onClick={() => handleTopicClick(topic)}
                   >
-                    {display}
+                    {label}
                   </Button>
                 );
               })}
