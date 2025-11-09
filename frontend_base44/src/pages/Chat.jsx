@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom"; // Import useLocation
 import { ChatMessage } from "@/entities/ChatMessage";
 import { PaulsAIAssistant } from "@/integrations/PaulsAIAssistant";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,8 @@ export default function ChatPage() {
   const [sessionId] = useState(() => `session-${Date.now()}`);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const location = useLocation(); // Get the location object
+  const prefilledSentRef = useRef(false);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -25,6 +28,18 @@ export default function ChatPage() {
   useEffect(() => {
     // Do not auto-scroll at all (initial load, user messages, or AI responses)
   }, [messages]);
+
+  useEffect(() => {
+    // Check if there's a pre-filled query from navigation state
+    const prefilled = location.state?.prefilledQuery;
+    if (prefilled !== undefined && !prefilledSentRef.current) {
+      const asString = typeof prefilled === "string" ? prefilled : String(prefilled ?? "");
+      prefilledSentRef.current = true;
+      setInputMessage(asString);
+      // Auto-send the message immediately
+      handleSendMessage(asString);
+    }
+  }, [location.state]);
 
   useEffect(() => {
     // Fetch dynamic suggestions when the component mounts
@@ -43,22 +58,24 @@ export default function ChatPage() {
     };
 
     fetchSuggestions();
-    
-    setMessages([
-      {
-        type: "bot",
-        content: appendZl("Hello, what would you like to know about Paul Z\"L today?"),
-        timestamp: new Date(),
-      },
-    ]);
+    const welcome = {
+      type: "bot",
+      content: appendZl("Hello, what would you like to know about Rabbi Paul Z\"L today?"),
+      timestamp: new Date(),
+    };
+    // Only add welcome if there are no messages yet (avoid clobbering prefilled send)
+    setMessages((prev) => (prev.length ? prev : [welcome]));
   }, []);
 
-  const handleSendMessage = async () => {
-    if (!inputMessage.trim() || isLoading) return;
+  const handleSendMessage = async (messageOverride) => {
+    const text = typeof messageOverride === "string"
+      ? messageOverride
+      : (typeof inputMessage === "string" ? inputMessage : String(inputMessage ?? ""));
+    if (!text.trim() || isLoading) return;
 
     const userMessage = {
       type: "user",
-      content: appendZl(inputMessage),
+      content: appendZl(text),
       timestamp: new Date(),
     };
 
@@ -68,7 +85,7 @@ export default function ChatPage() {
 
     try {
       const response = await PaulsAIAssistant.ask({
-        message: inputMessage,
+        message: text,
       });
 
       const botMessage = {
@@ -81,7 +98,7 @@ export default function ChatPage() {
       setMessages((prev) => [...prev, botMessage]);
 
       await ChatMessage.create({
-        message: inputMessage,
+        message: text,
         response: botMessage.content,
         session_id: sessionId,
       });
@@ -216,8 +233,8 @@ export default function ChatPage() {
                 disabled={isLoading}
               />
               <Button
-                onClick={handleSendMessage}
-                disabled={!inputMessage.trim() || isLoading}
+                onClick={() => handleSendMessage()}
+                disabled={!(typeof inputMessage === "string" ? inputMessage.trim() : String(inputMessage ?? "").trim()) || isLoading}
                 className="paul-gradient hover:opacity-90 px-4 md:px-6 py-3 md:py-6"
               >
                 <Send className="w-5 h-5" />
@@ -230,7 +247,7 @@ export default function ChatPage() {
                     key={index}
                     variant="outline"
                     size="sm"
-                    onClick={() => setInputMessage(suggestion)}
+                    onClick={() => handleSendMessage(suggestion)}
                     disabled={isLoading}
                     className="text-xs hover:bg-amber-50 border-amber-200 px-2 py-1 md:px-3"
                   >

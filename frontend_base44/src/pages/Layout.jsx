@@ -10,10 +10,12 @@ export default function Layout({ children, currentPageName }) {
   const location = useLocation();
 
   const navigationItems = [
-  { name: "Chat", url: createPageUrl("Chat"), icon: MessageCircle },
-  { name: "Timeline", url: createPageUrl("Timeline"), icon: Clock },
-  { name: "Gallery", url: createPageUrl("Gallery"), icon: Image }, // Changed from Documents to Gallery, and icon from FileText to Image
-  { name: "Topics", url: createPageUrl("About"), icon: User }];
+    { name: "Chat", url: createPageUrl("Chat"), icon: MessageCircle },
+    { name: "Content", url: createPageUrl("Content"), icon: BookOpen },
+    { name: "Timeline", url: createPageUrl("Timeline"), icon: Clock },
+    { name: "Gallery", url: createPageUrl("Gallery"), icon: Image },
+    { name: "About", url: createPageUrl("About"), icon: User }
+  ];
 
 
   return (
