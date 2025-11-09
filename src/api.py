@@ -2,6 +2,7 @@ from fastapi import FastAPI, Header, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import os
+import json
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import date
@@ -82,6 +83,79 @@ def get_suggestions():
             "What was his profession?",
             "Tell me about his family"
         ]
+
+@app.get("/content", response_model=List[str])
+def get_content_topics():
+    """
+    Returns a static, curated list of question suggestions for the content page.
+    If data/content_topics.json exists, load topics from there to allow easy edits without code changes.
+    """
+    curated_topics = [
+        "Tell me about Paul's childhood in Denver.",
+        "What was Paul's family ancestry and origin?",
+        "Describe Paul's early rabbinic career in the USA.",
+        "What was Paul's role as a USAF Chaplain?",
+        "Tell me about Paul's travels in Europe in 1948-1949.",
+        "What did Paul write about the Yom Hashoah Interfaith journal?",
+        "What are Paul's reflections on Halachah and homosexuality?",
+        "Explain the correspondence between Paul and Lamm on homosexuality.",
+        "What was Paul's involvement with the Open Hillel at Berkeley in 1971?",
+        "What was the 'Is Israel Phony?' article from 1972?",
+        "Describe Paul's work with community centers in 1983.",
+        "What was the significance of the Tamra Community Center?",
+        "Tell me about Paul's work with Ethiopian Jewry.",
+        "What did Paul write about the Intifada in 1989?",
+        "What were Paul's thoughts on a West Bank Compromise in 1988?",
+        "What was the 'Humanitarian Cooperation' article about?",
+        "Tell me about the eulogy Paul gave for Benjy.",
+        "What did Paul write in his tribute to Reuven Hammer?",
+        "Describe the Kaddish journey and tribute to his son.",
+        "What are Paul's thoughts on 'Netilat Yadaim' (washing of hands)?",
+        "Explain Paul's drasha on Passover in 1971.",
+        "What is the connection between Song of Songs and Passover according to Paul?",
+        "Tell me about the Tu BiShvat Seder.",
+        "What did Paul write about Rosh Hashana?",
+        "Describe the Pidyon Ha-Ben service Paul wrote about.",
+        "What were the condolence letters from Siskel and Nowick?",
+        "Tell me about the story of the lost pocket knife.",
+        "What was Paul's educational project in 1967?",
+        "Describe Paul's certificate from Mercaz HaRav Kook Yeshiva.",
+        "What was 'Children's Paradise'?",
+        "Tell me about the visit from the German sisters Kanaan in 2003.",
+        "What did Paul's 1976 letter to his parents say?",
+        "What were Paul's reflections on returning to America?",
+        "How did Paul view Judaism through the lens of Israel?",
+        "What was his role in directing 105 community centers in 1981?",
+        "What was the memorial service for Manuel in 1989 about?",
+        "What did Paul write about Purim in 1989?",
+        "Tell me about his thoughts on Israel and religious movements in 1988.",
+        "What was Paul's summary of his life for the Azkara?",
+        "What was his work with Aliyah and Israel?",
+        "Describe his years in Israel as a Rabbi and educator.",
+        "What recognition did he receive for Youth Education Guidance?",
+        "Tell me about Paul's interfaith and peace advocacy.",
+        "What were the wedding ceremonies he performed like?",
+        "What were his early life and family like?",
+        "Summarize Paul's rabbinic leadership in the US.",
+        "Tell me about his time living in Israel.",
+        "What did he write about the community center in 1986?",
+        "Living in a Jewish State.",
+        "What are the highlights of Paul's master career timeline?"
+    ]
+
+    # Try to load from JSON file if available
+    try:
+        topics_path = os.path.join(config.DATA_PATH, "content_topics.json")
+        if os.path.exists(topics_path):
+            with open(topics_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            if isinstance(data, list):
+                # Coerce all to strings
+                return [str(item) for item in data if item is not None]
+    except Exception as e:
+        print(f"Failed to load content topics JSON: {e}")
+
+    return curated_topics
 
 @app.get("/healthz")
 def healthz():

@@ -8,7 +8,10 @@ import About from "./About";
 
 import Gallery from "./Gallery";
 
+import ContentPage from "./Content"; // Import the new Content page
+
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const PAGES = {
     
@@ -39,6 +42,17 @@ function _getCurrentPage(url) {
 function PagesContent() {
     const location = useLocation();
     const currentPage = _getCurrentPage(location.pathname);
+
+    // Send pageview to Vercel Analytics on every route change
+    useEffect(() => {
+        try {
+            if (window.va) {
+                window.va('pageview');
+            }
+        } catch (e) {
+            // no-op in non-browser contexts
+        }
+    }, [location.pathname, location.search]);
     
     return (
         <Layout currentPageName={currentPage}>
@@ -54,6 +68,8 @@ function PagesContent() {
                 <Route path="/About" element={<About />} />
                 
                 <Route path="/Gallery" element={<Gallery />} />
+                
+                <Route path="/Content" element={<ContentPage />} /> {/* Add the route for the new page */}
                 
             </Routes>
         </Layout>
