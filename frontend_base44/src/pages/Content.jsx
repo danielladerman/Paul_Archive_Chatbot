@@ -63,7 +63,7 @@ export default function ContentPage() {
           setTopics(DEFAULT_TOPICS);
           return;
         }
-        const response = await fetch(`${baseUrl}/content`);
+        const response = await fetch(`${baseUrl}/content?mode=titles`);
         if (response.ok) {
           const data = await response.json();
           const rawItems = Array.isArray(data)

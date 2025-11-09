@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import os
 import json
+import re
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import date
@@ -11,6 +12,8 @@ from sqlalchemy import delete
 from src.chatbot import PaulChatbot
 from src import config
 from src.database import get_db, init_db, ChatHistory, TimelineEvent as DBTimelineEvent, GalleryImage as DBGalleryImage
+from fastapi import Query
+from src.data_processing import load_documents
 
 # --- Security ---
 API_SECRET_KEY = os.getenv("API_SECRET_KEY") or os.getenv("X_API_KEY")
@@ -85,11 +88,31 @@ def get_suggestions():
         ]
 
 @app.get("/content", response_model=List[str])
-def get_content_topics():
+def get_content_topics(mode: str = Query("curated")):
     """
-    Returns a static, curated list of question suggestions for the content page.
-    If data/content_topics.json exists, load topics from there to allow easy edits without code changes.
+    Returns content topics.
+    - mode=curated (default): curated list / JSON file fallback
+    - mode=titles: derive topics from document titles (+ first year if present)
     """
+    if mode == "titles":
+        try:
+            docs = load_documents() or []
+            items: List[str] = []
+            for d in docs:
+                meta = d.metadata or {}
+                title = meta.get("title") or "Untitled Document"
+                year_match = re.search(r"\b(19|20)\d{2}\b", d.page_content or "")
+                year = f" ({year_match.group(0)})" if year_match else ""
+                items.append(f"{title}{year}")
+            # de-duplicate while preserving order
+            seen = set()
+            items = [t for t in items if not (t in seen or seen.add(t))]
+            return items
+        except Exception as e:
+            print(f"Failed to build titles content: {e}")
+            # fall through to curated
+
+    # curated mode (existing behavior)
     curated_topics = [
         "Tell me about Paul's childhood in Denver.",
         "What was Paul's family ancestry and origin?",
@@ -150,7 +173,6 @@ def get_content_topics():
             with open(topics_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
             if isinstance(data, list):
-                # Coerce all to strings
                 return [str(item) for item in data if item is not None]
     except Exception as e:
         print(f"Failed to load content topics JSON: {e}")

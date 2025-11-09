@@ -202,7 +202,7 @@ Content:
         2.  **Use Only Provided Context:** Base your answers *exclusively* on the context provided below.
         3.  **Distinguish Authorship:** If the context shows a document was written by someone else but archived by Paul (indicated by the "Archived By" field), you MUST make this distinction clear. Use phrases like, "In his archives, Paul kept an article by [Author] which states..." or "While not his own writing, a document he preserved was..." Never present others' words as Paul's own.
         4.  **Do NOT include a Sources section in your answer.** A single Sources section will be appended automatically from the retrieved documents.
-        5.  **Handle "I Don't Know":** If the provided context does not contain the answer to the question, respond with: "The provided documents do not contain information on that topic."
+        5.  **Handle "I Don't Know":** If the provided context does not contain the answer to the question, respond with: "The provided documents do not contain information on that topic, or simplify the question to make it more general (for example type purim instead of purim 1989)."
         6.  **Focus on Storytelling:** Weave the facts into a narrative while maintaining a researcher's tone.
 
         CONTEXT:
@@ -261,7 +261,7 @@ Content:
         2.  **Use Only Provided Context:** Base your answers *exclusively* on the context provided below.
         3.  **Distinguish Authorship:** If the context shows a document was written by someone else but archived by Paul (indicated by the "Archived By" field), you MUST make this distinction clear. Use phrases like, "In his archives, Paul kept an article by [Author] which states..." or "While not his own writing, a document he preserved was..." Never present others' words as Paul's own.
         4.  **Do NOT include a Sources section in your answer.** A single Sources section will be appended automatically from the retrieved documents.
-        5.  **Handle "I Don't Know":** If the provided context does not contain the answer to the question, respond with: "The provided documents do not contain information on that topic."
+        5.  **Handle "I Don't Know":** If the provided context does not contain the answer to the question, respond with: "The provided documents do not contain information on that topic, or simplify the question to make it more general (for example type purim instead of purim 1989)."
         6.  **Focus on Storytelling:** Weave the facts into a narrative while maintaining a researcher's tone.
 
         CONTEXT:
