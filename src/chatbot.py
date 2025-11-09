@@ -1,11 +1,10 @@
-import gradio as gr
+import re
+import random
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.schema.runnable import RunnablePassthrough, RunnableLambda
 from langchain.schema.output_parser import StrOutputParser
-import re
-import random
 from src.data_processing import load_documents
 
 from src import config
@@ -296,6 +295,7 @@ Content:
 def launch_app():
     """Launches the Gradio web interface for the chatbot."""
     try:
+        import gradio as gr  # Lazy import so server environments without gradio won't fail
         chatbot = PaulChatbot()
         
         def handle_chat_submission(message, history):
@@ -337,12 +337,16 @@ def launch_app():
         print("Launching new Gradio interface...")
         demo.launch(share=True)
         
-    except ValueError as e:
+    except Exception as e:
         print(f"Error launching app: {e}")
-        # Display a Gradio interface with the error message
-        with gr.Blocks() as demo:
-            gr.Markdown(f"# Error\n\nCould not start the chatbot. Please check the console for details.\n\n**Details:** {e}")
-        demo.launch()
+        # Attempt to show a simple error page if gradio is available
+        try:
+            import gradio as gr
+            with gr.Blocks() as demo:
+                gr.Markdown(f"# Error\n\nCould not start the chatbot. Please check the console for details.\n\n**Details:** {e}")
+            demo.launch()
+        except Exception:
+            pass
 
 
 if __name__ == "__main__":
