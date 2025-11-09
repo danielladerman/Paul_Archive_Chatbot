@@ -36,8 +36,8 @@ export default function ChatPage() {
       const asString = typeof prefilled === "string" ? prefilled : String(prefilled ?? "");
       prefilledSentRef.current = true;
       setInputMessage(asString);
-      // Auto-send the message immediately
-      handleSendMessage(asString);
+      // Auto-send the message immediately without focusing the input (prevents scroll jump)
+      handleSendMessage(asString, { skipFocus: true });
     }
   }, [location.state]);
 
@@ -67,7 +67,8 @@ export default function ChatPage() {
     setMessages((prev) => (prev.length ? prev : [welcome]));
   }, []);
 
-  const handleSendMessage = async (messageOverride) => {
+  const handleSendMessage = async (messageOverride, options = {}) => {
+    const { skipFocus = false } = options;
     const text = typeof messageOverride === "string"
       ? messageOverride
       : (typeof inputMessage === "string" ? inputMessage : String(inputMessage ?? ""));
@@ -114,7 +115,9 @@ export default function ChatPage() {
     }
 
     setIsLoading(false);
-    inputRef.current?.focus();
+    if (!skipFocus) {
+      inputRef.current?.focus();
+    }
   };
 
   const handleKeyPress = (e) => {
