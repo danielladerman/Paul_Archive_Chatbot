@@ -41,6 +41,15 @@ export default function ContentPage() {
     s = s.replace(/^(What\s+(?:was|were|is|are|did)\s+)/i, "");
     s = s.replace(/^(Describe|Explain)\s+/i, "");
     s = s.replace(/\?+$/g, "");
+    // Remove duplicate trailing year if it already appears in the base text
+    const m = s.match(/^(.*)\s\((\d{4})\)$/);
+    if (m) {
+      const base = m[1];
+      const yr = m[2];
+      if (new RegExp(`\\b${yr}\\b`).test(base)) {
+        s = base; // drop the trailing duplicate (YYYY)
+      }
+    }
     if (!s) return "";
     return s.charAt(0).toUpperCase() + s.slice(1);
   }
