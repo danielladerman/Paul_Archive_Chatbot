@@ -92,7 +92,7 @@ def get_content_topics(mode: str = Query("curated")):
     """
     Returns content topics.
     - mode=curated (default): curated list / JSON file fallback
-    - mode=titles: derive topics from document titles (+ first year if present)
+    - mode=titles: derive topics from document titles only (no year)
     """
     if mode == "titles":
         try:
@@ -101,9 +101,7 @@ def get_content_topics(mode: str = Query("curated")):
             for d in docs:
                 meta = d.metadata or {}
                 title = meta.get("title") or "Untitled Document"
-                year_match = re.search(r"\b(19|20)\d{2}\b", d.page_content or "")
-                year = f" ({year_match.group(0)})" if year_match else ""
-                items.append(f"{title}{year}")
+                items.append(title)
             # de-duplicate while preserving order
             seen = set()
             items = [t for t in items if not (t in seen or seen.add(t))]
