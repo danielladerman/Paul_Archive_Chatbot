@@ -3,7 +3,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/lib/utils/index.js";
-import { MessageCircle, Clock, Image, User, BookOpen } from "lucide-react";
+import { MessageCircle, Image, User, BookOpen, Users, Sparkles } from "lucide-react";
 import { appendZl } from "@/lib/utils/index.js";
 
 export default function Layout({ children, currentPageName }) {
@@ -11,8 +11,8 @@ export default function Layout({ children, currentPageName }) {
 
   const navigationItems = [
     { name: "Chat", url: createPageUrl("Chat"), icon: MessageCircle },
-    { name: "Content", url: createPageUrl("Content"), icon: BookOpen },
-    { name: "Timeline", url: createPageUrl("Timeline"), icon: Clock },
+    { name: "People", url: createPageUrl("Content"), icon: Users },
+    { name: "Topics", url: createPageUrl("Timeline"), icon: Sparkles },
     { name: "Gallery", url: createPageUrl("Gallery"), icon: Image },
     { name: "About", url: createPageUrl("About"), icon: User }
   ];

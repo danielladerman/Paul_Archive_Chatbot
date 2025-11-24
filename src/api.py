@@ -93,14 +93,45 @@ def get_content_topics(mode: str = Query("curated")):
     Returns content topics.
     - mode=curated (default): curated list / JSON file fallback
     - mode=titles: derive topics from document titles only (no year)
+    - mode=overrides: return titles exactly as defined in data/title_overrides.json
     """
+    # Strictly return the override titles as-is
+    if mode == "overrides":
+        try:
+            overrides_path = os.path.join(config.DATA_PATH, "title_overrides.json")
+            if os.path.exists(overrides_path):
+                with open(overrides_path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                if isinstance(data, dict):
+                    # Preserve insertion order of JSON mapping values (Python 3.7+ preserves order)
+                    return [str(v) for v in data.values() if v is not None]
+        except Exception as e:
+            print(f"Failed to load override titles: {e}")
+        # Fallback to titles mode on error
+        mode = "titles"
+
     if mode == "titles":
         try:
             docs = load_documents() or []
+            # Optional: allow overriding titles by source filename via JSON mapping
+            overrides = {}
+            try:
+                overrides_path = os.path.join(config.DATA_PATH, "title_overrides.json")
+                if os.path.exists(overrides_path):
+                    with open(overrides_path, "r", encoding="utf-8") as f:
+                        raw = json.load(f)
+                        if isinstance(raw, dict):
+                            overrides = {str(k): str(v) for k, v in raw.items() if v is not None}
+            except Exception as e:
+                print(f"Failed to load title overrides: {e}")
             items: List[str] = []
             for d in docs:
                 meta = d.metadata or {}
-                title = meta.get("title") or "Untitled Document"
+                # Prefer explicit override by source filename when available
+                src = meta.get("source")
+                src_base = os.path.basename(src) if isinstance(src, str) else ""
+                override_title = overrides.get(src_base)
+                title = override_title or meta.get("title") or "Untitled Document"
                 items.append(title)
             # de-duplicate while preserving order
             seen = set()
@@ -176,6 +207,61 @@ def get_content_topics(mode: str = Query("curated")):
         print(f"Failed to load content topics JSON: {e}")
 
     return curated_topics
+
+
+@app.get("/people")
+def get_people():
+    """
+    Returns a structured list of people and communities derived from data/people.md.
+    Each entry has:
+    - name: the bolded name
+    - description: the text after the dash
+    - category: the nearest preceding '##' heading
+    """
+    people_path = os.path.join(config.DATA_PATH, "people.md")
+    if not os.path.exists(people_path):
+        return []
+
+    entries: List[dict] = []
+    current_category: Optional[str] = None
+
+    try:
+        with open(people_path, "r", encoding="utf-8") as f:
+            for raw_line in f:
+                stripped = raw_line.rstrip("\n").strip()
+
+                if stripped.startswith("## "):
+                    current_category = stripped[3:].strip()
+                    continue
+
+                if stripped.startswith("- **"):
+                    # Robust parse of "- **Name** – description" with any dash / spacing variations.
+                    # 1) grab the name between the first pair of ** **.
+                    try:
+                        start = stripped.index("**") + 2
+                        end = stripped.index("**", start)
+                    except ValueError:
+                        continue
+                    name = stripped[start:end].strip()
+                    # 2) everything after the closing ** is treated as description; trim leading dashes.
+                    remainder = stripped[end + 2 :].lstrip()
+                    # remove leading dash/en‑dash/em‑dash plus spaces if present
+                    remainder = re.sub(r"^[\-–—]\s*", "", remainder)
+                    description = remainder.strip()
+                    # Strip any inline Markdown bold markers like **Name** inside the description
+                    description = re.sub(r"\*\*(.+?)\*\*", r"\1", description)
+                    entries.append(
+                        {
+                            "name": name,
+                            "description": description,
+                            "category": current_category or "",
+                        }
+                    )
+    except Exception as e:
+        print(f"Failed to parse people.md: {e}")
+        return []
+
+    return entries
 
 @app.get("/healthz")
 def healthz():

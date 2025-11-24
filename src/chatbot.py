@@ -220,9 +220,10 @@ Content:
         # Remove any accidental Sources section added by the model
         clean_answer = self._strip_sources(answer)
 
-        # 4) Deterministically append sources from metadata
+        # 4) Deterministically append sources from metadata, de-duplicating identical title/link pairs
         def _format_sources(docs_list):
             items = []
+            seen = set()
             for d in docs_list:
                 m = d.metadata or {}
                 title = m.get("title", "Untitled Document")
@@ -230,8 +231,13 @@ Content:
                 if not isinstance(links, list):
                     links = [str(links)]
                 for idx, link in enumerate(links, 1):
-                    if link:
-                        items.append(f"- [{title} - Source {idx}]({link})")
+                    if not link:
+                        continue
+                    key = (title, link)
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    items.append(f"- [{title} - Source {idx}]({link})")
             return "\n".join(items) if items else "- No link available"
 
         sources = _format_sources(docs)
@@ -277,8 +283,9 @@ Content:
         answer_text = (prompt | self.llm | StrOutputParser()).invoke({"context": context, "question": question})
         clean_answer = self._strip_sources(answer_text)
 
-        # Structured sources
+        # Structured sources (deduplicated by title + link)
         structured_sources = []
+        seen = set()
         for d in docs:
             m = d.metadata or {}
             title = m.get("title", "Untitled Document")
@@ -286,8 +293,13 @@ Content:
             if not isinstance(links, list):
                 links = [str(links)]
             for link in links:
-                if link:
-                    structured_sources.append({"title": title, "link": link})
+                if not link:
+                    continue
+                key = (title, link)
+                if key in seen:
+                    continue
+                seen.add(key)
+                structured_sources.append({"title": title, "link": link})
 
         return {"answer": clean_answer, "sources": structured_sources}
 

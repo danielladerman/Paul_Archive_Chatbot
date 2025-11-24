@@ -1,139 +1,130 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-const DEFAULT_TOPICS = [
-  "Tell me about Paul's childhood in Denver.",
-  "What was Paul's family ancestry and origin?",
-  "Describe Paul's early rabbinic career in the USA.",
-  "What was Paul's role as a USAF Chaplain?",
-  "Tell me about Paul's travels in Europe in 1948-1949.",
-  "What are Paul's reflections on Halachah and homosexuality?",
-  "Explain the correspondence between Paul and Lamm on homosexuality.",
-  "What was Paul's involvement with the Open Hillel at Berkeley in 1971?",
-  "Describe Paul's work with community centers in 1983.",
-  "Tell me about the story of the lost pocket knife."
-];
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Loader2 } from "lucide-react";
 
 export default function ContentPage() {
-  const [topics, setTopics] = useState([]);
+  const [people, setPeople] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
-
-  function toTopicString(item) {
-    if (typeof item === "string") return item;
-    if (!item) return "";
-    if (typeof item.title === "string") return item.title;
-    if (typeof item.question === "string") return item.question;
-    try {
-      return String(item);
-    } catch {
-      return "";
-    }
-  }
-
-  // Normalize for display (topic-style)
-  function toDisplayLabel(raw) {
-    let s = toTopicString(raw).trim();
-    s = s.replace(/^Tell me about\s+/i, "");
-    s = s.replace(/^(What\s+(?:was|were|is|are|did)\s+)/i, "");
-    s = s.replace(/^(Describe|Explain)\s+/i, "");
-    s = s.replace(/\?+$/g, "");
-    // Remove duplicate trailing year if it already appears in the base text
-    const m = s.match(/^(.*)\s\((\d{4})\)$/);
-    if (m) {
-      const base = m[1];
-      const yr = m[2];
-      if (new RegExp(`\\b${yr}\\b`).test(base)) {
-        s = base; // drop the trailing duplicate (YYYY)
-      }
-    }
-    if (!s) return "";
-    return s.charAt(0).toUpperCase() + s.slice(1);
-  }
-
-  // Build the question we actually send when clicked
-  function toSendQuestion(raw) {
-    const original = toTopicString(raw).trim();
-    if (!original) return "";
-    if (/\?$/.test(original) || /^Tell me about\s+/i.test(original)) return original;
-    const display = toDisplayLabel(original);
-    return `Tell me about ${display}`;
-  }
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    const fetchTopics = async () => {
+    const fetchPeople = async () => {
       setIsLoading(true);
       try {
         const baseUrl = import.meta.env.VITE_API_BASE;
         if (!baseUrl) {
-          setTopics(DEFAULT_TOPICS);
+          setPeople([]);
           return;
         }
-        const response = await fetch(`${baseUrl}/content?mode=titles`);
+        const response = await fetch(`${baseUrl}/people`);
         if (response.ok) {
           const data = await response.json();
-          const rawItems = Array.isArray(data)
-            ? data
-            : Array.isArray(data?.topics)
-              ? data.topics
-              : [];
-          const normalized = rawItems.map(toTopicString).filter(Boolean);
-          setTopics(normalized.length ? normalized : DEFAULT_TOPICS);
+          setPeople(Array.isArray(data) ? data : []);
         } else {
-          setTopics(DEFAULT_TOPICS);
+          setPeople([]);
         }
       } catch (error) {
-        console.error("Error fetching topics:", error);
-        setTopics(DEFAULT_TOPICS);
+        console.error("Error fetching people:", error);
+        setPeople([]);
       }
       setIsLoading(false);
     };
 
-    fetchTopics();
+    fetchPeople();
   }, []);
 
-  const handleTopicClick = (topicStr) => {
-    const question = toSendQuestion(topicStr);
-    // Ensure the viewport is at the top before navigating to Chat
-    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch {}
-    navigate("/", { state: { prefilledQuery: question } });
-  };
+  const filteredBySearch = useMemo(() => {
+    const rawQuery = search.trim().toLowerCase();
+    if (!rawQuery) return people;
+
+    // Normalize by removing accents so searches are more forgiving
+    const normalize = (value) =>
+      (value || "")
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+    const query = normalize(rawQuery);
+    const tokens = query.split(/\s+/).filter(Boolean);
+    if (tokens.length === 0) return people;
+
+    return people.filter((person) => {
+      const haystack = normalize(
+        `${person.name ?? ""} ${person.description ?? ""} ${person.category ?? ""}`
+      );
+      // Require every token from the search box to appear somewhere,
+      // even if the words are not adjacent (e.g. "yonatan laderman").
+      return tokens.every((token) => haystack.includes(token));
+    });
+  }, [people, search]);
+
+  const groupedByCategory = useMemo(() => {
+    const groups = new Map();
+    for (const person of filteredBySearch) {
+      const key = person.category || "Other";
+      if (!groups.has(key)) {
+        groups.set(key, []);
+      }
+      groups.get(key).push(person);
+    }
+    return Array.from(groups.entries()).sort(([a], [b]) => a.localeCompare(b));
+  }, [filteredBySearch]);
 
   return (
     <div className="max-w-4xl mx-auto">
       <Card>
         <CardHeader>
-          <CardTitle>Explore Content</CardTitle>
+          <CardTitle>People Glossary</CardTitle>
           <p className="text-slate-600">
-            Discover interesting questions and topics to ask the AI about Paul's life, generated from his writings.
+            A curated glossary of family, friends, mentors, and communities connected to Rabbi Paul S. Laderman Z&quot;L.
           </p>
+          <div className="mt-4">
+            <Input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search by name, relationship, or place…"
+              className="w-full"
+            />
+          </div>
         </CardHeader>
         <CardContent>
           {isLoading ? (
             <div className="flex justify-center items-center h-40">
               <Loader2 className="w-8 h-8 animate-spin text-slate-500" />
-              <p className="ml-2 text-slate-600">Loading topics...</p>
+              <p className="ml-2 text-slate-600">Loading people…</p>
             </div>
+          ) : groupedByCategory.length === 0 ? (
+            <p className="text-slate-500 text-sm">No people found.</p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-              {topics.map((topic, index) => {
-                const label = toDisplayLabel(topic);
-                return (
-                  <Button
-                    key={index}
-                    variant="outline"
-                    title={label}
-                    aria-label={label}
-                    className="w-full text-left justify-start h-auto min-h-[44px] py-2 px-3 whitespace-normal break-words leading-snug text-sm"
-                    onClick={() => handleTopicClick(topic)}
-                  >
-                    {label}
-                  </Button>
-                );
-              })}
+            <div className="space-y-6">
+              {groupedByCategory.map(([category, entries]) => (
+                <section key={category}>
+                  <div className="flex items-center justify-between mb-2">
+                    <h2 className="text-lg font-semibold text-slate-800">{category}</h2>
+                    <Badge variant="outline" className="text-xs">
+                      {entries.length} {entries.length === 1 ? "entry" : "entries"}
+                    </Badge>
+                  </div>
+                  <div className="space-y-3">
+                    {entries.map((person, idx) => (
+                      <div
+                        key={`${category}-${idx}-${person.name}`}
+                        className="paul-card rounded-lg p-3 border border-amber-200/60"
+                      >
+                        <div className="font-medium text-slate-900">{person.name}</div>
+                        {person.description && (
+                          <p className="text-sm text-slate-700 mt-1 whitespace-pre-line">
+                            {person.description}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ))}
             </div>
           )}
         </CardContent>
