@@ -89,6 +89,10 @@ python3 -m venv venv
 source venv/bin/activate
 # On Windows, use: .\venv\Scripts\activate
 ```
+If you already have a virtual environment such as `.dev_venv` in this folder, you can activate it instead:
+```bash
+source .dev_venv/bin/activate
+```
 
 ### 3. Install Dependencies
 
@@ -149,7 +153,12 @@ You will need to run two processes in separate terminals.
 
 **Terminal 1: Start the Backend API**
 ```bash
-uvicorn src.api:app --host 127.0.0.1 --port 7860 --reload
+# From the project root
+# Make sure your virtual environment is activated first, for example:
+#   source venv/bin/activate
+#   # or, if you are using the dev environment:
+#   source .dev_venv/bin/activate
+python -m uvicorn src.api:app --host 127.0.0.1 --port 7860 --reload
 ```
 The API will be available at `http://127.0.0.1:7860`.
 
@@ -158,7 +167,7 @@ The API will be available at `http://127.0.0.1:7860`.
 cd frontend_base44
 VITE_API_BASE=http://127.0.0.1:7860 VITE_API_KEY=<Your_X_API_KEY> npm run dev
 ```
-Replace `<Your_X_API_KEY>` with the secret key you set in your `.env` file. The application will be available at `http://localhost:5173` (or the next available port).
+Replace `<Your_X_API_KEY>` with the secret key you set in your `.env` file. The application will be available at `http://localhost:5173` (or, if that port is in use, Vite will automatically choose the next available port such as `http://localhost:5174`—check the terminal output for the exact URL).
 
 ## ☁️ Deployment
 

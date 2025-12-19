@@ -3,6 +3,7 @@ import Layout from "./Layout.jsx";
 import Chat from "./Chat";
 
 import Timeline from "./Timeline";
+import LifeTimeline from "./LifeTimeline";
 
 import About from "./About";
 
@@ -14,16 +15,12 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import { useEffect } from 'react';
 
 const PAGES = {
-    
-    Chat: Chat,
-    
-    Timeline: Timeline,
-    
     About: About,
-    
+    Chat: Chat,
+    Timeline: Timeline,
+    LifeTimeline: LifeTimeline,
     Gallery: Gallery,
-    
-}
+};
 
 function _getCurrentPage(url) {
     if (url.endsWith('/')) {
@@ -56,21 +53,17 @@ function PagesContent() {
     
     return (
         <Layout currentPageName={currentPage}>
-            <Routes>            
-                
-                    <Route path="/" element={<Chat />} />
-                
-                
+            <Routes>
+                {/* Default landing route goes to About */}
+                <Route path="/" element={<About />} />
+
+                {/* Explicit routes for each page */}
                 <Route path="/Chat" element={<Chat />} />
-                
                 <Route path="/Timeline" element={<Timeline />} />
-                
+                <Route path="/LifeTimeline" element={<LifeTimeline />} />
                 <Route path="/About" element={<About />} />
-                
                 <Route path="/Gallery" element={<Gallery />} />
-                
                 <Route path="/Content" element={<ContentPage />} /> {/* Add the route for the new page */}
-                
             </Routes>
         </Layout>
     );

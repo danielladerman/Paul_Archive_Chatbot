@@ -10,11 +10,12 @@ export default function Layout({ children, currentPageName }) {
   const location = useLocation();
 
   const navigationItems = [
+    { name: "About", url: createPageUrl("About"), icon: User },
     { name: "Chat", url: createPageUrl("Chat"), icon: MessageCircle },
     { name: "People", url: createPageUrl("Content"), icon: Users },
     { name: "Topics", url: createPageUrl("Timeline"), icon: Sparkles },
-    { name: "Gallery", url: createPageUrl("Gallery"), icon: Image },
-    { name: "About", url: createPageUrl("About"), icon: User }
+    { name: "Life Timeline", url: createPageUrl("LifeTimeline"), icon: BookOpen },
+    { name: "Gallery", url: createPageUrl("Gallery"), icon: Image }
   ];
 
 

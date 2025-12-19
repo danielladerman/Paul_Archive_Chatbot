@@ -141,7 +141,7 @@ export default function TimelinePage() {
     const q = toSendQuestion(typeof raw === "string" ? raw : getDisplay(raw));
     if (!q) return;
     try { window.scrollTo({ top: 0, behavior: "smooth" }); } catch {}
-    navigate("/", { state: { prefilledQuery: q } });
+    navigate("/Chat", { state: { prefilledQuery: q } });
   };
 
   const toggleExpandedCat = (key) => {
@@ -169,10 +169,10 @@ export default function TimelinePage() {
       >
         <div className="paul-card rounded-2xl p-6 md:p-8 paul-glow">
           <h1 className="text-3xl font-light paul-text-gradient mb-4">
-            {appendZl("Paul's Life & Times")}
+            {appendZl("Rabbi Paul's Life & Times")}
           </h1>
           <p className="text-slate-600 leading-relaxed max-w-2xl mx-auto text-sm md:text-base">
-            {appendZl("Explore Paul’s personal milestones alongside broader historical currents. Tap any topic to ask the AI.")}
+            {appendZl("Explore Rabbi Paul’s personal milestones alongside broader historical currents. Tap any topic to ask the AI.")}
           </p>
         </div>
       </motion.div>
@@ -308,7 +308,7 @@ export default function TimelinePage() {
                 <div className="flex-1">
                   <CardTitle className="text-xl font-medium paul-text-gradient">Historical Touchpoints</CardTitle>
                   <p className="text-slate-600 mt-1">
-                    Broader events and movements that frame Paul’s era. Tap to ask the AI.
+                    Broader events and movements that frame Rabbi Paul’s era.
                   </p>
                 </div>
                 {expandedCats.has("HIST") ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}

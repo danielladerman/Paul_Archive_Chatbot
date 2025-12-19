@@ -226,40 +226,53 @@ export default function ChatPage() {
 
           <div ref={messagesEndRef} />
 
-          <div className="mt-4 pt-3 border-t border-amber-200">
-            <div className="flex gap-2 md:gap-3">
-              <Input
-                ref={inputRef}
-                value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Ask a question..."
-                className="flex-1 border-amber-200 focus:border-amber-400 text-base md:text-lg py-3 md:py-6"
-                disabled={isLoading}
-              />
-              <Button
-                onClick={() => handleSendMessage()}
-                disabled={!(typeof inputMessage === "string" ? inputMessage.trim() : String(inputMessage ?? "").trim()) || isLoading}
-                className="paul-gradient hover:opacity-90 px-4 md:px-6 py-3 md:py-6"
-              >
-                <Send className="w-5 h-5" />
-              </Button>
+          <div className="mt-4 pt-4 border-t border-amber-200">
+            <div className="bg-amber-50 border border-amber-500 rounded-xl px-3 md:px-4 pb-4 pt-3 shadow-sm">
+              <p className="text-sm md:text-base font-semibold text-slate-800 mb-2 text-center">
+                Ask a question about Rabbi Paul Z"L here
+              </p>
+
+              <div className="flex gap-2 md:gap-3">
+                <Input
+                  ref={inputRef}
+                  value={inputMessage}
+                  onChange={(e) => setInputMessage(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Type your question here, then press Enter or click Send"
+                  className="flex-1 border-2 border-amber-500 focus:border-amber-600 focus:ring-amber-500 text-base md:text-lg py-3 md:py-5 bg-white"
+                  disabled={isLoading}
+                />
+                <Button
+                  onClick={() => handleSendMessage()}
+                  disabled={
+                    !(typeof inputMessage === "string" ? inputMessage.trim() : String(inputMessage ?? "").trim()) ||
+                    isLoading
+                  }
+                  className="paul-gradient hover:opacity-90 px-4 md:px-6 py-3 md:py-5 flex items-center gap-2 text-base font-semibold"
+                >
+                  <Send className="w-5 h-5" />
+                  <span>Send</span>
+                </Button>
+              </div>
+
+              <p className="text-xs md:text-sm text-slate-700 mt-2 text-center">
+                You can type in your own words. For example: &quot;Tell me about his time in Berkeley&quot; or &quot;Who was Paul Z"L?&quot;
+              </p>
             </div>
 
             <div className="flex flex-wrap gap-2 mt-3 md:mt-4">
               {suggestions.map((suggestion, index) => (
-                  <Button
-                    key={index}
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleSendMessage(suggestion)}
-                    disabled={isLoading}
-                    className="text-xs hover:bg-amber-50 border-amber-200 px-2 py-1 md:px-3"
-                  >
-                    {suggestion.replace("Tell me about ", "")}
-                  </Button>
-                )
-              )}
+                <Button
+                  key={index}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleSendMessage(suggestion)}
+                  disabled={isLoading}
+                  className="text-xs hover:bg-amber-50 border-amber-200 px-2 py-1 md:px-3"
+                >
+                  {suggestion.replace("Tell me about ", "")}
+                </Button>
+              ))}
             </div>
           </div>
         </div>

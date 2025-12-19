@@ -19,46 +19,31 @@ Each entry keeps the details from the original tribute document, emphasizing how
 
 ## Immediate Family
 
-- **Bess Laderman** – Paul's mother, from the Malin family of Kansas City. Born in Russia, she fled with her mother and younger sister on a 10‑year journey through Europe and Cuba (two years there) before arriving in the USA. She founded the Denver Symphony and spearheaded the Denver–Carmiel Israel Sister City program.
-- **Rabbi Manual (Manny) Laderman** – Paul's father, born in New York City. Became Denver's first modern Orthodox rabbi in 1932 and was an active interfaith leader in Denver, Colorado, serving as head of the Denver Health Board.
+- **Bess Laderman** – Paul's mother, Bess Malin before marrying Rabbi Manual Laderman was born Russia April 2, 1911, came to America 1923 at age 12, finished elementary school in 3 years, high school in 2 years the Malin family of Kansas City,, with her mother Leiba Llibby) Malin and her  younger sister fled Russia on a journey through Europe and Cuba (2 years)  that took 10 years to arrive to the USA. alongside Rabbi Manual Laderman she was a Pilar of the Hebrew Alliance Congregation,  Rabbi Manuel Laderman’s pulpit for over 57 years and  also to the broader Denver Community m community as she founded the Denver Symphony and spearheaded the Denver and Carmiel  Israel Sister City program Denver.
+- **Rabbi Manual (Manny) Laderman** – Paul's father, born in New York City, became Denver's first modern Orthodox Rabbi in 1932 at the Hebrew Alliance Congregation,  Rabbi Manuel Laderman’s pulpit for over 57 years that was founded withhis arrival to Denver to meet the founders of this new synagogue, An active interfaith leader in Denver Colorada and the head of the Denver Health Board. Paul after his father passed away in 1989 he curated many of the sermons and teachings and published in his father’s memory  a book titled; “Letters of Faith” by Rabbi Manuel Laderman, which includes 35 such letters, including a Letter published in a National magazine; “A Love Letter to My Congregation”. Paul also wrote the preface to the Book.
 - **Paul Laderman** – Born August 23, 1934 at 6 pounds 9 ounces, premature and sickly; he received blood transfusions at 10 months old.
-- **Mierle (Miry) Laderman Ukeles** – Paul's sister, born September 25, 1939 (when Paul was 5) in Denver, weighing 9 pounds 3 ounces. Five years younger than Paul, she became a world‑renowned artist who created "Maintenance Art," triggered by her 1969 Manifesto. She married Dr. Jack Ukeles in 1965 and they have three children: Yael, Raquel (Raqi), and Meir.
-  - **Yael Ukeles** – Paul's niece, daughter of Miry; she has two sons, **Amitai** and **Adir**.
-  - **Raquel (Raqi) Ukeles** – Paul's niece; married **Marc Grossman**. They have three children: **Eitan**, **Rebecca**, and **Shai**.
-  - **Meir Ukeles** – Paul's nephew; married **Pamela**, and they have three children: **Yadin**, **Sophia**, and **Amalia**.
-- **Shula Jackson Laderman** – Paul's wife of over 55 years. Born in Jerusalem in 1940. She met Paul on a blind date in Times Square, New York, in 1958. Shula worked as a teacher and computer programmer, then began a career in art history at age 40, earned her PhD, and continues to publish and teach comparative art history.
-- **Zev Laderman** – Paul's eldest son, born in Denver, Colorado, in 1961. Married to Noga in 1993. They have two sons (Yonatan and Daniel).
-- **Noga Eshban Laderman** - Married to Zev in 1993. They have two sons: Yonatan, and Daniel.
-- **Yonatan Manual Laderman** - born 2000 in Tel Aviv, Israel. 
-- **Daniel B. Laderman** - born 2002 in Jerusalem.
-- **Ilana Laderman Mushkin** – Paul's daughter, born in Denver, Colorado, in 1962. Married **Zachi Mushkin** in 1988.
-  - **Keren Mushkin** – Paul's granddaughter, born 1990; married **Doron Kuperman**, and they have two children, **Meshy** and **Itai**.
-  - **Eitan Mushkin** – Paul's grandson, born 1993; married **Gabi Beygel**, and they have a child **Keshet**.
-  - **Shimri Mushkin** – Paul's granddaughter; married **Matan Gal**.
-  - **Roie Mushkin** – Shimri’s twin brother, born in 1997, also Paul's grandson.
-- **Rafael (Rafi) Laderman** – Paul's youngest son, born in Oakland, California, in August 1965. Married **Chani Shumer** in 2005.
-  - **Mayan Laderman** – Rafi’s daughter (mother: **Liat**, Rafi’s first wife), born 1997; to marry **Dan Freinlander** in December 2025.
-  - **Milka** – Chani’s daughter (father: **Dudy**, Chani’s first husband), born 1997; married **Harel**, with two children **Hadar** and **Baeri**.
-  - **Elkana Shumer** – Son of Dudy and Chani, born 2000; married **Noa**, with a child **Arbel**.
-  - **Avia** – Child in Rafi and Chani’s blended family, born 2006.
-  - **Orie** – Youngest child in Rafi and Chani’s blended family, born 2011.
+- **Shula Jackson Laderman** – Born in Jerusalem in 1940, Paul's wife of over 55 years, met on blind date in Times Square New York in 1958, A teacher, computer programmer, began a  career in Art History at the age of 40,  received her PhD and continues to publish and teach comparative art history.
+- **Zev Laderman** – Paul's eldest son, born in Denver Colorado in 1961, Married to Noga Eshban Laderman in 1993, two sons Yonatan Manual Laderman born in 2000 in Tel Aviv Israel, Daniel B Laderman born in Jerusalem 2002.
+- **Ilana Laderman Mushkin** – Paul's daughter born in Denver Colorado in 1962, married to Zachi Mushkin in 1988,  Keren Mushkin – born in 1990 married to Doron Kuperman has two children Meshy and Itai , Eitan Mushkin born in 1993 married to Gabi Beygel and have a child Keshet, Shimri Muskin married Matan Gal and her twin borther Roie Mushkin both born in 1997.
+- **Rafael (Rafi) Laderman** – Paul's youngest son, born in Oakland California in August 1965, married to Chani Shumer in 2005, their children include Mayan Laderman born in 1997 (her mother Liat. Rafi’s first wife) will  marry Dan Freinlander in December 2025, Milka born in 1997 (her father Dudy Chani’s first husband) married to Harel with two children Hadar and Baeri Elkana Shumer born in 2000 ( Dudy Chani’s first husband) married to Noa with a child Arbel , Avia born in 2006, Orie born in 2011.
+- **Mierle (Miry) Laderman Ukeles** – Paul's sister, born September 25, 1939 (when Paul was 5), weighed 9 pounds 3 ounces, Born in Denver 1939, 5 years younger than him, a world renowned artist who Created Maintenance Art triggered by her Manifesto in 1969. AS of November 2025 she has received her five Honorary Doctorate Degress the latest from ECH in Switzerland for her contribution to the Art world. Married Dr Jack Ukeles in 1965 and have 3 children Yael, Raqual and Meir.
+  - **Yael Ukeles** – Paul's niece, daughter of Miry; she has two sons, Amitai and Adir.
+  - **Raquel (Raqi) Ukeles** – Paul's niece; married Marc Grossman. They have three children: Eitan, Rebecca, and Shai.
+  - **Meir Ukeles** – Paul's nephew; married Pamela, and they have three children: Yadin, Sophia, and Amalia.
 
 ---
 
 ## Extended Family – Kansas City (Malin Family)
 
-- **Moshe Malin** – Paul's grandfather (maternal side). Arrived in Kansas City in 1912, fleeing Czarist Russia.
+- **Moshe Malin** – Paul's grandfather, arrived Kansas City 1912 fleeing Czarist Russia, he was the oldest child, in the Czarist army while near the border he fled the army with his brother and came to the USA and after setting a business, after a 10 year Journey his wife cane Golda with to come to America. In the USA Moshe started and ran a Retail Grocery  business for over 20 years..
 - **Libby Malin** – Moshe's wife and Paul's grandmother; arrived in 1922 with her two daughters after a dangerous journey through Europe.
-- **Betty Malin Solomon** – Paul's aunt; Bess's younger sister by two years. Came to America with Bess in 1923 and married **Rabbi Maurice Solomon**.
-- **Rabbi Maurice Solomon (Uncle Mory)** – Paul's uncle by marriage and Manual Laderman's Yeshiva best friend. Served as rabbi at Kehilat Israel in Kansas City.
-- **Ronald (Ronnie) Solomon** – Son of Uncle Mory and Aunt Betty; Paul's cousin, born in Kansas City in 1940. Married **Dianne**; they lived in New York City.
-  - **Sheila** – Youngest of Ronnie's siblings; lives in Israel with her two children **Erik** and **Michael**.
-  - **Leon** – Ronnie's brother; lives in Florida with two sons **Aaron** and **Gabriel**.
-  - **Gloria Solomon Parelman** – Ronnie's sister; married **Alan Parelman** and lived in Kansas City. They had three children: **Joey**, **Julie**, and **Amy**. Gloria died in a tragic accident; Alan later married **Suzanne** and had a child **Ken Parelman**.
-- **Melvin (Mel) Malin** – Paul's uncle; American‑born brother of Bess, born after Libby joined Moshe in the USA. Served as a Navy air navigator in World War II. Married **Lorie** in New York City; they settled in Kansas City and had three children:
-  - **Larry Malin** – Married **Bridgette**.
-  - **David Malin** – Married **Gayle**; they have two children **Netanaya Joy** and **Josh**.
-  - **Lisa Malin** – Married **Dana Gibson**; they have two children **Max** and **Jacob (Jake)**.
+- **Betty Malin Solomon** – Paul's aunt; Bess's younger sister by two years. Came to America with Bess in 1923 and married Rabbi Maurice Solomon.
+- **Rabbi Maurice Solomon (Uncle Mory)** – Paul's father’s Manual Laderman, Yeshiva best friend, had pulpit at Kehilat (Aunt Betty) Israel in Kansas City in until making Aliya in 1972 which was very comforting for Paul and family when they made aliya in 1973 to Jerusalem. Paul and family would celebrate many holidays together especially  American Thanksgiving in Jerusalem where Aunt Betty a renowned Chef would cook the most elaborate Thanksgiving meals as she did every Shabbat and Holiday. Their Children: Ronald, Sheila, Leon, and Gloria Solomon.
+- **Ronald (Ronnie) Solomon** – Uncle Mory and Aunt Betty's first son, Paul's cousin born in Kansas City in 1940, six year younger than Paul, who has very vivd mamerories of Paul and Mirele visiting them on summers in Kansas City, married to Diane originally from Atlanta, they both lived in New York City. Diane passed away at an early age but still a living memory.
+  - **Sheila** – Youngest, of duagther of uncle Mory and Aunt Betty; made Aliya with them to Israel in 1972 and married Yosse Cohen and they have two children Eric and Michael all living in Israel. Eric married Donna and have three children.
+  - **Leon** – Ronnie's brother; lives in Florida with two sons Aaron and Gabriel. Aaron married Rachel and have two children Logan Michael and Devan Brooke.
+  - **Gloria Solomon Parelman** – Uncle Mory and Betty's eldest child, was very close to Paul’s age and through his childhood would visit his only first cousins when he was growing up in Kansas City mainly during  for summers. Gloria  married Alan Parelman and lived in Kansas City, they had  three children Joseph (Joey), Julie and Amy. Gloria passed away through a tragic accident and Alan remarried with Suzzane and had a child Kenneth Parelman, later divorced and remarried Jeannie. Joeseph married  Stacy and live in Kansas City, and have three children Zachary, Jacob and Danielle. Julie married Scott Siebert and live in New Orleans LA, and have 2 children Daniel and Sara Kate. Amy married David Evans and live in Providence RI and have two children Grace and William. Kenneth married June and lives in Evergreen CO and have two children Emily and Haley Rose.
+- **Melvin (Mel) Malin** – Paul's uncle, (Uncle Mel) American-born brother of Bess after Libby arrived to the USA to join her husband Moshe who arrived to the USA 10 years previous had Melvin (Mel)  the year after their reunion. Mel married Lorie (Aunt Lorie) in New York City after his military service as a Navy Air Navigator in World War two.  Uncle Mel and Aunt Lorie settled in Kansas City MO  and had three children Larry married to Bridgette, David married with Gayle with two children Netanaya Joy and Josh, Netanaya Joy tragically passed away in her early thirties after battling cancer but was able to join Uncle Mel in his last trip to Israel for Paul’s Grandson Yonatan Laderman’s Bar Mitzva in 2013 before her passing. Lisa Malin married Dana Gibson and have two children Max and Jacob (Jake). Dana Gibson divorced Lisa nd now married to Ina and they live in Sawatch CO. Uncle Mel and Aunt Lorie never missed a family Simcha celebration, they made it to Israel in 1974 for Pauls’s son Zev’s bar mitzvah and every simcha afterwards in Israel including Zev and Noga’s wedding and Ilana and Zachi’s wedding and their children’s simcha, They also would welcome any one of us who was able to visit them in Kansas City and would host us in the most elaborate and welcoming manner. Uncle Mel until his  death at the age of 99 in 2023 was the glue of the family always staying in touch and caring and helping wherever and whenever he could to his family, community and mankind. His famous saying “What good deed have you done today”, “Good deeds are the rent you pay for living on Earth” and many more Euphemisms that he would quote constantly. Aunt Lorie was also a dear spirit in her love and support to all family members  both loved dearly by Paul.
 
 ---
 
@@ -67,7 +52,6 @@ Each entry keeps the details from the original tribute document, emphasizing how
 - **Leib Malin** – Paul's great‑great‑grandfather; a devout Chassid from Zhivitov, a butcher and renowned scholar.
 - **Chaim Malin** – Paul's great‑grandfather, one of Leib's five sons. Dealt in cattle and married **Golda Segal**; described as over six feet tall.
 - **Golda Segal Malin** – Paul's great‑grandmother; under five feet tall. Died in Kansas City in 1934.
-- **Bess Malin** – Paul's mother, born April 2, 1911 in Russia. Came to America in 1923 at age 12; finished elementary school in three years and high school in two years.
 
 ---
 
@@ -82,16 +66,17 @@ Each entry keeps the details from the original tribute document, emphasizing how
 
 ---
 
-## Malin Great‑Uncles and Aunts
+## Malin Great‑Uncles and Aunts (Chaim and Golda Malin's childrens)
 
-- **Morris Malin** – Paul's uncle; worked in the grocery business.
-- **Mayer Malin** – Paul's uncle; worked in the junk business.
-- **Julius Malin** – Paul's uncle; ran a grocery store.
-- **Yitchak Malin** – Paul's uncle; ran a grocery store and was murdered in cold blood during a 1927 robbery.
-- **Louis Malin** – Paul's uncle; wholesale fruit trader.
-- **Bayle Malin** – Paul's aunt; returned to Russia.
-- **Betty Malin** – Paul's aunt; Bess's sister, two years younger. Came to America with Bess in 1923 (also married to Rabbi Maurice Solomon, above).
-- **Melvin Malin** – As above, American‑born brother of Bess and uncle to Paul.
+- **Morris Malin** – Paul's uncle; worked in the grocery business, emigrated to the US before WW1.
+- **Mayer Malin** – Paul's great uncle, was in the Recycling  business, married  Rachel , had tow children Frank and Jeaneette, Both lived in Kansas City, Frank married Manon have 4 children. Barri Mallin living in Atlanta GA,  Scott who married Carolyn, Micki who married Adrian and had 2 boys and lived in Orlando FL,  Ross and Andrew. And their youngest son Harry who married Lysa  and have 4 children Nick, Rachel, Francesca and Alexander. Who live in Kansas City Mo.
+- **Julius Malin** – Paul's great uncle, had a grocery store he married Betty and had 4 children: Sandy the oldest who married Gene and had three children. Lenna who married Rob Levitch and they have 3 children Mylata, Demi Shea and Lily Jewel. Debbie who married Bob Hennecke. Julian’s and Betty’s second child was Gloria Malin who married Ferrel Shaftel and had 3 children, Elena who married Ronald Englemohr who live in Corpus Christi TX, and their youngest child Joshua Shaftel who lives in Kansas City Mo. Julian’s and Betty’s third child Nancy Malin who married  Dan Kohn she divorced and married Jerry Cusmano. She lived in Corpus Christi TX, Nancy and Dan had 4 kids. Jon Kantor who married Linda and lives in Oklahoma City OK, they have three children Shea Wolf, Kasey Kantor and Benjamin Jay Kantor. Nancy also had Donna who married Mathew Joseph, Dede who has three children Michael, Kara and Donna. Nancy’s fourth child is Tony who married Suzi and their children David,  and Alex Nocile. Julian’s and Betty’s fourth child – Richard (Dick) Malin who married Dalia and live in Tampa Bay FL, They have three children Yael, Orly and Jonathan.e.
+- **Irving (Yitchak) Malin** – Paul's uncle; ran a grocery store and was murdered in cold blood during a 1927 robbery.
+- **Louis Malin** – Paul's great uncle, wholesale fruits trader married Bessie Rose, They had three children: Bob Malin, Stanley Malin and Adrian. Bob Malin married Babe and lived in Kansas City Mo. Stanley Malin married Sandy, Stanley went int eh 60s to Las Vegas NV and opened up Cesar’s Palace and the Road leading to Ceasars Palace is named after him. Stan and Sandy Malin had  2 Daughters, Jessica and Jenifer, Jessica married Josh Pianko and lived in Las Vegas NV and  had a child Sayde. Jennifer married Jeff Minor and lived in New Jersey  and had three children Owen, Olivia and Max.. Adrian Malin married Ronnie Greenberg and lived in Oklahoma City. They had two children Lisa and Tony. Lisa married Lenny Cohen and live in Kansas City and had two children Brian and Nick. Tony Greenberg lives in Oklahoma City OK.
+- **Bayle Malin** – Paul's great aunt, returned to Russia and married Lazar Zhornitsky and had two children Raya and Issak. Raya Married Adolf Firenstein and lived in Kazakshstan. Raya and Adolf had a child Boris Firenstein who married Zoya and had a child Leonid. LeonidFirenstein married Helen and they have a child Lisa. Issak Zhornitsky  married Valentiina and live in Kazakhstan and had a child Alexander. Alexander Zhornistsky married Yannn and have a child Eugene.
+- **Ethel Malin** - Married Chaim Silverman. They had a son Irvinf Silverman.
+- **Rose Malin** –  Rose Mailin married Todras Greenberg they had two children Bessie and Moly. Bessie married Philip Graubart and they had two children Alexander and Judy Graubart who was an actress and comedian well known for appearing regularly on the Electric Company a very populat TV show for kids in the 60s and 70s. Moly Greenberg married Irving Miller a Rabbi and Chazen  and lived in Chicago IL. Pauls mother and Aunt Betty  visited their cousin Molly in Chicago and met there their future husbands Rabbi Manuel Laderman and Rabbi Maurice Solomon.. Molly and Irving Miller had three children: Arthur Gail and Bessie. Arthur Miller married Sandy and lived in Oxford OH and had two children: Roberta and Elaine. Roberta married Scott Garthwait and had a child Jarid. GailMiller married Mel Silver and lived in South Bend IN. they had three children Amy,Rachel and Cheryl. Amy Silver married Jason Judd. Rachel Miller married Kenneth Browner and lived in Denver CO.they had two children Jacob and Sophie. Charyl Silver married Aaron Johnson and have a child Noah. Bessie Miller married Steve Solomon and lived in Atlanta GA, they had two sons David and Mathew.
+- **Nelie Malin** – married Morris Goldberg.they had a daughter Cecile who married Leon Segal. Cecile and Leon had three children Bonnie Marcia and Herbert. Bonnie married Allan Stotz and lived in Phoenix AZ. They had two children Caren Stotz and David Stotz. Marcia Siegal married Elane Wexler and lives in Chicago IL. Herber Siegal married Sherry  and live in Chicago IL and  they have a son Mark.
 
 ---
 
@@ -120,7 +105,7 @@ Each entry keeps the details from the original tribute document, emphasizing how
 
 ---
 
-## Family – Paternal Side (Lederman/Laderman) Direct Ancestors
+## Family – Paternal and Maternal Side (Lederman/Menzalis/Laderman) Direct Ancestors
 
 - **Hendel Menzalis** – Paul's maternal great‑great‑grandfather (through the Lederman/Laderman line), an innkeeper in Nemirov who married twice.
 - **Fraida** – Hendel's first wife.

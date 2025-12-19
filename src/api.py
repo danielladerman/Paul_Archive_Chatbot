@@ -11,7 +11,14 @@ from sqlalchemy import delete
 
 from src.chatbot import PaulChatbot
 from src import config
-from src.database import get_db, init_db, ChatHistory, TimelineEvent as DBTimelineEvent, GalleryImage as DBGalleryImage
+from src.database import (
+    get_db,
+    init_db,
+    ChatHistory,
+    TimelineEvent as DBTimelineEvent,
+    GalleryImage as DBGalleryImage,
+    GuestMemory as DBGuestMemory,
+)
 from fastapi import Query
 from src.data_processing import load_documents
 
@@ -217,6 +224,7 @@ def get_people():
     - name: the bolded name
     - description: the text after the dash
     - category: the nearest preceding '##' heading
+    - subcategory: the nearest preceding '###' heading (optional)
     """
     people_path = os.path.join(config.DATA_PATH, "people.md")
     if not os.path.exists(people_path):
@@ -224,37 +232,49 @@ def get_people():
 
     entries: List[dict] = []
     current_category: Optional[str] = None
+    current_subcategory: Optional[str] = None
 
     try:
         with open(people_path, "r", encoding="utf-8") as f:
             for raw_line in f:
                 stripped = raw_line.rstrip("\n").strip()
 
-                if stripped.startswith("## "):
-                    current_category = stripped[3:].strip()
+                # Skip YAML front-matter or empty lines
+                if not stripped or stripped == "---":
                     continue
 
+                # Top-level category (## Heading)
+                if stripped.startswith("## "):
+                    current_category = stripped[3:].strip()
+                    current_subcategory = None
+                    continue
+
+                # Subcategory within a category (### Heading)
+                if stripped.startswith("### "):
+                    current_subcategory = stripped[4:].strip()
+                    continue
+
+                # Bullet entries: "- **Name** – description"
                 if stripped.startswith("- **"):
-                    # Robust parse of "- **Name** – description" with any dash / spacing variations.
-                    # 1) grab the name between the first pair of ** **.
                     try:
                         start = stripped.index("**") + 2
                         end = stripped.index("**", start)
                     except ValueError:
                         continue
+
                     name = stripped[start:end].strip()
-                    # 2) everything after the closing ** is treated as description; trim leading dashes.
+
                     remainder = stripped[end + 2 :].lstrip()
-                    # remove leading dash/en‑dash/em‑dash plus spaces if present
                     remainder = re.sub(r"^[\-–—]\s*", "", remainder)
                     description = remainder.strip()
-                    # Strip any inline Markdown bold markers like **Name** inside the description
                     description = re.sub(r"\*\*(.+?)\*\*", r"\1", description)
+
                     entries.append(
                         {
                             "name": name,
                             "description": description,
                             "category": current_category or "",
+                            "subcategory": current_subcategory or "",
                         }
                     )
     except Exception as e:
@@ -436,6 +456,74 @@ def admin_clear_gallery(_: bool = Depends(verify_api_key), db: Session = Depends
     n = db.query(DBGalleryImage).delete()
     db.commit()
     return {"status": "ok", "deleted": n}
+
+
+# ---- Guest memories (submitted from About page) ----
+class GuestMemoryIn(BaseModel):
+    name: Optional[str] = None
+    relationship: Optional[str] = None
+    email: Optional[str] = None
+    memory: str
+
+
+class GuestMemoryOut(GuestMemoryIn):
+    id: int
+    created_at: str
+
+
+@app.post("/guest_memories", response_model=GuestMemoryOut)
+def create_guest_memory(payload: GuestMemoryIn, db: Session = Depends(get_db)):
+    if not config.DATABASE_URL:
+        raise HTTPException(status_code=501, detail="Database not configured")
+
+    row = DBGuestMemory(
+        name=payload.name,
+        relationship=payload.relationship,
+        email=payload.email,
+        memory=payload.memory,
+    )
+    db.add(row)
+    db.commit()
+    db.refresh(row)
+
+    return GuestMemoryOut(
+        id=row.id,
+        name=row.name,
+        relationship=row.relationship,
+        email=row.email,
+        memory=row.memory,
+        created_at=row.created_at.isoformat(),
+    )
+
+
+@app.get("/guest_memories", response_model=List[GuestMemoryOut])
+def list_guest_memories(
+    skip: int = 0,
+    limit: int = 100,
+    db: Session = Depends(get_db),
+):
+    if not config.DATABASE_URL:
+        raise HTTPException(status_code=501, detail="Database not configured")
+
+    rows = (
+        db.query(DBGuestMemory)
+        .order_by(DBGuestMemory.created_at.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+
+    return [
+        GuestMemoryOut(
+            id=row.id,
+            name=row.name,
+            relationship=row.relationship,
+            email=row.email,
+            memory=row.memory,
+            created_at=row.created_at.isoformat(),
+        )
+        for row in rows
+    ]
 
 @app.post("/admin/init_db")
 def admin_init_db(_: bool = Depends(verify_api_key)):

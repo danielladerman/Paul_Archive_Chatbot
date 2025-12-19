@@ -45,8 +45,8 @@ class PaulChatbot:
         if not docs:
             return []
 
-        # Select a diverse, random sample of documents
-        num_to_sample = min(len(docs), 10)
+        # Select a larger, diverse random sample of documents for richer suggestions
+        num_to_sample = min(len(docs), 40)
         sampled_docs = random.sample(docs, num_to_sample)
         
         # Combine the content of the sampled documents

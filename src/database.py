@@ -59,6 +59,23 @@ class GalleryImage(Base):
     tags = Column(JSONB, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
+
+class GuestMemory(Base):
+    """
+    Stores guest-submitted memories and reflections about Paul.
+    Backed by the guest_memories table in the Neon PostgreSQL database.
+    """
+
+    __tablename__ = "guest_memories"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255), nullable=True)
+    relationship = Column(String(255), nullable=True)
+    email = Column(String(255), nullable=True)
+    memory = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
 def get_db():
     """
     Dependency for FastAPI routes to get a database session.
