@@ -50,6 +50,25 @@ function PagesContent() {
             // no-op in non-browser contexts
         }
     }, [location.pathname, location.search]);
+
+    // Scroll to hash targets (e.g., #share-memory) after route changes
+    useEffect(() => {
+        if (!location.hash) return;
+        const targetId = location.hash.replace('#', '');
+        if (!targetId) return;
+        // Delay to allow the new page content to render
+        const handle = window.setTimeout(() => {
+            try {
+                const el = document.getElementById(targetId);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            } catch {
+                // ignore
+            }
+        }, 50);
+        return () => window.clearTimeout(handle);
+    }, [location.pathname, location.hash]);
     
     return (
         <Layout currentPageName={currentPage}>

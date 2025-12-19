@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 
 export default function ContentPage() {
@@ -9,6 +11,7 @@ export default function ContentPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [openCategories, setOpenCategories] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPeople = async () => {
@@ -101,12 +104,31 @@ export default function ContentPage() {
             A curated glossary of family, friends, mentors, and communities connected to Rabbi Paul S. Laderman Z&quot;L.
           </p>
           <div className="mt-4">
-            <Input
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search by name, relationship, or place…"
-              className="w-full"
-            />
+            <div className="bg-amber-50 border border-amber-300 rounded-xl px-3 md:px-4 py-3 shadow-sm">
+              <p className="text-sm md:text-base font-semibold text-slate-800 mb-2">
+                Search people connected to Rabbi Paul
+              </p>
+              <Input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Type here a name, relationship, or place, then press Enter"
+                className="w-full border-2 border-amber-400 focus:border-amber-600 focus:ring-amber-500 text-base md:text-lg py-3 bg-white"
+                aria-label="Search people connected to Rabbi Paul"
+              />
+            </div>
+          </div>
+          <p className="text-slate-600 mt-3 text-sm md:text-base">
+            *If you cannot find yourself or the details here are outdated, please submit the form on the About page or use the button below.
+          </p>
+          <div className="mt-2">
+            <Button
+              type="button"
+              variant="outline"
+              className="border-amber-300 text-slate-800 bg-amber-50 hover:bg-amber-100"
+              onClick={() => navigate("/About#share-memory")}
+            >
+              Go to memory form
+            </Button>
           </div>
         </CardHeader>
         <CardContent>

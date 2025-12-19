@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { appendZl } from "@/lib/utils/index.js";
@@ -24,6 +26,7 @@ export default function LifeTimelinePage() {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTimeline = async () => {
@@ -89,9 +92,19 @@ export default function LifeTimelinePage() {
           </h1>
           <p className="text-slate-600 leading-relaxed max-w-2xl mx-auto text-sm md:text-base whitespace-pre-line">
             {appendZl(
-              "A chronological view of key moments, roles, and milestones in Rabbi Paul Z\"L's life. Each entry draws from the structured timeline in the family database.\n\n*Help us make this timeline more complete and share your memory/event in the form on the About page."
+              "A chronological view of key moments, roles, and milestones in Rabbi Paul Z\"L's life. Each entry draws from the structured timeline in the family database.\n\n*Help us make this timeline more complete and share your memory or event in the form on the About page or by using the button below."
             )}
           </p>
+          <div className="mt-3">
+            <Button
+              type="button"
+              variant="outline"
+              className="border-amber-300 text-slate-800 bg-amber-50 hover:bg-amber-100"
+              onClick={() => navigate("/About#share-memory")}
+            >
+              Go to memory form
+            </Button>
+          </div>
         </div>
       </motion.div>
 
