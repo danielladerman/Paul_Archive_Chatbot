@@ -248,6 +248,8 @@ Chaim and Golda Malin had nine children: five sons and four daughters.
 
 ## Extended Family - Maternal Side Stepansky Broader Ancestorial Family
 
+### Stepansky Family
+
 Introduction:
 Paul's Great grandfather from his Grandmother side was Samuel Stepansky who married Mierle and had three children. Libby Stepansky Paul's Grandmother who married Maurice (Moshe) Malin. Libby had a brother Velvel Stepansky who died in Russia and a sister Celia Stepansky, both Paul's Great Aunt and Uncle.
 
@@ -321,7 +323,7 @@ Hendel and Fraida were fortunate to leave Nemirov and headed to the USA with Fai
 ### Abraham and Yocheved Kalis Family (Paul's Great Aunt)
 
 Introduction:
-Fannie (Faiga Menzalis Paul's Grandmother's sister Yocheved (Eve) married to Abraham Kalis and lived in Chicago IL. Paul's Great Aunt and Uncle. Yocheved and Abraham Kalis had 4 girls: Bessie Kalis Savner, Ida (Chaike) Kalis Siskel, Freida Kalis Rubin, Mae Kalis Gray and 1 boy: Jack Kalis. They were all Paul's first Cousins once removed.
+Fannie (Faiga) Menzalis Paul's Grandmother's sister Yocheved (Eve) married to Abraham Kalis and lived in Chicago IL. Paul's Great Aunt and Uncle. Yocheved and Abraham Kalis had 4 girls: Bessie Kalis Savner, Ida (Chaike) Kalis Siskel, Freida Kalis Rubin, Mae Kalis Gray and 1 boy: Jack Kalis. They were all Paul's first Cousins once removed.
 
 Manuel Laderman was adopted by them when he moved to Chicago with his father William after Eve's sister's passed away in New York. Manuel was Eve's sole nephew from Fannie (Faiga) Menzalis. Manuel grew up with Eve's and Abraham's children who were close in his age as brothers and sisters. Manuel was most close to Mae and her husband Joe Gray. Mae and Joe, by all of Manuel's family throughout their life, we called Aunt Mae and Uncle Joe. They were always a close part of Manuel Laderman's life and Paul Laderman's family.
 
@@ -438,18 +440,6 @@ Tirza maiden name Schmidt had 4 siblings, all immigrated overland from Bratislav
 - **Shlomo Schmidt** – Known as the Tall Uncle Shlomo as opposed to Tirza's brother who was known as small Shlomo Shmida. Tall Shlomo Schmidt was taken by the Nazis from his father's side on Yom Kippur 1941 at the Altneuschul in Prague at the age of 11, to a youth detention camp where he fled and joined the Partisans until the end of the war and then immigrated to Palestine. Shlomo Schmidt married Penina. They did not change their name to Schmida and stayed Schmidt. Their children: Tsvika, Edna, Tsaki and Rutie.
 
 Being double cousins (both on their father and mother's sides) the two Schmida and Schmidt families were very close.
-
----
-
-## Family Connections Before the Meeting of Shula and Paul Laderman
-
-The connection between Paul and Shula happened before they met as Tall Shlomo Schmidt was Paul's Jewish Agency Advisor in Israel between 1957-58.
-
-Another historic family connection was found on the work to create this broad family glossary and the pulling together of different family sources:
-
-Rabbi Yom Tov Lipman Heller was the prominent Jewish scholar in the 17th century, who authored the commentary of the Mishna called Tosofot Yom Tov. He left Nemirov Ukraine, the origin of Paul's family, to become the Rabbi at the Altneuschul synagogue in Prague Czech and left Nemirov just before the Pogrom of 1648 by Poles who wanted to revenge the Jewish support of the Ukraine against them.
-
-A little less than 300 years later, Shulamit's Great Uncle Yitzhak Schmidt, Zev Schmidt's (Shulamit's grandfather) brother, took upon himself to be the Rabbi and Chazan of the Altneuschul Synagogue and did not join Zev when Zev asked him to join him on his way to Palestine ahead of the creation of the Jewish state. Their joint father-in-law (as they both married two sisters) prophesied on his death bed the future horror for the Jews in Europe as he foresaw another tragedy for the Jewish people in Europe. Zev and family made their hard journey to Palestine and Yitzhak and family stayed in Prague to oversee his community through the perils between the two world wars and was eventually led to his death at Auschwitz.
 
 ---
 
