@@ -1,0 +1,35 @@
+{
+  "acronyms": {
+    "RIETS": "Rabbi Isaac Elchanan Theological Seminary",
+    "JDC": "Joint Distribution Committee",
+    "USAF": "United States Air Force",
+    "AFB": "Air Force Base",
+    "NCSY": "National Conference of Synagogue Youth",
+    "UC": "University of California",
+    "UN": "United Nations",
+    "IDF": "Israel Defense Forces",
+    "UCLA": "University of California Los Angeles",
+    "UCB": "University of California Berkeley"
+  },
+  "contextual_terms": {
+    "Merkaz Harav": "Merkaz HaRav Kook Yeshiva Jerusalem",
+    "Berkeley Hillel": "Hillel House University of California Berkeley",
+    "Oz veShalom": "Oz VeShalom Netivot Shalom peace movement Israel",
+    "Lowry AFB": "Lowry Air Force Base Colorado",
+    "Lajes AFB": "Lajes Air Force Base Azores Portugal",
+    "Beth Jacob": "Congregation Beth Jacob Oakland California",
+    "Armon Hanatsiv": "Armon Hanatsiv East Talpiot Jerusalem neighborhood",
+    "Hillel": "Hillel Jewish campus organization",
+    "Yeshiva": "Yeshiva Jewish seminary rabbinical school",
+    "Talmud": "Talmud Jewish sacred text rabbinic teachings"
+  },
+  "event_patterns": {
+    "Intifada": "First Palestinian Intifada 1987-1993",
+    "Yom Kippur War": "Yom Kippur War October 1973",
+    "Free Speech Movement": "Free Speech Movement Berkeley 1964",
+    "Six Day War": "Six Day War 1967",
+    "Vietnam": "Vietnam War opposition 1960s-1970s",
+    "Holocaust": "Holocaust Shoah World War II Jewish persecution",
+    "Israeli independence": "Israeli independence 1948 establishment state Israel"
+  }
+}

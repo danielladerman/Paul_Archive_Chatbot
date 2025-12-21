@@ -20,7 +20,7 @@ CHUNK_OVERLAP = 200
 
 # --- Model Configuration ---
 EMBEDDING_MODEL = "text-embedding-3-small"
-CHAT_MODEL = "gpt-4o-mini"
+CHAT_MODEL = "gpt-4o"
 
 # --- Pinecone Configuration (optional) ---
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")

@@ -1,5 +1,7 @@
 import re
 import random
+import os
+import json
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
@@ -26,7 +28,7 @@ class PaulChatbot:
         
         self.retriever = self.vector_store.as_retriever(
             search_type="mmr",
-            search_kwargs={"k": 5, "fetch_k": 20, "lambda_mult": 0.5}
+            search_kwargs={"k": 12, "fetch_k": 40, "lambda_mult": 0.6}
         )
         self.llm = ChatOpenAI(
             model=config.CHAT_MODEL, 
@@ -139,6 +141,175 @@ Content:
         """Remove any trailing Sources section if the model adds one."""
         return re.sub(r"\n+Sources:\s*\n[\s\S]*$", "", text, flags=re.IGNORECASE)
 
+    def _expand_query(self, question: str) -> str:
+        """
+        Expands acronyms and adds context to query for better retrieval.
+        """
+        expansions_path = os.path.join(config.DATA_PATH, "query_expansions.json")
+
+        if not os.path.exists(expansions_path):
+            return question  # Fail gracefully if file doesn't exist
+
+        try:
+            with open(expansions_path, 'r') as f:
+                expansions = json.load(f)
+        except Exception as e:
+            print(f"Error loading query expansions: {e}")
+            return question
+
+        expanded = question
+
+        # Expand acronyms (case-insensitive word boundary matching)
+        for acronym, full_form in expansions.get("acronyms", {}).items():
+            pattern = r'\b' + re.escape(acronym) + r'\b'
+            if re.search(pattern, expanded, re.IGNORECASE):
+                # Add expansion in parentheses without removing acronym
+                expanded = re.sub(
+                    pattern,
+                    f"{acronym} ({full_form})",
+                    expanded,
+                    flags=re.IGNORECASE,
+                    count=1
+                )
+
+        # Add contextual terms
+        for term, context in expansions.get("contextual_terms", {}).items():
+            if term.lower() in expanded.lower() and context not in expanded:
+                expanded += f" {context}"
+
+        # Add event context
+        for event, context in expansions.get("event_patterns", {}).items():
+            if event.lower() in expanded.lower() and context not in expanded:
+                expanded += f" {context}"
+
+        return expanded
+
+    def _detect_no_information(self, answer: str) -> bool:
+        """Detects if the LLM indicated insufficient information."""
+        no_info_patterns = [
+            "provided documents do not contain",
+            "existing documents do not yet address",
+            "no information",
+            "i don't have enough information",
+            "cannot find information",
+            "not enough context",
+            "archive is incomplete"
+        ]
+        return any(pattern in answer.lower() for pattern in no_info_patterns)
+
+    def _fallback_similarity_search(self, question: str, k: int = 15):
+        """Fallback: Pure similarity search (no MMR) with higher k."""
+        print(f"Fallback Stage 2: Similarity search with k={k}")
+        expanded_query = self._expand_query(question)
+
+        fallback_retriever = self.vector_store.as_retriever(
+            search_type="similarity",
+            search_kwargs={"k": k}
+        )
+
+        try:
+            docs = fallback_retriever.invoke(expanded_query)
+        except Exception:
+            docs = fallback_retriever.get_relevant_documents(expanded_query)
+
+        return docs
+
+    def _fallback_keyword_search(self, question: str):
+        """Fallback Stage 3: Extract keywords and search separately, combine results."""
+        print("Fallback Stage 3: Keyword-based search")
+
+        # Extract keywords (remove stopwords)
+        stopwords = {'tell', 'me', 'about', 'what', 'who', 'when', 'where', 'how', 'the', 'a', 'an', 'is', 'was', 'were', 'did', 'do', 'does'}
+        words = question.lower().split()
+        keywords = [w for w in words if w not in stopwords and len(w) > 3]
+
+        # Extract capitalized terms (likely proper nouns)
+        proper_nouns = re.findall(r'\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\b', question)
+        keywords.extend(proper_nouns)
+
+        # Search for each keyword
+        all_docs = []
+        seen_ids = set()
+
+        for keyword in keywords[:5]:  # Limit to 5 keywords
+            try:
+                docs = self.vector_store.similarity_search(keyword, k=5)
+                for doc in docs:
+                    doc_id = id(doc.page_content)
+                    if doc_id not in seen_ids:
+                        all_docs.append(doc)
+                        seen_ids.add(doc_id)
+            except Exception as e:
+                print(f"Error searching for keyword '{keyword}': {e}")
+                continue
+
+        return all_docs[:12]
+
+    def _is_greeting(self, message: str) -> bool:
+        """Detect if message is a greeting."""
+        greetings = [
+            'hi', 'hello', 'hey', 'greetings', 'good morning',
+            'good afternoon', 'good evening', 'howdy', 'yo',
+            'sup', "what's up", 'whats up'
+        ]
+        normalized = message.lower().strip().rstrip('.,!?')
+
+        # Check if entire message is just a greeting
+        if normalized in greetings:
+            return True
+
+        # Check if message starts with greeting and is very short
+        words = normalized.split()
+        if len(words) <= 3 and any(normalized.startswith(g) for g in greetings):
+            return True
+
+        return False
+
+    def _get_greeting_response(self) -> dict:
+        """Return a friendly greeting with guidance."""
+        greeting_text = """Hello! I'm here to help you learn about Rabbi Paul Z"L and his remarkable life.
+
+You can ask me questions like:
+• "Tell me about Paul's time at Berkeley"
+• "What was Paul's involvement in the peace movement?"
+• "Tell me about Paul's rabbinical work"
+• "Who were important people in Paul's life?"
+
+Or you can browse the Topics tab to see curated questions. What would you like to know?"""
+
+        return {
+            "answer": greeting_text,
+            "sources": []
+        }
+
+    def _is_too_vague(self, message: str) -> bool:
+        """Detect if query is too short/vague to answer meaningfully."""
+        words = message.strip().split()
+
+        # Very short non-greeting queries
+        if len(words) <= 2 and not self._is_greeting(message):
+            return True
+
+        # Single-word queries (not greetings)
+        if len(words) == 1 and words[0].lower() not in ['who', 'what', 'when', 'where', 'how', 'why']:
+            return True
+
+        return False
+
+    def _get_vague_query_response(self, question: str) -> dict:
+        """Suggest how to formulate a better question."""
+        response_text = f"""I'd be happy to help you learn about Rabbi Paul Z"L!
+
+To give you the best answer, could you provide more details? For example:
+• Instead of "{question}", try "Tell me about Paul's {question}"
+• Or ask a specific question like "What did Paul do related to {question}?"
+
+You can also browse the Topics tab for curated questions on various aspects of Paul's life."""
+
+        return {
+            "answer": response_text,
+            "sources": []
+        }
 
     def _create_rag_chain(self):
         """Creates the full RAG chain for the chatbot."""
@@ -247,13 +418,27 @@ Content:
         """Return answer text and structured sources separately for API/clients."""
         if not question:
             return {"answer": "Please ask a question.", "sources": []}
+
+        # Handle greetings conversationally
+        if self._is_greeting(question):
+            return self._get_greeting_response()
+
+        # Handle very short/vague queries with guidance
+        if self._is_too_vague(question):
+            return self._get_vague_query_response(question)
+
         print(f"Received question: {question}")
 
-        # Retrieve docs once
+        # Expand query before retrieval
+        expanded_query = self._expand_query(question)
+        if expanded_query != question:
+            print(f"Expanded query: {expanded_query}")
+
+        # Retrieve docs once using expanded query
         try:
-            docs = self.retriever.invoke(question)
+            docs = self.retriever.invoke(expanded_query)
         except Exception:
-            docs = self.retriever.get_relevant_documents(question)
+            docs = self.retriever.get_relevant_documents(expanded_query)
 
         # Build context
         context = self._format_context(docs)
@@ -282,6 +467,24 @@ Content:
         prompt = PromptTemplate(template=template, input_variables=["context", "question"])
         answer_text = (prompt | self.llm | StrOutputParser()).invoke({"context": context, "question": question})
         clean_answer = self._strip_sources(answer_text)
+
+        # Check if we need fallback retrieval
+        if self._detect_no_information(clean_answer):
+            print("Primary retrieval failed, attempting fallback...")
+
+            # Stage 2: Similarity search fallback
+            docs = self._fallback_similarity_search(question, k=15)
+            context = self._format_context(docs)
+            answer_text = (prompt | self.llm | StrOutputParser()).invoke({"context": context, "question": question})
+            clean_answer = self._strip_sources(answer_text)
+
+            # Stage 3: Keyword-based fallback (if still no information)
+            if self._detect_no_information(clean_answer):
+                print("Similarity fallback failed, attempting keyword search...")
+                docs = self._fallback_keyword_search(question)
+                context = self._format_context(docs)
+                answer_text = (prompt | self.llm | StrOutputParser()).invoke({"context": context, "question": question})
+                clean_answer = self._strip_sources(answer_text)
 
         # Structured sources (deduplicated by title + link)
         structured_sources = []
