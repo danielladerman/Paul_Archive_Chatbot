@@ -91,34 +91,92 @@ export default function ContentPage() {
       }));
     }
 
-    // When searching, fall back to flat grouping (no narratives)
-    const categories = new Map();
+    // When searching, search both people AND narratives
+    const normalize = (value) =>
+      (value || "")
+        .toString()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
 
+    const query = normalize(search.trim());
+    const tokens = query.split(/\s+/).filter(Boolean);
+
+    const categories = new Map();
+    const matchedSubcategories = new Set(); // Track which subcategories have narrative matches
+
+    // First, check narratives in structured data
+    if (structuredData.categories.length > 0) {
+      for (const cat of structuredData.categories) {
+        for (const sub of cat.subcategories) {
+          const narrativeHaystack = normalize(sub.narrative);
+          const narrativeMatches = tokens.every((token) => narrativeHaystack.includes(token));
+
+          if (narrativeMatches && sub.people.length > 0) {
+            // Narrative matches - include all people from this subcategory
+            matchedSubcategories.add(`${cat.name}|${sub.name}`);
+
+            if (!categories.has(cat.name)) {
+              categories.set(cat.name, new Map());
+            }
+            const subMap = categories.get(cat.name);
+
+            if (!subMap.has(sub.name)) {
+              subMap.set(sub.name, { people: [], narrative: sub.narrative });
+            }
+
+            // Add all people from this subcategory
+            for (const person of sub.people) {
+              subMap.get(sub.name).people.push(person);
+            }
+          }
+        }
+      }
+    }
+
+    // Then add people who match individually (and preserve their narratives if available)
     for (const person of filteredBySearch) {
       const category = person.category || "Other";
       const subcategory = person.subcategory || "";
+      const subKey = `${category}|${subcategory}`;
+
+      // Skip if this person's subcategory was already added via narrative match
+      if (matchedSubcategories.has(subKey)) {
+        continue;
+      }
 
       if (!categories.has(category)) {
         categories.set(category, new Map());
       }
       const subMap = categories.get(category);
-      const subKey = subcategory || "__no_sub__";
-      if (!subMap.has(subKey)) {
-        subMap.set(subKey, []);
+
+      if (!subMap.has(subcategory)) {
+        // Find the narrative for this subcategory if it exists
+        let narrative = "";
+        if (structuredData.categories.length > 0) {
+          const cat = structuredData.categories.find(c => c.name === category);
+          if (cat) {
+            const sub = cat.subcategories.find(s => s.name === subcategory);
+            if (sub) {
+              narrative = sub.narrative;
+            }
+          }
+        }
+        subMap.set(subcategory, { people: [], narrative });
       }
-      subMap.get(subKey).push(person);
+      subMap.get(subcategory).people.push(person);
     }
 
-    // Preserve the order in which categories appear in people.md
-    // instead of forcing an alphabetical sort.
+    // Convert to array format matching the expected structure
     return Array.from(categories.entries()).map(([category, subMap]) => {
-      const subgroups = Array.from(subMap.entries()).sort(([a], [b]) => {
-        // Keep "__no_sub__" entries at the top
-        if (a === "__no_sub__") return -1;
-        if (b === "__no_sub__") return 1;
-        // Preserve original order from file (don't sort alphabetically)
-        return 0;
-      });
+      const subgroups = Array.from(subMap.entries())
+        .sort(([a], [b]) => {
+          if (a === "__no_sub__" || a === "") return -1;
+          if (b === "__no_sub__" || b === "") return 1;
+          return 0;
+        })
+        .map(([subKey, data]) => [subKey || "__no_sub__", data.people, data.narrative]);
+
       return { category, subgroups };
     });
   }, [filteredBySearch, search, structuredData]);
