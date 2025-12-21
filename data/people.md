@@ -54,6 +54,9 @@ This comprehensive glossary documents the people, families, and communities conn
 
 ### Kansas City Malin Family Core
 
+Introduction:
+Paul's Grandfather Maurice Moshe Malin married Libby Stepansky and they had three children Bess, Betty and Melvin. Bess married Rabbi Manuel Laderman and had two children Paul and Mierle. Betty Married Rabbi Maurice (Mory) Solomon and had four Children, Gloria, Ronald, Leon and Sheila. Melvin (Mel) Married Laurie and had three children Larry, Lisa and David.
+
 - **Maurice Moshe Malin** – Paul's grandfather, arrived Kansas City 1912 fleeing Czarist Russia, he was the oldest child. In the Czarist army while near the border he fled the army with his brother and came to the USA and set up a retail grocery business. His wife Libby arrived after a 10 year journey.
 
 - **Libby Stepansky Malin** – Moshe's wife, Paul's grandmother, arrived 1922 with her two daughters after their dangerous 10 year journey through Europe and Cuba.
@@ -62,7 +65,7 @@ This comprehensive glossary documents the people, families, and communities conn
 
 - **Rabbi Maurice Solomon (Uncle Mory)** – Uncle Mory was Paul's father Manual Laderman's Yeshiva best friend in Chicago. Mory and Manny met Betty and Bess in Chicago as Betty and Bess visited their first cousin Molly Greenberg who was married to Rabbi Irving Miller, a Rabbi and Chazan who was associated with Mory and Manuel's Yeshiva. Rabbi Maurice Solomon served as Rabbi at Kehilat Israel (KI) in Kansas City from 1932 until making Aliya in 1972. They made Aliya a year before Paul and family made Aliya in 1973. Their being in Jerusalem when Paul's family made Aliya in 1973 was most comforting. Paul and family would celebrate many holidays together in Jerusalem, especially the American Thanksgiving celebration, where Aunt Betty, a renowned chef, would cook the most elaborate Thanksgiving meals as she did every Shabbat and holiday, both loved dearly by Paul.
 
-### Rabbi Maurice and Betty Solomon's Children
+### Rabbi Maurice and Betty Solomon's Family
 
 - **Gloria Solomon Parelman** – Their eldest child, was very close to Paul's age and throughout his childhood would visit his only first cousins in Kansas City mainly during summers. Gloria married Alan Parelman and lived in Kansas City MO, they had three children Joseph (Joey), Julie and Amy. Gloria passed away through a tragic accident and Alan remarried Suzanne and had a child Kenneth Parelman, later divorced and remarried Jeannie.
 
@@ -107,6 +110,9 @@ This comprehensive glossary documents the people, families, and communities conn
 - **Golda Segal Malin** – Paul's great-grandmother, not quite 5 feet tall, died Kansas City 1934.
 
 ### Malin Great Uncles and Aunts – Children of Chaim and Golda Malin
+
+Introduction:
+Paul's Great Grandfather was Chaim Malin the son of Leib Malin had five sons and three daughters. Chaim was one of his sons he married Golda Segal and they had 9 Children, 5 sons and 4 daughters. Morris (Moshe) Malin the eldest son, Paul's Grandfather, Maurice's brothers, Paul's great uncles: were Mayer Malin, Julius Malin, Irving (Yitzchak) Malin, Louis Malin his sisters Paul's Great Aunt's Jeanette Malin Geiderman, Ethel Malin Silverman, Nelie Malin Goldberg, Bayle Malin Zhornitsky.
 
 Chaim and Golda Malin had nine children: five sons and four daughters.
 
@@ -242,6 +248,9 @@ Chaim and Golda Malin had nine children: five sons and four daughters.
 
 ## Extended Family - Maternal Side Stepansky Broader Ancestorial Family
 
+Introduction:
+Paul's Great grandfather from his Grandmother side was Samuel Stepansky who married Mierle and had three children. Libby Stepansky Paul's Grandmother who married Maurice (Moshe) Malin. Libby had a brother Velvel Stepansky who died in Russia and a sister Celia Stepansky, both Paul's Great Aunt and Uncle.
+
 - **Samuel Stepansky** – Paul's maternal great-grandfather, worked in cattle, died Kansas City 1933, married Mierle Stepansky who died in Russia. They had three children.
 
 - **Libby Stepansky Malin** – Paul's grandmother (Samuel's daughter), died in Kansas City. (See above under Kansas City Malin Family)
@@ -256,9 +265,15 @@ Chaim and Golda Malin had nine children: five sons and four daughters.
 
 ### Chicago Family Paul's Paternal Family (Laderman relatives)
 
+Introduction:
+William (Zev) Laderman Paul's grandfather from his father's side married Faiga (Fannie) Menzalis. They had one son Manuel Laderman before Faiga passed away after they arrived to the USA from Nymerev Ukraine.
+
 - **William (Zev) Laderman** – Paul's grandfather on father's side, civil rights advocate. Immigrated to New York from Nymerev Ukraine. Manuel Laderman was born on Orchard Street in New York. In 1912 after Manuel's mother Faiga passed away at the age of 3, Manuel moved to Chicago with his father to be surrounded by his family. William's brother Zelig who came with him to America lived in Chicago and also his wife's Faiga's family lived in Chicago. William died on December 5, 1941 in Chicago and is buried in Chicago. William sold fish and his son Manuel helped him when he was young. Manuel attended John McLaren Grammar School in Chicago, then McKinley High School, graduated at the age of 16 and had two scholarships to the University of Chicago and the Lewis Institute of Technology. Manuel attended Yeshiva HTC – Hebrew Theological College where Paul would attend his high school years.
 
 ### Paternal Side (Lederman/Laderman) Direct Ancestors
+
+Introduction:
+Schmelke Lederman, Paul's Great Grandfather married Gittel Paul's Great Grandmother and had 5 Children, The eldest William (Zev / Velvel) Laderman, Paul's Grandfather married Faiga (Fannie) Menzalis, Paul's Grandmother. William's brother Paul's Great Uncles, Nahum Laderman, Kutzi Laderman, Shlome Laderman all died in Russia, Selig Laderman came with William to America and married Minnie and lived in Chicago Paul's only living Great Uncle and Aunt he knew growing up. William's only sister Breina Lederman stayed in Russia and had 3 children.
 
 - **Schmelke Lederman** – Paul's great-grandfather, handsome bearded Jew, cattleman in Nemirov, died in pogrom of 1921.
 
@@ -279,6 +294,9 @@ Schmelke and Gitiel Lederman had six children:
 - **Selig Lederman** – Schmelke's youngest child, came to America with Velvel in 1905. Selig married Minnie who was a vegetarian and in later years when Paul studied in Chicago he lived with them for a period and developed a dislike for eggplant that he carried with him all his life due to his experience of eating a great deal of eggplant at his Aunt Minnie's house.
 
 ### Paul's Paternal Grandmother's Side (Menzalis/Kalis) Direct Ancestors
+
+Introduction:
+Paul's great grandfather from his father's mother side, was Hendel (Menachem Mendel) his first wife was Fraida and they had four children. Faiga (Fannie) Menzalis Paul's Grandmother married William Laderman Paul's Grandfather and immigrated to the US and first settled in New York City. Faiga's sister Yocheved (Eve) Menzalis married Abraham Kalis and they immigrated to America as well and settled in Chicago. Faiga and Yocheved's brother Shlome Menzalis and their sister Malka Menzalis both died in Russia. Hendel remarried and had two children Jack Mazalis and Mrs Greenspan.
 
 Going back five generations from Paul was Chaim Selomo Menzalis, a cattle man and hide processor. He had one son Hendel Menzalis.
 
@@ -302,9 +320,12 @@ Hendel and Fraida were fortunate to leave Nemirov and headed to the USA with Fai
 
 ### Abraham and Yocheved Kalis Family (Paul's Great Aunt)
 
-Yocheved (Eve) married in Chicago Abraham Kalis and lived in Chicago IL. Yocheved and Abraham Kalis had 4 girls and 2 boys in Chicago. Manuel Laderman was adopted by them when he moved to Chicago with his father William after Eve's sister's passed away in New York. Manuel was Eve's sole nephew from Fannie (Faiga) Menzalis. Manuel grew up with Eve's and Abraham's children who were close in his age as brothers and sisters. Manuel was most close to Mae and her husband Joe Gray. Mae and Joe, by all of Manuel's family throughout their life, we called Aunt Mae and Uncle Joe. They were always a close part of Manuel Laderman's life and Paul Laderman's family.
+Introduction:
+Fannie (Faiga Menzalis Paul's Grandmother's sister Yocheved (Eve) married to Abraham Kalis and lived in Chicago IL. Paul's Great Aunt and Uncle. Yocheved and Abraham Kalis had 4 girls: Bessie Kalis Savner, Ida (Chaike) Kalis Siskel, Freida Kalis Rubin, Mae Kalis Gray and 1 boy: Jack Kalis. They were all Paul's first Cousins once removed.
 
-When Paul studied High School in Chicago and continued his early College and Rabbinical studies, he continued his father's close family relationship with the Kalis family and their children. This close family relationship continues until this day between the third and fourth generation of the Laderman and the Kalis family.
+Manuel Laderman was adopted by them when he moved to Chicago with his father William after Eve's sister's passed away in New York. Manuel was Eve's sole nephew from Fannie (Faiga) Menzalis. Manuel grew up with Eve's and Abraham's children who were close in his age as brothers and sisters. Manuel was most close to Mae and her husband Joe Gray. Mae and Joe, by all of Manuel's family throughout their life, we called Aunt Mae and Uncle Joe. They were always a close part of Manuel Laderman's life and Paul Laderman's family.
+
+When Paul studied High School in Chicago and continued his early College and Rabbinical studies, he continued his father's close family relationship with the Kalis family and their children. They were all second cousins to him but since his father was treated by them as their brother, it created a very close family relationship. This bond continues until this day between the third and fourth generation of the Laderman and the Kalis family.
 
 Paul always welcomed the members of the Kalis family and all relatives from his Paternal side and Maternal side when they visited in Israel and passed on this appreciation and love to his children for his extended family. Since Paul's immediate family was very small and intimate, Paul emphasized to his children this important kinship of our families. Our families continue its closeness to this very day three and four generations later.
 
@@ -342,9 +363,9 @@ Paul always welcomed the members of the Kalis family and all relatives from his 
 
 - **Robert Feiger** – Harry and Arlene's son, born July 1961. Married Alyson Miller. Their children: Sarah Frieda Feiger, Lily Feiger.
 
-- **Eugene Kal Siskel** – Nathan and Ida's son, born January 26, 1946. Died February 20, 1999. Famous film critic. Married Marlene Iglitzen. Their children: Kate Siskel, Callie Siskel, Will Siskel.
+- **Eugene (Gene) Kal Siskel** – Nathan and Ida's son, born January 26, 1946. Died February 20, 1999. Famous film critic. Married Marlene Iglitzen. Their children: Kate Siskel, Callie Siskel, Will Siskel.
 
-- **William Siskel** – Nathan and Ida's son, born in Chicago, IL. Married Judith Oppenheimer. Died November 25, 2025 in Chicago IL.
+- **William (Bill) Siskel** – Nathan and Ida's son, born in Chicago, IL. Married Judith Oppenheimer. Died November 25, 2025 in Chicago IL.
 
 - **Jonathan Siskel** – William and Judith's son, married Sophia Shaw (divorced) and engaged to Esther. Children with Sophia Shaw: Nathan Siskel, Jonah Siskel.
 

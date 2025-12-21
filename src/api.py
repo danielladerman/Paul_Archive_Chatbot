@@ -230,19 +230,23 @@ def get_content_topics(mode: str = Query("curated")):
 def get_people():
     """
     Returns a structured list of people and communities derived from data/people.md.
-    Each entry has:
-    - name: the bolded name
-    - description: the text after the dash
-    - category: the nearest preceding '##' heading
-    - subcategory: the nearest preceding '###' heading (optional)
+    Returns both flat entries (backward compatible) and structured format with narratives.
     """
     people_path = os.path.join(config.DATA_PATH, "people.md")
     if not os.path.exists(people_path):
-        return []
+        return {"entries": [], "structured": {"categories": []}}
 
     entries: List[dict] = []
+
+    # Structured data with narratives
+    categories_dict = {}  # {category_name: {subcategories: {}, order: int}}
+    category_order = 0
+    subcategory_order = {}  # {(category, subcategory): order}
+
     current_category: Optional[str] = None
     current_subcategory: Optional[str] = None
+    current_narrative: List[str] = []
+    narrative_complete = False
 
     try:
         with open(people_path, "r", encoding="utf-8") as f:
@@ -257,15 +261,46 @@ def get_people():
                 if stripped.startswith("## "):
                     current_category = stripped[3:].strip()
                     current_subcategory = None
+                    current_narrative = []
+                    narrative_complete = False
+
+                    if current_category not in categories_dict:
+                        categories_dict[current_category] = {
+                            "subcategories": {},
+                            "order": category_order
+                        }
+                        category_order += 1
                     continue
 
                 # Subcategory within a category (### Heading)
                 if stripped.startswith("### "):
                     current_subcategory = stripped[4:].strip()
+                    current_narrative = []
+                    narrative_complete = False
+
+                    if current_category and current_subcategory:
+                        key = (current_category, current_subcategory)
+                        if key not in subcategory_order:
+                            subcategory_order[key] = len(subcategory_order)
+
+                        if current_category in categories_dict:
+                            if current_subcategory not in categories_dict[current_category]["subcategories"]:
+                                categories_dict[current_category]["subcategories"][current_subcategory] = {
+                                    "narrative": "",
+                                    "people": [],
+                                    "order": subcategory_order[key]
+                                }
                     continue
 
                 # Bullet entries: "- **Name** – description"
                 if stripped.startswith("- **"):
+                    # Save accumulated narrative before processing first person entry
+                    if current_category and current_subcategory and not narrative_complete:
+                        narrative_text = " ".join(current_narrative).strip()
+                        categories_dict[current_category]["subcategories"][current_subcategory]["narrative"] = narrative_text
+                        current_narrative = []
+                        narrative_complete = True
+
                     try:
                         start = stripped.index("**") + 2
                         end = stripped.index("**", start)
@@ -279,19 +314,55 @@ def get_people():
                     description = remainder.strip()
                     description = re.sub(r"\*\*(.+?)\*\*", r"\1", description)
 
-                    entries.append(
-                        {
+                    person_entry = {
+                        "name": name,
+                        "description": description,
+                        "category": current_category or "",
+                        "subcategory": current_subcategory or "",
+                    }
+
+                    entries.append(person_entry)
+
+                    # Add to structured format
+                    if current_category and current_subcategory:
+                        categories_dict[current_category]["subcategories"][current_subcategory]["people"].append({
                             "name": name,
-                            "description": description,
-                            "category": current_category or "",
-                            "subcategory": current_subcategory or "",
-                        }
-                    )
+                            "description": description
+                        })
+                    continue
+
+                # Accumulate narrative text (non-bullet, non-heading lines)
+                if current_subcategory and not narrative_complete and not stripped.startswith("#"):
+                    # Skip lines that start with "Introduction:" label
+                    if stripped and stripped != "Introduction:":
+                        current_narrative.append(stripped)
+
     except Exception as e:
         print(f"Failed to parse people.md: {e}")
-        return []
+        return {"entries": [], "structured": {"categories": []}}
 
-    return entries
+    # Build structured response
+    structured_categories = []
+    for cat_name, cat_data in sorted(categories_dict.items(), key=lambda x: x[1]["order"]):
+        subcategories = []
+        for sub_name, sub_data in sorted(cat_data["subcategories"].items(), key=lambda x: x[1]["order"]):
+            subcategories.append({
+                "name": sub_name,
+                "narrative": sub_data["narrative"],
+                "people": sub_data["people"]
+            })
+
+        structured_categories.append({
+            "name": cat_name,
+            "subcategories": subcategories
+        })
+
+    return {
+        "entries": entries,  # Backward compatible flat list
+        "structured": {
+            "categories": structured_categories
+        }
+    }
 
 @app.get("/healthz")
 def healthz():

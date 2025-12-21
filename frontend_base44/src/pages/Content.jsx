@@ -8,6 +8,7 @@ import { Loader2 } from "lucide-react";
 
 export default function ContentPage() {
   const [people, setPeople] = useState([]);
+  const [structuredData, setStructuredData] = useState({ categories: [] });
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [openCategories, setOpenCategories] = useState([]);
@@ -20,18 +21,28 @@ export default function ContentPage() {
         const baseUrl = import.meta.env.VITE_API_BASE;
         if (!baseUrl) {
           setPeople([]);
+          setStructuredData({ categories: [] });
           return;
         }
         const response = await fetch(`${baseUrl}/people`);
         if (response.ok) {
           const data = await response.json();
-          setPeople(Array.isArray(data) ? data : []);
+          // Handle both old format (array) and new format (object with entries/structured)
+          if (Array.isArray(data)) {
+            setPeople(data);
+            setStructuredData({ categories: [] });
+          } else {
+            setPeople(data.entries || []);
+            setStructuredData(data.structured || { categories: [] });
+          }
         } else {
           setPeople([]);
+          setStructuredData({ categories: [] });
         }
       } catch (error) {
         console.error("Error fetching people:", error);
         setPeople([]);
+        setStructuredData({ categories: [] });
       }
       setIsLoading(false);
     };
@@ -66,6 +77,21 @@ export default function ContentPage() {
   }, [people, search]);
 
   const groupedByCategory = useMemo(() => {
+    const hasSearch = search.trim().length > 0;
+
+    // When no search, use structured data with narratives
+    if (!hasSearch && structuredData.categories.length > 0) {
+      return structuredData.categories.map(cat => ({
+        category: cat.name,
+        subgroups: cat.subcategories.map(sub => ([
+          sub.name,
+          sub.people,
+          sub.narrative  // Include narrative in the tuple
+        ]))
+      }));
+    }
+
+    // When searching, fall back to flat grouping (no narratives)
     const categories = new Map();
 
     for (const person of filteredBySearch) {
@@ -87,13 +113,15 @@ export default function ContentPage() {
     // instead of forcing an alphabetical sort.
     return Array.from(categories.entries()).map(([category, subMap]) => {
       const subgroups = Array.from(subMap.entries()).sort(([a], [b]) => {
+        // Keep "__no_sub__" entries at the top
         if (a === "__no_sub__") return -1;
         if (b === "__no_sub__") return 1;
-        return a.localeCompare(b);
+        // Preserve original order from file (don't sort alphabetically)
+        return 0;
       });
       return { category, subgroups };
     });
-  }, [filteredBySearch]);
+  }, [filteredBySearch, search, structuredData]);
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -181,8 +209,14 @@ export default function ContentPage() {
 
                         {isExpanded && (
                           <div className="space-y-4">
-                            {subgroups.map(([subKey, entries]) => (
-                              <div key={`${category}-${subKey}`}>
+                            {subgroups.map((subgroup) => {
+                              // Handle both formats: [subKey, entries] for search, [subKey, entries, narrative] for no search
+                              const subKey = subgroup[0];
+                              const entries = subgroup[1];
+                              const narrative = subgroup[2] || "";
+
+                              return (
+                                <div key={`${category}-${subKey}`}>
                                 {subKey !== "__no_sub__" && (
                                   <div className="flex items-center justify-between mb-1">
                                     <h3 className="text-sm font-semibold text-slate-700">
@@ -199,6 +233,16 @@ export default function ContentPage() {
                                     </Badge>
                                   </div>
                                 )}
+
+                                {/* Display narrative text if exists */}
+                                {narrative && (
+                                  <div className="mb-3 p-3 bg-slate-50 border-l-4 border-amber-400 rounded">
+                                    <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+                                      {narrative}
+                                    </p>
+                                  </div>
+                                )}
+
                                 <div className="space-y-3">
                                   {entries.map((person, idx) => (
                                     <div
@@ -217,7 +261,8 @@ export default function ContentPage() {
                                   ))}
                                 </div>
                               </div>
-                            ))}
+                              );
+                            })}
                           </div>
                         )}
                       </>
