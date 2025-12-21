@@ -138,8 +138,43 @@ Content:
         return "\n".join(formatted_context)
 
     def _strip_sources(self, text: str) -> str:
-        """Remove any trailing Sources section if the model adds one."""
-        return re.sub(r"\n+Sources:\s*\n[\s\S]*$", "", text, flags=re.IGNORECASE)
+        """Remove any trailing Sources section, CITED_SOURCES line, and inline citations if the model adds them."""
+        # Remove Sources section
+        text = re.sub(r"\n+Sources:\s*\n[\s\S]*$", "", text, flags=re.IGNORECASE)
+        # Remove CITED_SOURCES line
+        text = re.sub(r'\n*CITED_SOURCES:.*$', '', text, flags=re.IGNORECASE)
+        # Remove inline citations like (Source 1), (Source 5), etc.
+        text = re.sub(r'\s*\(Source\s+\d+\)', '', text, flags=re.IGNORECASE)
+        return text.strip()
+
+    def _extract_cited_sources(self, answer: str, total_sources: int) -> list:
+        """Extract which source numbers the LLM actually cited."""
+        # First, look for CITED_SOURCES: 1, 3, 5 pattern
+        match = re.search(r'CITED_SOURCES:\s*([\d,\s]+)', answer, re.IGNORECASE)
+
+        if match:
+            # Parse the numbers
+            numbers_str = match.group(1)
+            cited_nums = [int(n.strip()) for n in numbers_str.split(',') if n.strip().isdigit()]
+            # Convert to 0-indexed and filter valid indices
+            return [n - 1 for n in cited_nums if 1 <= n <= total_sources]
+
+        # Fallback: Look for inline citations like (Source 1), (Source 5), etc.
+        inline_citations = re.findall(r'\(Source\s+(\d+)\)', answer, re.IGNORECASE)
+        if inline_citations:
+            cited_nums = [int(n) for n in inline_citations]
+            # Remove duplicates while preserving order
+            seen = set()
+            unique_cited = []
+            for n in cited_nums:
+                if n not in seen and 1 <= n <= total_sources:
+                    seen.add(n)
+                    unique_cited.append(n - 1)  # Convert to 0-indexed
+            if unique_cited:
+                return unique_cited
+
+        # Final fallback: return top 5 sources if LLM didn't cite at all
+        return list(range(min(5, total_sources)))
 
     def _expand_query(self, question: str) -> str:
         """
@@ -311,19 +346,41 @@ You can also browse the Topics tab for curated questions on various aspects of P
             "sources": []
         }
 
+    def _is_question_too_long(self, question: str, max_chars: int = 500) -> bool:
+        """Check if question exceeds character limit."""
+        return len(question.strip()) > max_chars
+
+    def _get_question_too_long_response(self, max_chars: int = 500) -> dict:
+        """Return error message for overly long questions."""
+        response_text = f"""Your question is too long (maximum {max_chars} characters).
+
+Please try to:
+• Ask a more focused question
+• Break it into multiple smaller questions
+• Remove unnecessary details
+
+For example, instead of a long paragraph, ask: "Tell me about Rabbi Paul's work with Ethiopian Jewry" """
+
+        return {
+            "answer": response_text,
+            "sources": []
+        }
+
     def _create_rag_chain(self):
         """Creates the full RAG chain for the chatbot."""
         
         template = """
-        You are an AI assistant and expert researcher specializing in the life and writings of a man named Paul. Your task is to answer questions about him using only the provided excerpts from his documents.
+        You are a knowledgeable archivist and guide helping people learn about the life and legacy of Rabbi Paul S. Laderman Z"L. Your role is to share his story with accuracy, warmth, and respect using the documents preserved in his archive.
 
         When answering, you must adhere to the following rules:
-        1.  **Adopt a Researcher's Persona:** Your tone should be objective, informative, and academic. Refer to Paul in the third person.
-        2.  **Use Only Provided Context:** Base your answers *exclusively* on the context provided below.
-        3.  **Distinguish Authorship:** If the context shows a document was written by someone else but archived by Paul (indicated by the "Archived By" field), you MUST make this distinction clear. Use phrases like, "In his archives, Paul kept an article by [Author] which states..." or "While not his own writing, a document he preserved was..." Never present others' words as Paul's own.
-        4.  **Do NOT include a Sources section in your answer.** A single Sources section will be appended automatically from the retrieved documents.
-        5.  **Handle "I Don't Know":** If the provided context does not contain the answer to the question, respond with: "The existing documents do not yet address this question directly. The archive is incomplete by nature, and additional sources may eventually provide clarity. Until then, it would be speculative for me to offer a definitive answer."
-        6.  **Focus on Storytelling:** Weave the facts into a narrative while maintaining a researcher's tone.
+        1.  **Tone & Respect:** Your tone should be warm yet scholarly—like a knowledgeable family friend sharing stories. Always refer to him as "Rabbi Paul Z"L" on first mention, then "Rabbi Paul" or "he" thereafter. Use "Z"L" (zichrono livracha - may his memory be a blessing) consistently.
+        2.  **Narrative Storytelling:** Weave facts into engaging narratives. When multiple sources provide information about a topic, synthesize them into a coherent story rather than listing facts separately. Provide historical and temporal context to help readers understand the significance of events.
+        3.  **Use Only Provided Context:** Base your answers exclusively on the context provided below. Do not invent or speculate beyond what the documents contain.
+        4.  **Distinguish Authorship Clearly:** The archive contains both writings BY Rabbi Paul and documents he preserved/collected. When citing something written by someone else, make this crystal clear: "In his archives, Rabbi Paul preserved an article by [Author] which states..." Never present others' words as his own.
+        5.  **Handle Incomplete Information Gracefully:** If the context doesn't contain the answer, respond: "The existing documents do not yet address this question directly. The archive is incomplete by nature, and additional sources may eventually provide clarity."
+        6.  **No Inline Citations:** Write naturally without citations like (Source 1) in your answer text.
+        7.  **Cite Your Sources at the End:** After your answer, add a new line: "CITED_SOURCES: [numbers]" listing ONLY the source numbers you actually referenced (e.g., "CITED_SOURCES: 1, 3, 5").
+        8.  **Do NOT add a Sources section** - this is appended automatically.
 
         CONTEXT:
         {context}
@@ -331,7 +388,7 @@ You can also browse the Topics tab for curated questions on various aspects of P
         QUESTION:
         {question}
 
-        ANSWER (as a researcher):
+        ANSWER:
         """
         
         prompt = PromptTemplate(template=template, input_variables=["context", "question"])
@@ -366,15 +423,17 @@ You can also browse the Topics tab for curated questions on various aspects of P
 
         # 3) Use the same instruction template as the chain
         template = """
-        You are an AI assistant and expert researcher specializing in the life and writings of a man named Paul. Your task is to answer questions about him using only the provided excerpts from his documents.
+        You are a knowledgeable archivist and guide helping people learn about the life and legacy of Rabbi Paul S. Laderman Z"L. Your role is to share his story with accuracy, warmth, and respect using the documents preserved in his archive.
 
         When answering, you must adhere to the following rules:
-        1.  **Adopt a Researcher's Persona:** Your tone should be objective, informative, and academic. Refer to Paul in the third person.
-        2.  **Use Only Provided Context:** Base your answers *exclusively* on the context provided below.
-        3.  **Distinguish Authorship:** If the context shows a document was written by someone else but archived by Paul (indicated by the "Archived By" field), you MUST make this distinction clear. Use phrases like, "In his archives, Paul kept an article by [Author] which states..." or "While not his own writing, a document he preserved was..." Never present others' words as Paul's own.
-        4.  **Do NOT include a Sources section in your answer.** A single Sources section will be appended automatically from the retrieved documents.
-        5.  **Handle "I Don't Know":** If the provided context does not contain the answer to the question, respond with: "The existing documents do not yet address this question directly. The archive is incomplete by nature, and additional sources may eventually provide clarity. Until then, it would be speculative for me to offer a definitive answer."
-        6.  **Focus on Storytelling:** Weave the facts into a narrative while maintaining a researcher's tone.
+        1.  **Tone & Respect:** Your tone should be warm yet scholarly—like a knowledgeable family friend sharing stories. Always refer to him as "Rabbi Paul Z"L" on first mention, then "Rabbi Paul" or "he" thereafter. Use "Z"L" (zichrono livracha - may his memory be a blessing) consistently.
+        2.  **Narrative Storytelling:** Weave facts into engaging narratives. When multiple sources provide information about a topic, synthesize them into a coherent story rather than listing facts separately. Provide historical and temporal context to help readers understand the significance of events.
+        3.  **Use Only Provided Context:** Base your answers exclusively on the context provided below. Do not invent or speculate beyond what the documents contain.
+        4.  **Distinguish Authorship Clearly:** The archive contains both writings BY Rabbi Paul and documents he preserved/collected. When citing something written by someone else, make this crystal clear: "In his archives, Rabbi Paul preserved an article by [Author] which states..." Never present others' words as his own.
+        5.  **Handle Incomplete Information Gracefully:** If the context doesn't contain the answer, respond: "The existing documents do not yet address this question directly. The archive is incomplete by nature, and additional sources may eventually provide clarity."
+        6.  **No Inline Citations:** Write naturally without citations like (Source 1) in your answer text.
+        7.  **Cite Your Sources at the End:** After your answer, add a new line: "CITED_SOURCES: [numbers]" listing ONLY the source numbers you actually referenced (e.g., "CITED_SOURCES: 1, 3, 5").
+        8.  **Do NOT add a Sources section** - this is appended automatically.
 
         CONTEXT:
         {context}
@@ -382,7 +441,7 @@ You can also browse the Topics tab for curated questions on various aspects of P
         QUESTION:
         {question}
 
-        ANSWER (as a researcher):
+        ANSWER:
         """
 
         prompt = PromptTemplate(template=template, input_variables=["context", "question"])
@@ -419,6 +478,10 @@ You can also browse the Topics tab for curated questions on various aspects of P
         if not question:
             return {"answer": "Please ask a question.", "sources": []}
 
+        # Check if question is too long
+        if self._is_question_too_long(question, config.MAX_QUESTION_LENGTH):
+            return self._get_question_too_long_response(config.MAX_QUESTION_LENGTH)
+
         # Handle greetings conversationally
         if self._is_greeting(question):
             return self._get_greeting_response()
@@ -445,15 +508,17 @@ You can also browse the Topics tab for curated questions on various aspects of P
 
         # Use same instruction template
         template = """
-        You are an AI assistant and expert researcher specializing in the life and writings of a man named Paul. Your task is to answer questions about him using only the provided excerpts from his documents.
+        You are a knowledgeable archivist and guide helping people learn about the life and legacy of Rabbi Paul S. Laderman Z"L. Your role is to share his story with accuracy, warmth, and respect using the documents preserved in his archive.
 
         When answering, you must adhere to the following rules:
-        1.  **Adopt a Researcher's Persona:** Your tone should be objective, informative, and academic. Refer to Paul in the third person.
-        2.  **Use Only Provided Context:** Base your answers *exclusively* on the context provided below.
-        3.  **Distinguish Authorship:** If the context shows a document was written by someone else but archived by Paul (indicated by the "Archived By" field), you MUST make this distinction clear. Use phrases like, "In his archives, Paul kept an article by [Author] which states..." or "While not his own writing, a document he preserved was..." Never present others' words as Paul's own.
-        4.  **Do NOT include a Sources section in your answer.** A single Sources section will be appended automatically from the retrieved documents.
-        5.  **Handle "I Don't Know":** If the provided context does not contain the answer to the question, respond with: "The existing documents do not yet address this question directly. The archive is incomplete by nature, and additional sources may eventually provide clarity. Until then, it would be speculative for me to offer a definitive answer."
-        6.  **Focus on Storytelling:** Weave the facts into a narrative while maintaining a researcher's tone.
+        1.  **Tone & Respect:** Your tone should be warm yet scholarly—like a knowledgeable family friend sharing stories. Always refer to him as "Rabbi Paul Z"L" on first mention, then "Rabbi Paul" or "he" thereafter. Use "Z"L" (zichrono livracha - may his memory be a blessing) consistently.
+        2.  **Narrative Storytelling:** Weave facts into engaging narratives. When multiple sources provide information about a topic, synthesize them into a coherent story rather than listing facts separately. Provide historical and temporal context to help readers understand the significance of events.
+        3.  **Use Only Provided Context:** Base your answers exclusively on the context provided below. Do not invent or speculate beyond what the documents contain.
+        4.  **Distinguish Authorship Clearly:** The archive contains both writings BY Rabbi Paul and documents he preserved/collected. When citing something written by someone else, make this crystal clear: "In his archives, Rabbi Paul preserved an article by [Author] which states..." Never present others' words as his own.
+        5.  **Handle Incomplete Information Gracefully:** If the context doesn't contain the answer, respond: "The existing documents do not yet address this question directly. The archive is incomplete by nature, and additional sources may eventually provide clarity."
+        6.  **No Inline Citations:** Write naturally without citations like (Source 1) in your answer text.
+        7.  **Cite Your Sources at the End:** After your answer, add a new line: "CITED_SOURCES: [numbers]" listing ONLY the source numbers you actually referenced (e.g., "CITED_SOURCES: 1, 3, 5").
+        8.  **Do NOT add a Sources section** - this is appended automatically.
 
         CONTEXT:
         {context}
@@ -461,11 +526,16 @@ You can also browse the Topics tab for curated questions on various aspects of P
         QUESTION:
         {question}
 
-        ANSWER (as a researcher):
+        ANSWER:
         """
 
         prompt = PromptTemplate(template=template, input_variables=["context", "question"])
         answer_text = (prompt | self.llm | StrOutputParser()).invoke({"context": context, "question": question})
+
+        # Extract which sources were cited before stripping
+        cited_indices = self._extract_cited_sources(answer_text, len(docs))
+
+        # Now strip sources and CITED_SOURCES line
         clean_answer = self._strip_sources(answer_text)
 
         # Check if we need fallback retrieval
@@ -476,6 +546,8 @@ You can also browse the Topics tab for curated questions on various aspects of P
             docs = self._fallback_similarity_search(question, k=15)
             context = self._format_context(docs)
             answer_text = (prompt | self.llm | StrOutputParser()).invoke({"context": context, "question": question})
+            # Re-extract citations after fallback
+            cited_indices = self._extract_cited_sources(answer_text, len(docs))
             clean_answer = self._strip_sources(answer_text)
 
             # Stage 3: Keyword-based fallback (if still no information)
@@ -484,12 +556,17 @@ You can also browse the Topics tab for curated questions on various aspects of P
                 docs = self._fallback_keyword_search(question)
                 context = self._format_context(docs)
                 answer_text = (prompt | self.llm | StrOutputParser()).invoke({"context": context, "question": question})
+                # Re-extract citations after keyword search
+                cited_indices = self._extract_cited_sources(answer_text, len(docs))
                 clean_answer = self._strip_sources(answer_text)
+
+        # Filter docs to only cited ones
+        cited_docs = [docs[i] for i in cited_indices if i < len(docs)]
 
         # Structured sources (deduplicated by title + link)
         structured_sources = []
         seen = set()
-        for d in docs:
+        for d in cited_docs:
             m = d.metadata or {}
             title = m.get("title", "Untitled Document")
             links = m.get("source_links") or ([m["source_link"]] if m.get("source_link") else [])

@@ -30,3 +30,6 @@ PINECONE_REGION = os.getenv("PINECONE_REGION", "us-east-1")
 
 # --- Database Configuration ---
 DATABASE_URL = os.getenv("DATABASE_URL")
+
+# --- Chatbot Limits ---
+MAX_QUESTION_LENGTH = 500  # Maximum characters allowed in a question

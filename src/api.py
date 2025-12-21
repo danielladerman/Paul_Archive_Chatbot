@@ -4,6 +4,7 @@ from pydantic import BaseModel
 import os
 import json
 import re
+import random
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from datetime import date
@@ -79,10 +80,19 @@ def root():
 @app.get("/suggestions", response_model=List[str])
 def get_suggestions():
     """
-    Returns a list of dynamically generated question suggestions.
+    Returns a list of random question suggestions from the curated topics.
+    This is much faster and more reliable than LLM-based generation.
     """
     try:
-        suggestions = chatbot_instance.generate_suggestions()
+        # Get all curated topics from the /content endpoint
+        all_topics = get_content_topics(mode="curated")
+
+        # Randomly select 4 suggestions
+        if len(all_topics) >= 4:
+            suggestions = random.sample(all_topics, 4)
+        else:
+            suggestions = all_topics
+
         return suggestions
     except Exception as e:
         print(f"Failed to get suggestions: {e}")

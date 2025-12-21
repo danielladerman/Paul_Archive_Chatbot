@@ -101,7 +101,7 @@ export default function ContentPage() {
         <CardHeader>
           <CardTitle>People Glossary</CardTitle>
           <p className="text-slate-600">
-            A curated glossary of family, friends, mentors, and communities connected to Rabbi Paul S. Laderman Z&quot;L.
+            A curated glossary of family, friends, mentors, and communities connected to Rabbi Paul S. Laderman Z&quot;L. To see full relationship to Paul try going up or down the family hierarchy mentioned in the search result.
           </p>
           <div className="mt-4">
             <div className="bg-amber-50 border border-amber-300 rounded-xl px-3 md:px-4 py-3 shadow-sm">
