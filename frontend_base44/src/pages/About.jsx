@@ -106,7 +106,7 @@ export default function AboutPage() {
           </CardHeader>
           <CardContent>
             <p className="text-lg leading-relaxed text-slate-700 mb-4">
-              {appendZl("This website is a living, digital memorial built from Paul's writings, letters, talks, and documents so that his wisdom can continue to be discovered in conversation.")}
+              {appendZl("This website is a living, digital memorial with an AI agent used as a Scholar to access Rabbi Paul's writings, letters, talks, and documents that we collected to retrieve his wisdom refrencing accurate sources to be discovered with the AI Scholar.")}
             </p>
             <p className="text-lg leading-relaxed text-slate-700">
               {appendZl("Below you can learn how the AI scholar works, how to explore topics and people, and how to share your own memories to help keep his story alive.")}
@@ -132,23 +132,52 @@ export default function AboutPage() {
             <ul className="space-y-3 text-slate-700">
               <li>
                 <strong>Chat with the AI scholar:</strong>{" "}
-                {appendZl("Go to the Chat tab to ask your own questions about Paul or his world, or click on dynamically suggested questions to get started.")}
+                {appendZl("Go to the ")}<button
+                  onClick={() => navigate("/Chat")}
+                  className="inline-flex items-center px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors font-semibold text-sm"
+                >
+                  Chat Tab
+                </button>{appendZl(" to ask your own questions about Paul or his world, or click on dynamically suggested questions to get started.")}
               </li>
               <li>
                 <strong>Explore topics and events:</strong>{" "}
-                {appendZl("Visit the Topics page to browse curated topics and questions you can click to launch a conversation.")}
+                {appendZl("Visit the ")}<button
+                  onClick={() => navigate("/Timeline")}
+                  className="inline-flex items-center px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors font-semibold text-sm"
+                >
+                  Topics Tab
+                </button>{appendZl(" to browse curated topics and questions you can click to launch a conversation.")}
               </li>
               <li>
                 <strong>Look up people and places:</strong>{" "}
-                {appendZl("Visit the People Tab and use its search bar, or just click on a family to find names, relationships, and communities from Paul's life.")}
+                {appendZl("Visit the ")}<button
+                  onClick={() => navigate("/Content")}
+                  className="inline-flex items-center px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors font-semibold text-sm"
+                >
+                  Family & Friends Tab
+                </button>{appendZl(" and use its search bar, or just click on a family to find names, relationships, and communities from Paul's life.")}
               </li>
               <li>
                 <strong>Walk down Rabbi Paul's life timeline:</strong>{" "}
-                {appendZl("Visit the Life Timeline Tab and go down Paul's memory lane.")}
+                {appendZl("Visit the ")}<button
+                  onClick={() => navigate("/LifeTimeline")}
+                  className="inline-flex items-center px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors font-semibold text-sm"
+                >
+                  Life Timeline Tab
+                </button>{appendZl(" and go down Paul's memory lane.")}
               </li>
               <li>
                 <strong>Enjoy the Photo Gallery:</strong>{" "}
-                {appendZl("Go to the Gallery Tab to see photos of Paul.")}
+                {appendZl("Go to the ")}<button
+                  onClick={() => navigate("/Gallery")}
+                  className="inline-flex items-center px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors font-semibold text-sm"
+                >
+                  Gallery Tab
+                </button>{appendZl(" to see photos of Paul, and please add a photo that you would like to memorialize.")}
+              </li>
+              <li>
+                <strong>To navigate easily:</strong>{" "}
+                {appendZl("Please use the browser's back arrow to go to the previous tabs and pages, or just click on the tab name in the navigation bar at the top.")}
               </li>
             </ul>
           </CardContent>
@@ -172,7 +201,7 @@ export default function AboutPage() {
           <CardContent>
             <p className="text-slate-700 text-center mb-6">
               If you knew Paul Z'L, we invite you to share a story, reflection, or moment. These notes are kept
-              privately for the family and may help enrich this memorial and the chatbot over time. If you don't show up in the People Tab, please share your relation to Paul Z"L.
+              privately for family and friends which will help enrich this memorial and the chatbot over time. If you don't show up in the People Tab, please share your relation to Paul Z"L.
               <br />
               <br />
               * For attachments please email to <a href="mailto:danielladerman@gmail.com" className="text-slate-700 hover:text-slate-900">danielladerman@gmail.com</a>
@@ -293,6 +322,7 @@ export default function AboutPage() {
           description: "His curiosity about the world never dimmed, always seeking to understand and grow.",
           color: "text-yellow-500",
           targetPath: "/Timeline", // Topics section
+          openCategory: "RAB", // Auto-open Rabbinical Activities
         },
         {
           icon: Globe,
@@ -300,6 +330,7 @@ export default function AboutPage() {
           description: "Paul viewed life through a lens of understanding, empathy, and global consciousness.",
           color: "text-blue-500",
           targetPath: "/Timeline", // Topics section
+          openCategory: "PV", // Auto-open Paul's Viewpoints
         },
         {
           icon: Users,
@@ -307,13 +338,14 @@ export default function AboutPage() {
           description: "He believed in contributing to his community and making a positive difference.",
           color: "text-green-500",
           targetPath: "/Timeline", // Topics section
+          openCategory: "S&P", // Auto-open Social and Political Causes
         },
         {
           icon: BookOpen,
           title: "Written Legacy",
           description: "Through extensive documentation, he preserved thoughts and experiences for posterity.",
           color: "text-purple-500",
-          targetPath: "/Timeline", // Topics section
+          externalUrl: "https://drive.google.com/drive/folders/15qBotWIGx4kzs3P4kcuL8uPnJ3JjOSfP?usp=sharing",
         },
         {
           icon: Camera,
@@ -330,7 +362,13 @@ export default function AboutPage() {
           transition={{ delay: 0.3 + index * 0.1 }}>
 
             <Card
-              onClick={() => navigate(value.targetPath)}
+              onClick={() => {
+                if (value.externalUrl) {
+                  window.open(value.externalUrl, '_blank', 'noopener,noreferrer');
+                } else {
+                  navigate(value.targetPath, value.openCategory ? { state: { openCategory: value.openCategory } } : {});
+                }
+              }}
               className="paul-card border-amber-200 h-full hover:paul-glow transition-all duration-300 cursor-pointer"
             >
               <CardContent className="p-6 text-center">
@@ -379,7 +417,11 @@ export default function AboutPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 bg-amber-400 rounded-full mt-2 flex-shrink-0"></div>
-                    <span>Natural conversation interface for easy interaction</span>
+                    <span>An AI agent is used as a research scholar to curate Paul's first hand content to provide information on a user's request</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 bg-amber-400 rounded-full mt-2 flex-shrink-0"></div>
+                    <span>Natural conversation interface easy for interaction</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 bg-amber-400 rounded-full mt-2 flex-shrink-0"></div>
@@ -398,7 +440,7 @@ export default function AboutPage() {
 
                 </p>
                 <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                  <p className="text-amber-800 text-sm italic text-center">
+                  <p className="text-amber-800 text-lg font-bold italic text-center">
                     "The best way to honor a life well-lived is to ensure its lessons live on."
                   </p>
                 </div>

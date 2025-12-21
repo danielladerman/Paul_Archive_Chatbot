@@ -260,20 +260,27 @@ export default function ChatPage() {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-2 mt-3 md:mt-4">
-              {suggestions.map((suggestion, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleSendMessage(suggestion)}
-                  disabled={isLoading}
-                  className="text-xs hover:bg-amber-50 border-amber-200 px-2 py-1 md:px-3"
-                >
-                  {suggestion.replace("Tell me about ", "")}
-                </Button>
-              ))}
-            </div>
+            {suggestions.length > 0 && (
+              <>
+                <p className="text-sm font-bold text-black mt-4 mb-2 text-center">
+                  Random Curated Topics
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {suggestions.map((suggestion, index) => (
+                    <Button
+                      key={index}
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleSendMessage(suggestion)}
+                      disabled={isLoading}
+                      className="text-xs hover:bg-amber-50 border-amber-200 px-2 py-1 md:px-3"
+                    >
+                      {suggestion.replace("Tell me about ", "")}
+                    </Button>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

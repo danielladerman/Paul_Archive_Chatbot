@@ -57,6 +57,8 @@ class GalleryImage(Base):
     description = Column(Text, nullable=True)
     date_taken = Column(Date, nullable=True)
     tags = Column(JSONB, nullable=True)
+    category = Column(String(50), nullable=True, default="photo")  # "photo" or "document"
+    display_order = Column(Integer, nullable=True, default=0)  # Higher numbers appear first
     created_at = Column(DateTime, default=datetime.utcnow)
 
 

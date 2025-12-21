@@ -28,6 +28,16 @@ export const GalleryImage = {
         description:
           "Keywords or tags for the photo (e.g., family, vacation, celebration)",
       },
+      category: {
+        type: "string",
+        description: "Category: 'photo' or 'document'",
+        default: "photo",
+      },
+      display_order: {
+        type: "integer",
+        description: "Display order (higher numbers appear first)",
+        default: 0,
+      },
     },
     required: ["image_url", "title"],
   },

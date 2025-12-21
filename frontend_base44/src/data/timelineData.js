@@ -1,17 +1,18 @@
 // Category labels (top-level); subcategories use a hyphen suffix, e.g., LE-C, LE-E, LE-F, LE-P
 export const CATEGORY_LABELS = {
   LE: "Life Events, Family, and Community",
-  RAB: "Rabbinical Activities and Topics in Judaism",
-  TRB: "Tributes and Legacy",
+  RAB: "Rabbinical Activities and Teachings of Jewish Topics",
   PV: "Paul's Viewpoints",
-  "S&P": "Social and Political Causes"
+  "S&P": "Social and Political Causes",
+  TRB: "Tributes and Legacy"
+  
 };
 
 export const CATEGORY_DESCRIPTIONS = {
   LE: "Major personal milestones and stages of life.",
-  RAB: "Work, leadership, and responsibilities as a rabbi and educator.",
-  TRB: "Eulogies, memorials and honors.",
-  PV: "Rabbi Paul’s own positions and reflections.",
+  RAB: "Work, leadership, and teachings as a rabbi and an educator.",
+  TRB: "Eulogies, memorials, honors, and insights into Rabbi Paul's special character.",
+  PV: "Rabbi Paul’s personal views and perspectives.",
   "S&P": "Civic, social, and political engagement."
 };
 

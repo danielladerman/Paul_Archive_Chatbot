@@ -61,7 +61,10 @@ function PagesContent() {
             try {
                 const el = document.getElementById(targetId);
                 if (el) {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Position element in upper-middle of screen for better visibility
+                    const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = elementPosition - (window.innerHeight / 4.5);
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
                 }
             } catch {
                 // ignore

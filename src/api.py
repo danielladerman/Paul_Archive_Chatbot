@@ -408,6 +408,8 @@ class GalleryImageIn(BaseModel):
     description: Optional[str] = None
     date_taken: Optional[date] = None
     tags: Optional[List[str]] = None
+    category: Optional[str] = "photo"  # "photo" or "document"
+    display_order: Optional[int] = 0  # Higher numbers appear first
 
 class GalleryImageOut(GalleryImageIn):
     id: int
@@ -417,7 +419,7 @@ class GalleryImageOut(GalleryImageIn):
 def list_gallery(db: Session = Depends(get_db)):
     if not config.DATABASE_URL:
         return []
-    rows = db.query(DBGalleryImage).order_by(DBGalleryImage.created_at.desc()).all()
+    rows = db.query(DBGalleryImage).order_by(DBGalleryImage.display_order.desc()).all()
     return [
         GalleryImageOut(
             id=r.id,
@@ -426,6 +428,8 @@ def list_gallery(db: Session = Depends(get_db)):
             description=r.description,
             date_taken=r.date_taken,
             tags=r.tags or [],
+            category=r.category or "photo",
+            display_order=r.display_order or 0,
             created_at=r.created_at.isoformat(),
         )
         for r in rows
@@ -446,6 +450,8 @@ def create_gallery(img: GalleryImageIn, _: bool = Depends(verify_api_key), db: S
         description=row.description,
         date_taken=row.date_taken,
         tags=row.tags or [],
+        category=row.category or "photo",
+        display_order=row.display_order or 0,
         created_at=row.created_at.isoformat(),
     )
 

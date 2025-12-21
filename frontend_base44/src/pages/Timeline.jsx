@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -68,6 +68,7 @@ function getCustomButtons(categoryCode, subCode) {
 
 export default function TimelinePage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [titles, setTitles] = useState([]);
   const [isLoadingTitles, setIsLoadingTitles] = useState(true);
   const [expandedCats, setExpandedCats] = useState(new Set());
@@ -76,6 +77,34 @@ export default function TimelinePage() {
   useEffect(() => {
     loadTitles();
   }, []);
+
+  // Auto-expand category if specified in navigation state
+  useEffect(() => {
+    if (location.state?.openCategory) {
+      setExpandedCats((prev) => {
+        const next = new Set(prev);
+        next.add(location.state.openCategory);
+        return next;
+      });
+
+      // Scroll to the category after a brief delay to allow expansion animation
+      setTimeout(() => {
+        const categoryElement = document.getElementById(`category-${location.state.openCategory}`);
+        if (categoryElement) {
+          const elementPosition = categoryElement.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - (window.innerHeight / 3); // Position in upper-middle of screen
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+
+      // Clear the state so it doesn't persist on page refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   const loadTitles = async () => {
     try {
@@ -192,7 +221,7 @@ export default function TimelinePage() {
             const isLifeEvents = top === "LE";
 
             return (
-              <Card key={top} className="paul-card border-amber-200 paul-glow">
+              <Card key={top} id={`category-${top}`} className="paul-card border-amber-200 paul-glow">
                 <CardHeader className="cursor-pointer" onClick={() => toggleExpandedCat(top)}>
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
@@ -212,7 +241,7 @@ export default function TimelinePage() {
                               { code: "C", label: "Childhood" },
                               { code: "E", label: "Education" },
                               { code: "P", label: "Professional" },
-                              { code: "F", label: "Family" }
+                              { code: "F", label: "Family and Community" }
                             ].map(({ code, label: subLabel }) => {
                               const subKey = `LE-${code}`;
                               const items = titleList.filter((t) => (normalizedCategoryMap.get(normalizeTitle(t)) || "LE").toUpperCase() === subKey);
@@ -308,7 +337,7 @@ export default function TimelinePage() {
                 <div className="flex-1">
                   <CardTitle className="text-xl font-medium paul-text-gradient">Historical Touchpoints</CardTitle>
                   <p className="text-slate-600 mt-1">
-                    Broader events and movements that frame Rabbi Paul’s era.
+                    Rabbi Paul Z"L lived through and touched many historical events in the 20th Century.
                   </p>
                 </div>
                 {expandedCats.has("HIST") ? <ChevronUp className="w-5 h-5 text-slate-400" /> : <ChevronDown className="w-5 h-5 text-slate-400" />}

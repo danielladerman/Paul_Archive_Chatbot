@@ -12,7 +12,7 @@ export default function Layout({ children, currentPageName }) {
   const navigationItems = [
     { name: "About", url: createPageUrl("About"), icon: User },
     { name: "Chat", url: createPageUrl("Chat"), icon: MessageCircle },
-    { name: "People", url: createPageUrl("Content"), icon: Users },
+    { name: "Family & Friends", url: createPageUrl("Content"), icon: Users },
     { name: "Topics", url: createPageUrl("Timeline"), icon: Sparkles },
     { name: "Life Timeline", url: createPageUrl("LifeTimeline"), icon: BookOpen },
     { name: "Gallery", url: createPageUrl("Gallery"), icon: Image }

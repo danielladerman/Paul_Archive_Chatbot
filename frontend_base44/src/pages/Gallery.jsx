@@ -13,12 +13,13 @@ import { format } from "date-fns";
 import { appendZl } from "@/lib/utils/index.js";
 
 // Uploader Component
-const PhotoUploader = ({ onUploadFinished }) => {
+const PhotoUploader = ({ onUploadFinished, defaultCategory = "photo" }) => {
   const [file, setFile] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dateTaken, setDateTaken] = useState("");
   const [tags, setTags] = useState("");
+  const [category, setCategory] = useState(defaultCategory);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -46,6 +47,7 @@ const PhotoUploader = ({ onUploadFinished }) => {
         description,
         date_taken: dateTaken || null,
         tags: tags.split(',').map(tag => tag.trim()).filter(Boolean),
+        category,
       });
       onUploadFinished();
     } catch (err) {
@@ -78,6 +80,33 @@ const PhotoUploader = ({ onUploadFinished }) => {
         <Label htmlFor="tags">Tags (comma-separated)</Label>
         <Input id="tags" value={tags} onChange={(e) => setTags(e.target.value)} placeholder="e.g., family, vacation, celebration" className="border-amber-200" />
       </div>
+      <div>
+        <Label htmlFor="category">Category</Label>
+        <div className="flex gap-4 mt-2">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="category"
+              value="photo"
+              checked={category === "photo"}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-4 h-4 text-amber-600 border-amber-300 focus:ring-amber-500"
+            />
+            <span className="text-sm">Photo</span>
+          </label>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="category"
+              value="document"
+              checked={category === "document"}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-4 h-4 text-amber-600 border-amber-300 focus:ring-amber-500"
+            />
+            <span className="text-sm">Document</span>
+          </label>
+        </div>
+      </div>
       {error && <p className="text-red-500 text-sm">{error}</p>}
       <DialogFooter>
         <DialogClose asChild>
@@ -98,6 +127,7 @@ export default function GalleryPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isUploaderOpen, setIsUploaderOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("photos"); // "photos" or "documents"
 
   useEffect(() => {
     loadImages();
@@ -119,6 +149,11 @@ export default function GalleryPage() {
     loadImages();
   };
 
+  // Filter images based on active tab using category field
+  const photoImages = images.filter(img => (img.category || "photo") === "photo");
+  const documentImages = images.filter(img => img.category === "document");
+  const displayedImages = activeTab === "photos" ? photoImages : documentImages;
+
   return (
     <div className="max-w-7xl mx-auto">
       {/* Header */}
@@ -130,7 +165,7 @@ export default function GalleryPage() {
         <div className="paul-card rounded-2xl p-6 md:p-8 paul-glow">
           <div className="flex items-center justify-center gap-3 mb-4">
             <ImageIcon className="w-8 h-8 paul-text-gradient" />
-            <h1 className="text-3xl font-light paul-text-gradient">{appendZl("Photo Gallery")}</h1>
+            <h1 className="text-3xl font-light paul-text-gradient">{appendZl("Photo & Documents Gallery")}</h1>
           </div>
           <p className="text-slate-600 leading-relaxed max-w-2xl mx-auto">
             {appendZl("A collection of cherished moments from Paul's life. Feel free to contribute your own photos to help grow this visual history.")}
@@ -138,10 +173,30 @@ export default function GalleryPage() {
         </div>
       </motion.div>
 
-      {/* Add Photo Button */}
+      {/* Tab Navigation */}
+      <div className="flex justify-center gap-2 mb-6">
+        <Button
+          onClick={() => setActiveTab("photos")}
+          variant={activeTab === "photos" ? "default" : "outline"}
+          className={activeTab === "photos" ? "paul-gradient" : "border-amber-200 hover:bg-amber-50"}
+        >
+          <ImageIcon className="mr-2 h-4 w-4" />
+          Photos ({photoImages.length})
+        </Button>
+        <Button
+          onClick={() => setActiveTab("documents")}
+          variant={activeTab === "documents" ? "default" : "outline"}
+          className={activeTab === "documents" ? "paul-gradient" : "border-amber-200 hover:bg-amber-50"}
+        >
+          <FileText className="mr-2 h-4 w-4" />
+          Documents ({documentImages.length})
+        </Button>
+      </div>
+
+      {/* Add Photo/Document Button */}
       <div className="text-center mb-8">
         <Button onClick={() => setIsUploaderOpen(true)} className="paul-gradient paul-glow">
-          <Plus className="mr-2 h-4 w-4" /> Add a Photo
+          <Plus className="mr-2 h-4 w-4" /> Add a {activeTab === "photos" ? "Photo" : "Document"}
         </Button>
       </div>
 
@@ -152,10 +207,10 @@ export default function GalleryPage() {
             <div key={i} className="aspect-square bg-slate-200/50 rounded-lg animate-pulse"></div>
           ))}
         </div>
-      ) : images.length > 0 ? (
+      ) : displayedImages.length > 0 ? (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           <AnimatePresence>
-            {images.map((image) => (
+            {displayedImages.map((image) => (
               <motion.div
                 key={image.id}
                 layout
@@ -184,9 +239,19 @@ export default function GalleryPage() {
         </div>
       ) : (
         <div className="text-center py-16 paul-card rounded-lg">
-            <ImageIcon className="mx-auto h-12 w-12 text-slate-400" />
-            <h3 className="mt-2 text-lg font-medium text-slate-800">The gallery is empty</h3>
-            <p className="mt-1 text-sm text-slate-500">{appendZl("Be the first to add a photo to Paul's memorial.")}</p>
+            {activeTab === "photos" ? (
+              <>
+                <ImageIcon className="mx-auto h-12 w-12 text-slate-400" />
+                <h3 className="mt-2 text-lg font-medium text-slate-800">No photos yet</h3>
+                <p className="mt-1 text-sm text-slate-500">{appendZl("Be the first to add a photo to Paul's memorial.")}</p>
+              </>
+            ) : (
+              <>
+                <FileText className="mx-auto h-12 w-12 text-slate-400" />
+                <h3 className="mt-2 text-lg font-medium text-slate-800">No documents yet</h3>
+                <p className="mt-1 text-sm text-slate-500">{appendZl("Be the first to add a document to Paul's memorial.")}</p>
+              </>
+            )}
         </div>
       )}
 
@@ -194,9 +259,9 @@ export default function GalleryPage() {
       <Dialog open={isUploaderOpen} onOpenChange={setIsUploaderOpen}>
         <DialogContent className="sm:max-w-[425px] paul-card">
           <DialogHeader>
-            <DialogTitle>Add a Photo to the Gallery</DialogTitle>
+            <DialogTitle>Add a {activeTab === "photos" ? "Photo" : "Document"} to the Gallery</DialogTitle>
           </DialogHeader>
-          <PhotoUploader onUploadFinished={handleUploadFinished} />
+          <PhotoUploader onUploadFinished={handleUploadFinished} defaultCategory={activeTab === "photos" ? "photo" : "document"} />
         </DialogContent>
       </Dialog>
       
