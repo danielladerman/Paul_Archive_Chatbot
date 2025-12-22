@@ -2,7 +2,7 @@
 title: "Key Events in the Life of Rabbi Paul S. Laderman"
 author: "Rabbi Paul S. Laderman"
 date: "2015"
-source_link: "https://paul-archive-chatbot-o3z8.vercel.app/timeline"
+source_link: "https://rabbipaulsladermanmemorial.com/lifetimeline"
 type: "Timeline"
 location: \["Denver, Colorado; New York, NY; Jerusalem, Israel; Oakland, California"]
 tags: \["timeline", "biography", "education", "career", "family", "milestones", "Aliyah", "military service"]
@@ -62,9 +62,14 @@ Paul's Bar Mitzvah emerged as a major community event, symbolizing his coming-of
 
 **Location:** Paris, France (and various European cities)
 
-In the aftermath of World War II, Paul and his family embarked on a transformative journey through Europe and Israel. Living for several months in Paris, he attended the American Community School, where he became fluent in French and gained confidence in a cosmopolitan environment. This period allowed him to visit Brussels, Geneva, Rome, Athens, and Jerusalem, where he observed the stark realities of postwar recovery.
+- **Transformative Journey (1948)**  
+  - Locations: Paris, Brussels, Geneva, Rome, Athens, Jerusalem  
+  - Traveled due to his father's work with postwar Jewish refugees.  
+  - Disliked French schooling for its rigidity; chose American Community School in Paris.  
+  - Gained a cosmopolitan perspective and deepened connection to Zionism.
 
-**Significance:** This experience deepened his connection to Zionism and provided him with a cosmopolitan worldview that would influence his later pluralistic approach to Jewish life.
+- **American Community School**, Paris, France  
+  - Enrolled in 9th grade: **November 1948**
 
 ---
 

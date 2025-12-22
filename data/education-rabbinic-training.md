@@ -27,8 +27,8 @@ Rabbi Paul’s journey through higher Jewish education spanned continents and id
 ## 🔍 Key Details
 
 ### Postwar Paris
-- Sent to Paris by his parents at age 15 after 8th grade to experience the world and learn French.
-- Lived with a family, learned the language quickly, and immersed in local culture.
+- Traveled with his family (father , mother and sister Mierle) at age 15 since his father, Rabbi Manuel Laderman z”l  was sent by the Joint organization to Paris to work with the Jewish refugees that survived WWII in Europe.
+- He did not pick up the swiftly French language and absorbed the rich tapestry of postwar European life, since he hated the atmosphere in a French school where the kids were not allowed to walk with their hands in their pockets which was the American way and was considered by the French as not proper. He preferred going to the American school in Paris. 
 - First direct exposure to postwar Jewish recovery in Europe and broader cosmopolitan life.
 
 ### Yeshiva in Chicago
