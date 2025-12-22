@@ -20,7 +20,7 @@ This comprehensive glossary documents the people, families, and communities conn
 
 ### Parents
 
-- **Bess Malin Laderman** – Paul's mother. Bess Malin was born in Russia April 2, 1911, came to America in 1923 at age 12, finished elementary school in 3 years, high school in 2 years. With her mother Leiba (Libby) Malin and her younger sister Betty, fled Russia on a journey through Europe with a stop in Cuba (2 years) that took 10 years total to arrive to the USA. In 1932 she married Rabbi Manual Laderman. Alongside Rabbi Manual Laderman she was a pillar of the Hebrew Alliance Congregation, Rabbi Manuel Laderman's pulpit for over 57 years, and also to the broader Denver community as she founded the Denver Symphony and spearheaded the Denver and Carmiel Israel Sister City program.
+- **Bess Mallin Laderman** – Paul's mother. Bess Mallin was born in Russia April 2, 1911, came to America in 1923 at age 12, finished elementary school in 3 years, high school in 2 years. With her mother Leiba (Libby) Mallin and her younger sister Betty, fled Russia on a journey through Europe with a stop in Cuba (2 years) that took 10 years total to arrive to the USA. In 1932 she married Rabbi Manual Laderman. Alongside Rabbi Manual Laderman she was a pillar of the Hebrew Alliance Congregation, Rabbi Manuel Laderman's pulpit for over 57 years, and also to the broader Denver community as she founded the Denver Symphony and spearheaded the Denver and Carmiel Israel Sister City program.
 
 - **Rabbi Manual (Manny) Laderman** – Paul's father, born in New York City, became Denver's first modern Orthodox Rabbi in 1932 at the Hebrew Alliance Congregation (HAC), Rabbi Manuel Laderman's pulpit for over 57 years, that was founded with his arrival to Denver to meet the founders of this new HAC synagogue. An active interfaith leader in Denver Colorado and the head of the Denver Health Board. Rabbi Manual Laderman passed away in November 1989. Paul after his father passed away curated many of the sermons and teachings and published a book in his father's memory, titled "Letters of Faith" by Rabbi Manuel Laderman. The book includes 35 such letters, including a letter published in a national magazine: "A Love Letter to My Congregation". Paul also wrote the preface to the book.
 
@@ -50,18 +50,18 @@ This comprehensive glossary documents the people, families, and communities conn
 
 ---
 
-## Extended Family – Maternal – Malin Family - Kansas City MO
+## Extended Family – Maternal – Mallin Family - Kansas City MO
 
-### Kansas City Malin Family Core
+### Kansas City Mallin Family Core
 
 Introduction:
-Paul's Grandfather Maurice Moshe Malin married Libby Stepansky and they had three children Bess, Betty and Melvin. Bess married Rabbi Manuel Laderman and had two children Paul and Mierle. Betty Married Rabbi Maurice (Mory) Solomon and had four Children, Gloria, Ronald, Leon and Sheila. Melvin (Mel) Married Laurie and had three children Larry, Lisa and David.
+Paul's Grandfather Maurice Moshe Mallin married Libby Stepansky and they had three children Bess, Betty and Melvin. Bess married Rabbi Manuel Laderman and had two children Paul and Mierle. Betty Married Rabbi Maurice (Mory) Solomon and had four Children, Gloria, Ronald, Leon and Sheila. Melvin (Mel) Married Laurie and had three children Larry, Lisa and David.
 
-- **Maurice Moshe Malin** – Paul's grandfather, arrived Kansas City 1912 fleeing Czarist Russia, he was the oldest child. In the Czarist army while near the border he fled the army with his brother and came to the USA and set up a retail grocery business. His wife Libby arrived after a 10 year journey.
+- **Maurice Moshe Mallin** – Paul's grandfather, arrived Kansas City 1912 fleeing Czarist Russia, he was the oldest child. In the Czarist army while near the border he fled the army with his brother and came to the USA and set up a retail grocery business. His wife Libby arrived after a 10 year journey.
 
-- **Libby Stepansky Malin** – Moshe's wife, Paul's grandmother, arrived 1922 with her two daughters after their dangerous 10 year journey through Europe and Cuba.
+- **Libby Stepansky Mallin** – Moshe's wife, Paul's grandmother, arrived 1922 with her two daughters after their dangerous 10 year journey through Europe and Cuba.
 
-- **Betty Malin Solomon (Aunt Betty)** – Paul's aunt, Paul's mother Bess's younger sister by two years, came to America with Bess in 1923. Betty married Rabbi Maurice Solomon.
+- **Betty Mallin Solomon (Aunt Betty)** – Paul's aunt, Paul's mother Bess's younger sister by two years, came to America with Bess in 1923. Betty married Rabbi Maurice Solomon.
 
 - **Rabbi Maurice Solomon (Uncle Mory)** – Uncle Mory was Paul's father Manual Laderman's Yeshiva best friend in Chicago. Mory and Manny met Betty and Bess in Chicago as Betty and Bess visited their first cousin Molly Greenberg who was married to Rabbi Irving Miller, a Rabbi and Chazan who was associated with Mory and Manuel's Yeshiva. Rabbi Maurice Solomon served as Rabbi at Kehilat Israel (KI) in Kansas City from 1932 until making Aliya in 1972. They made Aliya a year before Paul and family made Aliya in 1973. Their being in Jerusalem when Paul's family made Aliya in 1973 was most comforting. Paul and family would celebrate many holidays together in Jerusalem, especially the American Thanksgiving celebration, where Aunt Betty, a renowned chef, would cook the most elaborate Thanksgiving meals as she did every Shabbat and holiday, both loved dearly by Paul.
 
@@ -87,54 +87,54 @@ Paul's Grandfather Maurice Moshe Malin married Libby Stepansky and they had thre
 
 - **Eric Cohen** – Sheila's son, married Donna and have three children.
 
-### Melvin Malin Family
+### Melvin Mallin Family
 
-- **Melvin Malin (Uncle Mel)** – Paul's uncle, American-born brother of Bess after Libby arrived to the USA to join her husband Moshe who arrived to the USA 10 years previous. Melvin (Mel) was born the year after their reunion. Mel married Lorie (Aunt Lorie) in New York City after his military service as a Navy Air Navigator in World War Two. Uncle Mel and Aunt Lorie settled in Kansas City MO and had three children Larry, David and Lisa. Uncle Mel and Aunt Lorie never missed a family Simcha celebration, they made it to Israel in 1974 for Paul's son Zev's bar mitzvah and every simcha afterwards in Israel including Zev and Noga's wedding and Ilana and Zachi's wedding and their children's simcha. They would also welcome any one of us who was able to visit them in Kansas City and would host us in the most elaborate and welcoming manner. Uncle Mel until his death at the age of 99 in 2023 was the glue of the family always staying in touch and caring and helping wherever and whenever he could to his family, community and mankind. His famous sayings: "What good deed have you done today?", "Good deeds are the rent you pay for living on Earth" and many more euphemisms that he would quote constantly. Aunt Lorie was also a dear spirit in her love and support to all family members, both loved dearly by Paul.
+- **Melvin Mallin (Uncle Mel)** – Paul's uncle, American-born brother of Bess after Libby arrived to the USA to join her husband Moshe who arrived to the USA 10 years previous. Melvin (Mel) was born the year after their reunion. Mel married Lorie (Aunt Lorie) in New York City after his military service as a Navy Air Navigator in World War Two. Uncle Mel and Aunt Lorie settled in Kansas City MO and had three children Larry, David and Lisa. Uncle Mel and Aunt Lorie never missed a family Simcha celebration, they made it to Israel in 1974 for Paul's son Zev's bar mitzvah and every simcha afterwards in Israel including Zev and Noga's wedding and Ilana and Zachi's wedding and their children's simcha. They would also welcome any one of us who was able to visit them in Kansas City and would host us in the most elaborate and welcoming manner. Uncle Mel until his death at the age of 99 in 2023 was the glue of the family always staying in touch and caring and helping wherever and whenever he could to his family, community and mankind. His famous sayings: "What good deed have you done today?", "Good deeds are the rent you pay for living on Earth" and many more euphemisms that he would quote constantly. Aunt Lorie was also a dear spirit in her love and support to all family members, both loved dearly by Paul.
 
-- **Larry Malin** – Uncle Mel's son, married to Bridgette.
+- **Larry Mallin** – Uncle Mel's son, married to Bridgette.
 
-- **David Malin** – Uncle Mel's son, married to Gail and had two children Netanaya Joy and Josh. Netanaya Joy tragically passed away in her early thirties after battling cancer. She was able to join Uncle Mel in his last trip to Israel for Paul's grandson Yonatan Laderman's Bar Mitzvah in 2013 before her passing for a special family gathering.
+- **David Mallin** – Uncle Mel's son, married to Gail and had two children Netanaya Joy and Josh. Netanaya Joy tragically passed away in her early thirties after battling cancer. She was able to join Uncle Mel in his last trip to Israel for Paul's grandson Yonatan Laderman's Bar Mitzvah in 2013 before her passing for a special family gathering.
 
-- **Lisa Malin Gibson** – Uncle Mel's daughter, married Dana Gibson and have two children Max and Jacob (Jake). Dana Gibson and Lisa divorced and Dana married Ina and they live in Sawatch CO.
+- **Lisa Mallin Gibson** – Uncle Mel's daughter, married Dana Gibson and have two children Max and Jacob (Jake). Dana Gibson and Lisa divorced and Dana married Ina and they live in Sawatch CO.
 
 ---
 
-## Extended Family – Maternal Side (Malin) Broader Ancestorial Family
+## Extended Family – Maternal Side (Mallin) Broader Ancestorial Family
 
 ### Direct Ancestors
 
-- **Leib Malin** – Paul's great-great-grandfather, devout Chassid from Zhivitov Province of Kiever in Ukraine, follower of the Baal Shem Tov, founder of the Pietist sect of Chassidim. Lieb was a butcher and renowned scholar, he had five sons and three daughters.
+- **Leib Mallin** – Paul's great-great-grandfather, devout Chassid from Zhivitov Province of Kiever in Ukraine, follower of the Baal Shem Tov, founder of the Pietist sect of Chassidim. Lieb was a butcher and renowned scholar, he had five sons and three daughters.
 
-- **Chaim Malin** – Paul's great-grandfather, one of Leib's five sons, dealt in cattle, married Golda Segal. Chaim was over 6 feet tall, very distinguished with impressive beard, glowing face and stature. Paul thought he looked like George Bernard Shaw.
+- **Chaim Mallin** – Paul's great-grandfather, one of Leib's five sons, dealt in cattle, married Golda Segal. Chaim was over 6 feet tall, very distinguished with impressive beard, glowing face and stature. Paul thought he looked like George Bernard Shaw.
 
-- **Golda Segal Malin** – Paul's great-grandmother, not quite 5 feet tall, died Kansas City 1934.
+- **Golda Segal Mallin** – Paul's great-grandmother, not quite 5 feet tall, died Kansas City 1934.
 
-### Malin Great Uncles and Aunts – Children of Chaim and Golda Malin
+### Mallin Great Uncles and Aunts – Children of Chaim and Golda Mallin
 
 Introduction:
-Paul's Great Grandfather was Chaim Malin the son of Leib Malin had five sons and three daughters. Chaim was one of his sons he married Golda Segal and they had 9 Children, 5 sons and 4 daughters. Morris (Moshe) Malin the eldest son, Paul's Grandfather, Maurice's brothers, Paul's great uncles: were Mayer Malin, Julius Malin, Irving (Yitzchak) Malin, Louis Malin his sisters Paul's Great Aunt's Jeanette Malin Geiderman, Ethel Malin Silverman, Nelie Malin Goldberg, Bayle Malin Zhornitsky.
+Paul's Great Grandfather was Chaim Mallin the son of Leib Mallin had five sons and three daughters. Chaim was one of his sons he married Golda Segal and they had 9 Children, 5 sons and 4 daughters. Morris (Moshe) Mallin the eldest son, Paul's Grandfather, Maurice's brothers, Paul's great uncles: were Mayer Mallin, Julius Mallin, Irving (Yitzchak) Mallin, Louis Mallin his sisters Paul's Great Aunt's Jeanette Mallin Geiderman, Ethel Mallin Silverman, Nelie Mallin Goldberg, Bayle Mallin Zhornitsky.
 
-Chaim and Golda Malin had nine children: five sons and four daughters.
+Chaim and Golda Mallin had nine children: five sons and four daughters.
 
-#### Morris Moshe Malin's Family
+#### Morris Moshe Mallin's Family
 
-- **Morris (Moshe) Malin** – Paul's grandfather, had grocery business, eldest son felt responsible for the family once emigrating to the US before World War 1. In Russia he married Libby Stepansky. (Details above under Kansas City Malin Family Core)
+- **Morris (Moshe) Mallin** – Paul's grandfather, had grocery business, eldest son felt responsible for the family once emigrating to the US before World War 1. In Russia he married Libby Stepansky. (Details above under Kansas City Mallin Family Core)
 
-#### Mayer Malin's Family
+#### Mayer Mallin's Family
 
-- **Mayer Malin** – Paul's great uncle, was in the recycling business, married Rachel, had two children Frank and Jeanette, lived in Kansas City.
+- **Mayer Mallin** – Paul's great uncle, was in the recycling business, married Rachel, had two children Frank and Jeanette, lived in Kansas City.
 
-- **Frank Malin** – Mayer's son, married Manon, have 4 children, lived in Kansas City Mo.
+- **Frank Mallin** – Mayer's son, married Manon, have 4 children, lived in Kansas City Mo.
 
-- **Barri Malin** – Frank's child, living in Atlanta GA.
+- **Barri Mallin** – Frank's child, living in Atlanta GA.
 
-- **Scott Malin** – Frank's child, married Carolyn.
+- **Scott Mallin** – Frank's child, married Carolyn.
 
-- **Micki Malin** – Frank's daughter, married Adrian and had 2 boys and lived in Orlando FL: Ross and Andrew.
+- **Micki Mallin** – Frank's daughter, married Adrian and had 2 boys and lived in Orlando FL: Ross and Andrew.
 
-- **Harry Malin** – Frank's youngest son, married Lysa and have 4 children Nick, Rachel, Francesca and Alexander, who live in Kansas City Mo.
+- **Harry Mallin** – Frank's youngest son, married Lysa and have 4 children Nick, Rachel, Francesca and Alexander, who live in Kansas City Mo.
 
-- **Jeanette Malin Geiderman** – Mayer's daughter, married Sylvan Geiderman, have 3 children.
+- **Jeanette Mallin Geiderman** – Mayer's daughter, married Sylvan Geiderman, have 3 children.
 
 - **Holland Geiderman** – Jeanette's child, lives in Chicago IL.
 
@@ -142,23 +142,23 @@ Chaim and Golda Malin had nine children: five sons and four daughters.
 
 - **Elke Geiderman BeBolt** – Jeanette's child, married Vernon BeBolt, lived in Greenville MO and had three children: Lauren, Catherine, and Sarah.
 
-#### Julius Malin's Family
+#### Julius Mallin's Family
 
-- **Julius Malin** – Paul's great uncle, had a grocery store, married Betty and had 4 children.
+- **Julius Mallin** – Paul's great uncle, had a grocery store, married Betty and had 4 children.
 
-- **Sandy Malin** – Julius's oldest child, married Gene and had three children.
+- **Sandy Mallin** – Julius's oldest child, married Gene and had three children.
 
-- **Lenna Malin Levitch** – Sandy's daughter, married Rob Levitch and they have 3 children Mylata, Demi Shea and Lily Jewel.
+- **Lenna Mallin Levitch** – Sandy's daughter, married Rob Levitch and they have 3 children Mylata, Demi Shea and Lily Jewel.
 
-- **Debbie Malin Hennecke** – Sandy's daughter, married Bob Hennecke.
+- **Debbie Mallin Hennecke** – Sandy's daughter, married Bob Hennecke.
 
-- **Gloria Malin Shaftel** – Julius and Betty's second child, married Ferrel Shaftel and had 2 children.
+- **Gloria Mallin Shaftel** – Julius and Betty's second child, married Ferrel Shaftel and had 2 children.
 
 - **Elena Shaftel Englemohr** – Gloria's daughter, married Ronald Englemohr, live in Corpus Christi TX.
 
 - **Joshua Shaftel** – Gloria's youngest child, lives in Kansas City Mo.
 
-- **Nancy Malin Cusmano** – Julius and Betty's third child, married Dan Kohn (divorced) and married Jerry Cusmano. She lived in Corpus Christi TX. Nancy has 4 children.
+- **Nancy Mallin Cusmano** – Julius and Betty's third child, married Dan Kohn (divorced) and married Jerry Cusmano. She lived in Corpus Christi TX. Nancy has 4 children.
 
 - **Jon Kantor** – Nancy's son, married Linda and lives in Oklahoma City OK, they have three children Shea Wolf, Kasey Kantor and Benjamin Jay Kantor.
 
@@ -168,37 +168,37 @@ Chaim and Golda Malin had nine children: five sons and four daughters.
 
 - **Tony Kantor** – Nancy's fourth child, married Suzi and their children David and Alex Nicole.
 
-- **Richard (Dick) Malin** – Julius and Betty's fourth child, married Dalia and live in Tampa Bay FL. They have three children Yael, Orly and Jonathan.
+- **Richard (Dick) Mallin** – Julius and Betty's fourth child, married Dalia and live in Tampa Bay FL. They have three children Yael, Orly and Jonathan.
 
-#### Irving (Yitchak) Malin
+#### Irving (Yitchak) Mallin
 
-- **Irving (Yitchak) Malin** – Paul's great uncle, had grocery store, murdered in cold blood in 1927 during robbery in Kansas City MO.
+- **Irving (Yitchak) Mallin** – Paul's great uncle, had grocery store, murdered in cold blood in 1927 during robbery in Kansas City MO.
 
-#### Louis Malin's Family
+#### Louis Mallin's Family
 
-- **Louis Malin** – Paul's great uncle, wholesale fruits trader, married Bessie Rose. They had three children Bob, Stanley and Adrian.
+- **Louis Mallin** – Paul's great uncle, wholesale fruits trader, married Bessie Rose. They had three children Bob, Stanley and Adrian.
 
-- **Bob Malin** – Louis's son, married Babe and lived in Kansas City Mo.
+- **Bob Mallin** – Louis's son, married Babe and lived in Kansas City Mo.
 
-- **Adrian Malin Greenberg** – Louis's daughter, married Ronnie Greenberg and lived in Oklahoma City. They had two children Lisa and Tony.
+- **Adrian Mallin Greenberg** – Louis's daughter, married Ronnie Greenberg and lived in Oklahoma City. They had two children Lisa and Tony.
 
 - **Lisa Greenberg Cohen** – Adrian's daughter, married Lenny Cohen and live in Kansas City and had two children Brian and Nick.
 
 - **Tony Greenberg** – Adrian's child, lives in Oklahoma City OK.
 
-- **Stanley Malin** – Louis's son, married Sandy. Stanley in the 60s moved to Las Vegas NV and opened up Cesar's Palace. The road leading to Cesar's Palace is named after him. Stan and Sandy Malin had 2 daughters Jessica and Jennifer.
+- **Stanley Mallin** – Louis's son, married Sandy. Stanley in the 60s moved to Las Vegas NV and opened up Cesar's Palace. The road leading to Cesar's Palace is named after him. Stan and Sandy Mallin had 2 daughters Jessica and Jennifer.
 
-- **Jessica Malin Pianko** – Stanley's daughter, married Josh Pianko and lived in Las Vegas NV and had a child Sayde.
+- **Jessica Mallin Pianko** – Stanley's daughter, married Josh Pianko and lived in Las Vegas NV and had a child Sayde.
 
-- **Jennifer Malin Minor** – Stanley's daughter, married Jeff Minor and lived in New Jersey and had three children Owen, Olivia and Max.
+- **Jennifer Mallin Minor** – Stanley's daughter, married Jeff Minor and lived in New Jersey and had three children Owen, Olivia and Max.
 
-#### Ethel Malin's Family
+#### Ethel Mallin's Family
 
-- **Ethel Malin Silverman** – Chaim and Golda's daughter, married Chaim Silverman. They had a son Irving Silverman.
+- **Ethel Mallin Silverman** – Chaim and Golda's daughter, married Chaim Silverman. They had a son Irving Silverman.
 
-#### Rose Malin's Family
+#### Rose Mallin's Family
 
-- **Rose Malin Greenberg** – Chaim and Golda's daughter, married Todras Greenberg, they had two children Bessie and Molly.
+- **Rose Mallin Greenberg** – Chaim and Golda's daughter, married Todras Greenberg, they had two children Bessie and Molly.
 
 - **Bessie Greenberg Graubart** – Rose's daughter, married Philip Graubart and they had two children Alexander and Judy Graubart who was an actress and comedian well known for appearing regularly on the Electric Company, a very popular TV show for kids in the 60s and 70s.
 
@@ -218,9 +218,9 @@ Chaim and Golda Malin had nine children: five sons and four daughters.
 
 - **Bessie Miller Solomon** – Molly's daughter, married Steve Solomon and lived in Atlanta GA, they had two sons David and Matthew.
 
-#### Nelie Malin's Family
+#### Nelie Mallin's Family
 
-- **Nelie Malin Goldberg** – Chaim and Golda's third daughter, married Morris Goldberg, they had a daughter Cecile.
+- **Nelie Mallin Goldberg** – Chaim and Golda's third daughter, married Morris Goldberg, they had a daughter Cecile.
 
 - **Cecile Goldberg Segal** – Nelie's daughter, married Leon Segal. Cecile and Leon had three children Bonnie, Marcia and Herbert.
 
@@ -230,9 +230,9 @@ Chaim and Golda Malin had nine children: five sons and four daughters.
 
 - **Herbert Segal** – Cecile's son, married Sherry and live in Chicago IL and they have a son Mark.
 
-#### Bayle Malin's Family
+#### Bayle Mallin's Family
 
-- **Bayle Malin Zhornitsky** – Paul's great aunt, youngest child of Chaim and Golda, returned to Russia and married Lazar Zhornitsky and had two children Raya and Issak.
+- **Bayle Mallin Zhornitsky** – Paul's great aunt, youngest child of Chaim and Golda, returned to Russia and married Lazar Zhornitsky and had two children Raya and Issak.
 
 - **Raya Zhornitsky Firenstein** – Bayle's daughter, married Adolf Firenstein and lived in Kazakhstan. Raya and Adolf had a child Boris Firenstein.
 
@@ -251,11 +251,11 @@ Chaim and Golda Malin had nine children: five sons and four daughters.
 ### Stepansky Family
 
 Introduction:
-Paul's Great grandfather from his Grandmother side was Samuel Stepansky who married Mierle and had three children. Libby Stepansky Paul's Grandmother who married Maurice (Moshe) Malin. Libby had a brother Velvel Stepansky who died in Russia and a sister Celia Stepansky, both Paul's Great Aunt and Uncle.
+Paul's Great grandfather from his Grandmother side was Samuel Stepansky who married Mierle and had three children. Libby Stepansky Paul's Grandmother who married Maurice (Moshe) Mallin. Libby had a brother Velvel Stepansky who died in Russia and a sister Celia Stepansky, both Paul's Great Aunt and Uncle.
 
 - **Samuel Stepansky** – Paul's maternal great-grandfather, worked in cattle, died Kansas City 1933, married Mierle Stepansky who died in Russia. They had three children.
 
-- **Libby Stepansky Malin** – Paul's grandmother (Samuel's daughter), died in Kansas City. (See above under Kansas City Malin Family)
+- **Libby Stepansky Mallin** – Paul's grandmother (Samuel's daughter), died in Kansas City. (See above under Kansas City Mallin Family)
 
 - **Celia Stepansky** – Libby's sister, lived in Kansas City.
 
