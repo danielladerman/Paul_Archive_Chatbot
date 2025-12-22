@@ -128,7 +128,7 @@ export default function Layout({ children, currentPageName }) {
             </p>
             <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mt-6"></div>
             <p className="text-sm text-slate-500 mt-4">
-              Created with love by family • {new Date().getFullYear()}
+              Created with love by family • {new Date().getFullYear()} • Copyright ©️ 2025 Daniel Laderman All rights reserved
             </p>
           </div>
         </div>

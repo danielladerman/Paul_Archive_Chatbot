@@ -44,7 +44,7 @@ This comprehensive glossary documents the people, families, and communities conn
 
 - **Yael Ukeles** – Miry's daughter, has two boys Amitai and Adir.
 
-- **Raquel (Raqi) Ukeles** – Miry's daughter, married Marc Grossman and have three children: Eitan, Rebecca, Shai.
+- **Raquel (Raqi) Ukeles** – Miry's daughter, married Mark Glassman and have three children: Eitan, Rebecca, Shai.
 
 - **Meir Ukeles** – Miry's son, married Pamela and have 3 children: Yadin, Sophia and Amalia.
 
