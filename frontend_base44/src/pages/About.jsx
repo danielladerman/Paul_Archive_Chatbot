@@ -133,7 +133,10 @@ export default function AboutPage() {
               <li>
                 <strong>Chat with the AI scholar:</strong>{" "}
                 {appendZl("Go to the ")}<button
-                  onClick={() => navigate("/Chat")}
+                  onClick={() => {
+                    navigate("/Chat");
+                    window.scrollTo(0, 0);
+                  }}
                   className="inline-flex items-center px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors font-semibold text-sm"
                 >
                   Chat Tab
@@ -142,7 +145,10 @@ export default function AboutPage() {
               <li>
                 <strong>Explore topics and events:</strong>{" "}
                 {appendZl("Visit the ")}<button
-                  onClick={() => navigate("/Timeline")}
+                  onClick={() => {
+                    navigate("/Timeline");
+                    window.scrollTo(0, 0);
+                  }}
                   className="inline-flex items-center px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors font-semibold text-sm"
                 >
                   Topics Tab
@@ -151,7 +157,10 @@ export default function AboutPage() {
               <li>
                 <strong>Look up people and places:</strong>{" "}
                 {appendZl("Visit the ")}<button
-                  onClick={() => navigate("/Content")}
+                  onClick={() => {
+                    navigate("/Content");
+                    window.scrollTo(0, 0);
+                  }}
                   className="inline-flex items-center px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors font-semibold text-sm"
                 >
                   Family & Friends Tab
@@ -160,7 +169,10 @@ export default function AboutPage() {
               <li>
                 <strong>Walk down Rabbi Paul's life timeline:</strong>{" "}
                 {appendZl("Visit the ")}<button
-                  onClick={() => navigate("/LifeTimeline")}
+                  onClick={() => {
+                    navigate("/LifeTimeline");
+                    window.scrollTo(0, 0);
+                  }}
                   className="inline-flex items-center px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors font-semibold text-sm"
                 >
                   Life Timeline Tab
@@ -169,7 +181,10 @@ export default function AboutPage() {
               <li>
                 <strong>Enjoy the Photo Gallery:</strong>{" "}
                 {appendZl("Go to the ")}<button
-                  onClick={() => navigate("/Gallery")}
+                  onClick={() => {
+                    navigate("/Gallery");
+                    window.scrollTo(0, 0);
+                  }}
                   className="inline-flex items-center px-2 py-0.5 rounded-md bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors font-semibold text-sm"
                 >
                   Gallery Tab
