@@ -21,8 +21,7 @@
 export const CUSTOM_BUTTONS = {
   LE: {
     C: [
-      { label: "Denver Childhood – Jewish Studies" },
-      { label: "Denver Childhood – Growing Up on the Westside" },
+      { label: "Denver Childhood – Paul's Perspective" },
       { label: "Denver Childhood – Growing Up in Children’s Paradise" },
       { label: "Denver Childhood – Early Life" },
       { label: "Childhood Story – Losing a Pocket Knife" },

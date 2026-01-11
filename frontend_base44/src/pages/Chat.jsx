@@ -293,10 +293,10 @@ export default function ChatPage() {
         If you would like to add information about Paul, please send content to
         {" "}
         <a
-          href="mailto:danielladerman@gmail.com"
+          href="mailto:danielladerman@yahoo.com"
           className="underline text-slate-700 hover:text-slate-900"
         >
-          danielladerman@gmail.com
+          danielladerman@yahoo.com
         </a>
         .
       </div>

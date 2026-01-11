@@ -219,7 +219,7 @@ export default function AboutPage() {
               privately for family and friends which will help enrich this memorial and the chatbot over time. If you don't show up in the People Tab, please share your relation to Paul Z"L.
               <br />
               <br />
-              * For attachments please email to <a href="mailto:danielladerman@gmail.com" className="text-slate-700 hover:text-slate-900">danielladerman@gmail.com</a>
+              * For attachments please email to <a href="mailto:danielladerman@yahoo.com" className="text-slate-700 hover:text-slate-900">danielladerman@yahoo.com</a>
             </p>
             <form onSubmit={handleSubmitGuestMemory} className="space-y-4 max-w-xl mx-auto">
               <div className="grid md:grid-cols-2 gap-4">
