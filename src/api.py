@@ -5,9 +5,11 @@ import os
 import json
 import re
 import random
+import asyncio
+import httpx
 from sqlalchemy.orm import Session
 from typing import List, Optional
-from datetime import date
+from datetime import date, datetime, timezone
 from sqlalchemy import delete
 
 from src.chatbot import PaulChatbot
@@ -40,10 +42,55 @@ async def verify_api_key(x_api_key: str = Header(...)):
 
 app = FastAPI(title="Paul Project API")
 
+# --- Supabase keepalive ---
+# The gallery images live in a FREE Supabase project, and Supabase pauses a free
+# project after about 7 days with no requests at all. When it pauses, every photo
+# on the memorial 404s. This service already runs 24/7 on a paid Render plan, so
+# it is the cheapest place to keep that clock from ever running out: one request
+# every 12 hours. Set SUPABASE_KEEPALIVE_URL to "" to switch it off.
+SUPABASE_KEEPALIVE_URL = os.getenv(
+    "SUPABASE_KEEPALIVE_URL",
+    "https://iiugauwbiazpbwyfewbq.supabase.co/storage/v1/object/public/paul-gallery/"
+    "1766656717074-xtemmony3or.JPG",
+)
+SUPABASE_KEEPALIVE_HOURS = float(os.getenv("SUPABASE_KEEPALIVE_HOURS", "12"))
+_keepalive_last = {"at": None, "status": None}
+
+
+async def _supabase_keepalive():
+    """Ping the storage bucket forever. Any response counts as project activity,
+    including 400/404: what matters is that a request reached the project."""
+    while True:
+        now = lambda: datetime.now(timezone.utc).isoformat(timespec="seconds")
+        try:
+            async with httpx.AsyncClient(timeout=20) as client:
+                # Range header: one byte is enough to count, so this never pulls
+                # a 1.5 MB photo twice a day for nothing.
+                resp = await client.get(
+                    SUPABASE_KEEPALIVE_URL, headers={"Range": "bytes=0-0"}
+                )
+            _keepalive_last.update({"at": now(), "status": resp.status_code})
+            print(f"[keepalive] supabase -> {resp.status_code}", flush=True)
+        except Exception as exc:  # never let the keepalive take the API down
+            _keepalive_last.update({"at": now(), "status": f"error: {exc!r}"})
+            print(f"[keepalive] supabase failed: {exc!r}", flush=True)
+        await asyncio.sleep(SUPABASE_KEEPALIVE_HOURS * 3600)
+
+
 @app.on_event("startup")
 def on_startup():
     if config.DATABASE_URL:
         init_db()
+
+
+@app.on_event("startup")
+async def start_keepalive():
+    if SUPABASE_KEEPALIVE_URL:
+        asyncio.get_running_loop().create_task(_supabase_keepalive())
+        print(
+            f"[keepalive] every {SUPABASE_KEEPALIVE_HOURS}h -> {SUPABASE_KEEPALIVE_URL}",
+            flush=True,
+        )
 
 app.add_middleware(
     CORSMiddleware,
@@ -366,7 +413,9 @@ def get_people():
 
 @app.get("/healthz")
 def healthz():
-    return {"status": "ok"}
+    # keepalive is reported here so a paused-project surprise is visible before
+    # the photos disappear, rather than after.
+    return {"status": "ok", "supabase_keepalive": _keepalive_last}
 
 @app.post("/chat", response_model=ChatHistoryResponse)
 def chat_endpoint(payload: ChatQuery, _: bool = Depends(verify_api_key), db: Session = Depends(get_db)):
